@@ -5,17 +5,24 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    Rigidbody rigidbody;
     Vector3 cameraDirection;
     Vector3 currentDirection;
+
     [SerializeField]
     float rotateSpeed;
     [SerializeField]
+    float movementSpeed;
+
+    [SerializeField]
     Camera mainCamera;
+
     float cameraStartRotation_x;
     float xRotation;
     // Start is called before the first frame update
     void Start()
     {
+        rigidbody = GetComponent<Rigidbody>();
         currentDirection = Vector3.zero;
         cameraStartRotation_x = mainCamera.transform.rotation.x;
     }
@@ -49,9 +56,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Q))
         {
-            AddForce();
+            GetCameraDirection();
+            rigidbody.AddForce(cameraDirection*movementSpeed, ForceMode.VelocityChange);
+            Debug.Log("Moving");
+            //AddForce();
         }
-        transform.position += currentDirection * Time.deltaTime;
+        //transform.position += currentDirection * Time.deltaTime * movementSpeed;
     }
 
     //Uses mouse movement to rotate player and camera
@@ -76,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
     void ReturnCameraRotation()
     {
-        Debug.Log(cameraStartRotation_x);
-        mainCamera.transform.rotation = new Quaternion(cameraStartRotation_x, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, 0);
+        
+        //mainCamera.transform.localRotation = Quaternion.Euler(-mainCamera.transform.localRotation.x *rotateSpeed, 0, 0);
     }
 }
