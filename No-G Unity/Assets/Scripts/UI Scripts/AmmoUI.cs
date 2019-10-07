@@ -8,7 +8,8 @@ public class AmmoUI: MonoBehaviour
     public float CurrentAmmo;
     public float MaxAmmo;
 
-    public float reloadtimer;
+    public float timeRemaining;
+    public float timerMax;
 
     public bool isReloading = false;
 
@@ -17,7 +18,7 @@ public class AmmoUI: MonoBehaviour
 
 
     public Slider ammobar;
-    public Slider cooldownbar;
+    public Slider reloadbar;
 
     public Text ammotext;
 
@@ -27,9 +28,12 @@ public class AmmoUI: MonoBehaviour
         MaxAmmo = 9f;
         CurrentAmmo = MaxAmmo;
 
-       // reloadtimer = 5;
+        timerMax = 2f;
+        timeRemaining = timerMax;
 
         ammobar.value = CalculateAmmo();
+        reloadbar.value = CalculateReload();
+
     }
 
     // Update is called once per frame
@@ -40,7 +44,11 @@ public class AmmoUI: MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && isReloading == false)
         {
             isReloading = true;
+            //   Debug.Log("Start Reload");
+            //ReloadTimer();
             Debug.Log("Start Reload");
+            timeRemaining -= Time.deltaTime;
+            reloadbar.value = CalculateReload();
             Invoke("Reload", 2f);
            // Debug.Log("End Reload");
         }
@@ -51,21 +59,25 @@ public class AmmoUI: MonoBehaviour
         CurrentAmmo--;
         ammobar.value = CalculateAmmo();
         ammotext.text = ConvertAmmoFloattoString();
-        Debug.Log(CurrentAmmo);
+       // Debug.Log(CurrentAmmo);
 
         if (CurrentAmmo <= 0)
         {
             isReloading = true;
-            Debug.Log("Start Reload");
+           // Debug.Log("Start Reload");
+            //ReloadTimer();
             Invoke("Reload", 2f);
            // Debug.Log("End Reload");
         }
     }
 
+
+
     float CalculateAmmo()
     {
         return CurrentAmmo / MaxAmmo;
     }
+
 
     string ConvertAmmoFloattoString()
     {
@@ -73,16 +85,31 @@ public class AmmoUI: MonoBehaviour
        return convertammo.ToString("f0");
     }
 
+
+    float CalculateReload()
+    {
+        return timeRemaining / timerMax;
+    }
+
     void Reload()
     {
         isReloading = true;
-        Debug.Log("Reloading");
+      //  Debug.Log("Reloading");
 
         CurrentAmmo = MaxAmmo;
         ammobar.value = CalculateAmmo();
         ammotext.text = "Max";
         isReloading = false;
-        Debug.Log(CurrentAmmo);
-        Debug.Log("End Reload");
+       // Debug.Log(CurrentAmmo);
+       // Debug.Log("End Reload");
     }
+
+    /*
+    void ReloadTimer()
+    {
+      Debug.Log("Start Reload");
+      timeRemaining -= Time.deltaTime;
+      reloadbar.value = CalculateReload();
+    }
+    */
 }
