@@ -8,13 +8,26 @@ public class AmmoUI: MonoBehaviour
     public float CurrentAmmo;
     public float MaxAmmo;
 
+    public float reloadtimer;
+
+    public bool isFiring = false;
+
+
+
+
+
     public Slider ammobar;
+    public Slider cooldownbar;
+
+    public Text ammotext;
 
     // Start is called before the first frame update
     void Start()
     {
         MaxAmmo = 9f;
         CurrentAmmo = MaxAmmo;
+
+        reloadtimer = 5;
 
         ammobar.value = CalculateAmmo();
     }
@@ -30,9 +43,12 @@ public class AmmoUI: MonoBehaviour
 
     void Shoot()
     {
+        isFiring = true;
         CurrentAmmo--;
         ammobar.value = CalculateAmmo();
+        ammotext.text = ConvertAmmoFloattoString();
         Debug.Log(CurrentAmmo);
+        isFiring = false;
         if (CurrentAmmo <= 0)
             Reload();
     }
@@ -42,12 +58,20 @@ public class AmmoUI: MonoBehaviour
         return CurrentAmmo / MaxAmmo;
     }
 
+    string ConvertAmmoFloattoString()
+    {
+       float convertammo = CalculateAmmo() * 10;
+        return convertammo.ToString("f0");
+    }
+
     void Reload()
     {
+        isFiring = false;
         Debug.Log("Reloading");
 
         CurrentAmmo = MaxAmmo;
         ammobar.value = CalculateAmmo();
+        ammotext.text = "Max";
         Debug.Log(CurrentAmmo);
 
     }
