@@ -61,7 +61,7 @@ public class AmmoUI: MonoBehaviour
     string ConvertAmmoFloattoString()
     {
        float convertammo = CalculateAmmo() * 10;
-        return convertammo.ToString("f0");
+       return convertammo.ToString("f0");
     }
 
     void Reload()

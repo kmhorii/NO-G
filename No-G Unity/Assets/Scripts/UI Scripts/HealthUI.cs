@@ -10,6 +10,8 @@ public class HealthUI : MonoBehaviour
 
     public Slider healthbar;
 
+    public Text healthtext;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class HealthUI : MonoBehaviour
         //Minus player health w/ damage value
         CurrentHealth -= damagevalue;
         healthbar.value = CalculateHealth();
+        healthtext.text = ConvertHealthFloattoString();
         Debug.Log(CurrentHealth);
 
         //If player health =0, trigger death
@@ -43,10 +46,17 @@ public class HealthUI : MonoBehaviour
         return CurrentHealth / MaxHealth;
     }
 
+    string ConvertHealthFloattoString()
+    {
+        float converthealth = CalculateHealth() * 100;
+        return converthealth.ToString("f00");
+    }
+
     void Die()
     {
         CurrentHealth= 0;
         Debug.Log("Die");
+        healthtext.text = "Dead";
    
     }
 }
