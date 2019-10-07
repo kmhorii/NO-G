@@ -3,70 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class AmmoUI : MonoBehaviour
+public class AmmoUI: MonoBehaviour
 {
+    public float CurrentAmmo;
+    public float MaxAmmo;
 
-    public float fireRate = 15f;
-
-    public int maxAmmo = 10;
-    private int currentAmmo;
-
-    public float reloadTime = 1f;
-    private bool isReloading = false;
-
-    private float nextTimetoFire = 3f;
-    private float cooldown = 3f;
-
-    //public Animator animator;
+    public Slider ammobar;
 
     // Start is called before the first frame update
     void Start()
     {
-        currentAmmo = maxAmmo;
+        MaxAmmo = 9f;
+        CurrentAmmo = MaxAmmo;
+
+        ammobar.value = CalculateAmmo();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Statement to return 
-        if (isReloading)
-            return;
-
-        //Automatic Reload when ammo hits 0
-        if (currentAmmo <= 0)
-        {
-            StartCoroutine(Reload());
-            return;
-        }
-
-        //Rate of fire
-        if (Input.GetButton("Fire1") && Time.time >= nextTimetoFire)
-        {
-            //nextTimetoFire = Time.time + 1f / fireRate;
-            Debug.Log("Shooting...");
-            currentAmmo--;
-            Debug.Log(currentAmmo);
-        }
+        if (Input.GetKeyDown(KeyCode.S))
+            Shoot();
+        if (Input.GetKeyDown(KeyCode.R))
+            Reload();
     }
 
-    //Setting current ammo to maxAmmo
-    IEnumerator Reload()
-
+    void Shoot()
     {
-        isReloading = true;
-
-        Debug.Log("Reloading...");
-
-        yield return new WaitForSeconds(reloadTime);
-        //might be a small time delay bug
-        //animator.SetBool("Reloading", false);
-
-        currentAmmo = maxAmmo;
-        Debug.Log(currentAmmo);
-        isReloading = false;
-
+        CurrentAmmo--;
+        ammobar.value = CalculateAmmo();
+        Debug.Log(CurrentAmmo);
+        if (CurrentAmmo <= 0)
+            Reload();
     }
 
-   
+    float CalculateAmmo()
+    {
+        return CurrentAmmo / MaxAmmo;
+    }
+
+    void Reload()
+    {
+        Debug.Log("Reloading");
+
+        CurrentAmmo = MaxAmmo;
+        ammobar.value = CalculateAmmo();
+        Debug.Log(CurrentAmmo);
+
+    }
 }
