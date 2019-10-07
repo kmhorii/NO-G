@@ -10,7 +10,7 @@ public class AmmoUI: MonoBehaviour
 
     public float reloadtimer;
 
-    public bool isFiring = false;
+    public bool isReloading = false;
 
 
 
@@ -35,22 +35,29 @@ public class AmmoUI: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) && isReloading == false)
             Shoot();
-        if (Input.GetKeyDown(KeyCode.R))
-            Reload();
+        if (Input.GetKeyDown(KeyCode.R) && isReloading == false)
+        {
+            Debug.Log("Start Reload");
+            Invoke("Reload", 2f);
+           // Debug.Log("End Reload");
+        }
     }
 
     void Shoot()
     {
-        isFiring = true;
         CurrentAmmo--;
         ammobar.value = CalculateAmmo();
         ammotext.text = ConvertAmmoFloattoString();
         Debug.Log(CurrentAmmo);
-        isFiring = false;
+
         if (CurrentAmmo <= 0)
-            Reload();
+        {
+            Debug.Log("Start Reload");
+            Invoke("Reload", 2f);
+           // Debug.Log("End Reload");
+        }
     }
 
     float CalculateAmmo()
@@ -66,13 +73,14 @@ public class AmmoUI: MonoBehaviour
 
     void Reload()
     {
-        isFiring = false;
+        isReloading = true;
         Debug.Log("Reloading");
 
         CurrentAmmo = MaxAmmo;
         ammobar.value = CalculateAmmo();
         ammotext.text = "Max";
+        isReloading = false;
         Debug.Log(CurrentAmmo);
-
+        Debug.Log("End Reload");
     }
 }
