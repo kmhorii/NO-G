@@ -40,11 +40,18 @@ public class ShootingGun : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        DrawPredictionShotLong(muzzle.position, muzzle.forward, maxBounces);
+        DrawPredictionShot(muzzle.position, muzzle.forward, maxBounces);
     }
 
     void Update()
     {
+        DrawPredictionShotLong(muzzle.position, muzzle.forward, maxBounces);
+
+        for (int i = 0; i <= 4; i++)
+        {
+            GetComponent<LineRenderer>().SetPosition(i, bouncePoints[i]);
+        }
+
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             RightMouseButton.GetComponent<Image>().color = Color.grey;
@@ -65,11 +72,6 @@ public class ShootingGun : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             LeftMouseButton.GetComponent<Image>().color = Color.white;
-        }
-
-        for (int i = 0; i <= 4 ; i++)
-        {
-            GetComponent<LineRenderer>().SetPosition(i, bouncePoints[i]);
         }
     }
 
@@ -145,36 +147,28 @@ public class ShootingGun : MonoBehaviour
         bouncePoints[4] = position;
     }
 
+    private void DrawPredictionShot(Vector3 position, Vector3 direction, int bouncesRemaining)
+    {
+        if (bouncesRemaining == 0)
+        {
+            return;
+        }
 
+        Vector3 startingPosition = position;
 
-    //RenderPreviewShot()
-    //{
-    //    Ray ray = new Ray(position, direction);
-    //    RaycastHit hit;
-    //}
+        Ray ray = new Ray(position, direction);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, maxStepDistance))
+        {
+            direction = Vector3.Reflect(direction, hit.normal);
+            position = hit.point;
+        }
+        else
+        {
+            position += direction * maxStepDistance;
+        }
 
-    //private void DrawPredictionShot(Vector3 position, Vector3 direction, int bouncesRemaining)
-    //{
-    //    if (bouncesRemaining == 0)
-    //    {
-    //        return;
-    //    }
-
-    //    Vector3 startingPosition = position;
-
-    //    Ray ray = new Ray(position, direction);
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(ray, out hit, maxStepDistance))
-    //    {
-    //        direction = Vector3.Reflect(direction, hit.normal);
-    //        position = hit.point;
-    //    }
-    //    else
-    //    {
-    //        position += direction * maxStepDistance;
-    //    }
-
-
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawLine(startingPosition, position);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(startingPosition, position);
+    }
 }
