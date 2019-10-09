@@ -34,6 +34,7 @@ public class ShootingGun : MonoBehaviour
     private bool isReloading = false;
 
     public Text ammoText;
+    public Image ammoFill;
 
     void Start()
     {
@@ -132,6 +133,15 @@ public class ShootingGun : MonoBehaviour
     private void UpdateAmmoText()
     {
         ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmo;
+        ammoFill.fillAmount = (float)currentAmmo / maxAmmo;
+        ammoFill.
+    }
+
+    private void ReloadFillBar(float value)
+    {
+        value += (value < 1) ? 0.1f : 0f;
+
+        if (value > 1) value = 1;
     }
 
     // raycasts from muzzle til it hits a wall
