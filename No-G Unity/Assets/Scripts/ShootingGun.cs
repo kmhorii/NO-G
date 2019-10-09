@@ -134,7 +134,7 @@ public class ShootingGun : MonoBehaviour
     {
         ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmo;
         ammoFill.fillAmount = (float)currentAmmo / maxAmmo;
-        ammoFill.
+        //ammoFill.
     }
 
     private void ReloadFillBar(float value)
@@ -143,7 +143,7 @@ public class ShootingGun : MonoBehaviour
 
         if (value > 1) value = 1;
     }
-
+    
     // raycasts from muzzle til it hits a wall
     // creates new raycast from hit point, stores point in array
     // repeats til last bounce
