@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //https://www.youtube.com/watch?v=GttdLYKEJAM
+//https://www.youtube.com/watch?v=kAx5g9V5bcM
 
 public class ShootingGun : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class ShootingGun : MonoBehaviour
     public Transform muzzle;
 
     public bool isShooting = false;
-
+    
     public int bulletSpeed;
     public float fireSpeed;
 
@@ -27,52 +28,75 @@ public class ShootingGun : MonoBehaviour
 
     public bool aiming;
 
-    public Image LeftMouseButton;
-    public Image RightMouseButton;
+    public int maxAmmo = 9;
+    public int currentAmmo;
+    public float reloadTime = 1.5f;
+    private bool isReloading = false;
 
-    public 
+    public Text ammoText;
 
     void Start()
     {
+        currentAmmo = maxAmmo;
+        UpdateAmmoText();
         lineRender = GetComponent<LineRenderer>();
         lineRender.enabled = false;
     }
 
-    private void OnDrawGizmos()
+    private void Update()
     {
-        DrawPredictionShot(muzzle.position, muzzle.forward, maxBounces);
-    }
-
-    void Update()
-    {
-        DrawPredictionShotLong(muzzle.position, muzzle.forward, maxBounces);
-
-        for (int i = 0; i <= 4; i++)
+        if (isReloading)
         {
-            GetComponent<LineRenderer>().SetPosition(i, bouncePoints[i]);
+            return;
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            RightMouseButton.GetComponent<Image>().color = Color.grey;
             aiming = true;
             lineRender.enabled = true;
         }
+
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            DrawPredictionShotLong(muzzle.position, muzzle.forward, maxBounces);
+
+            for (int i = 0; i <= 4; i++)
+            {
+                GetComponent<LineRenderer>().SetPosition(i, bouncePoints[i]);
+            }
+        }
+
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
-            RightMouseButton.GetComponent<Image>().color = Color.white;
             aiming = false;
             lineRender.enabled = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            LeftMouseButton.GetComponent<Image>().color = Color.grey;
-            Shoot();
+            if (currentAmmo == 0)
+                Reload();
+            else
+                Shoot();
         }
-        if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            LeftMouseButton.GetComponent<Image>().color = Color.white;
-        }
+    }
+
+    private IEnumerator Reload()
+    {
+        isReloading = true;
+
+        yield return new WaitForSeconds(reloadTime);
+
+        currentAmmo = maxAmmo;
+        UpdateAmmoText();
+
+        isReloading = false;
     }
 
     private void Shoot()
@@ -80,11 +104,18 @@ public class ShootingGun : MonoBehaviour
         if (!isShooting)
         {
             isShooting = true;
+
+            currentAmmo--;
+            UpdateAmmoText();
+
             GameObject bullet = Instantiate(bulletPrefab) as GameObject;
+
             bullet.transform.position = muzzle.transform.position;
             bullet.transform.rotation = muzzle.transform.rotation;
+
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.velocity = muzzle.transform.forward * bulletSpeed;
+
             Invoke("FireDelay", fireSpeed);
         }
         else
@@ -98,6 +129,14 @@ public class ShootingGun : MonoBehaviour
         isShooting = false;
     }
 
+    private void UpdateAmmoText()
+    {
+        ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmo;
+    }
+
+    // raycasts from muzzle til it hits a wall
+    // creates new raycast from hit point, stores point in array
+    // repeats til last bounce
     private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
     {
         Vector3 startingPosition = position;
@@ -147,28 +186,28 @@ public class ShootingGun : MonoBehaviour
         bouncePoints[4] = position;
     }
 
-    private void DrawPredictionShot(Vector3 position, Vector3 direction, int bouncesRemaining)
-    {
-        if (bouncesRemaining == 0)
-        {
-            return;
-        }
+    //private void DrawPredictionShot(Vector3 position, Vector3 direction, int bouncesRemaining)
+    //{
+    //    if (bouncesRemaining == 0)
+    //    {
+    //        return;
+    //    }
 
-        Vector3 startingPosition = position;
+    //    Vector3 startingPosition = position;
 
-        Ray ray = new Ray(position, direction);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, maxStepDistance))
-        {
-            direction = Vector3.Reflect(direction, hit.normal);
-            position = hit.point;
-        }
-        else
-        {
-            position += direction * maxStepDistance;
-        }
+    //    Ray ray = new Ray(position, direction);
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(ray, out hit, maxStepDistance))
+    //    {
+    //        direction = Vector3.Reflect(direction, hit.normal);
+    //        position = hit.point;
+    //    }
+    //    else
+    //    {
+    //        position += direction * maxStepDistance;
+    //    }
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(startingPosition, position);
-    }
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawLine(startingPosition, position);
+    //}
 }
