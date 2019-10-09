@@ -25,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         currentDirection = Vector3.zero;
         cameraStartRotation_x = mainCamera.transform.rotation.x;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
