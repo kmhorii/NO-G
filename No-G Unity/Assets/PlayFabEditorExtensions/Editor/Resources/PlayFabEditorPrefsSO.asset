@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0199c11aa6f514784c5c69cd8378d8, type: 3}
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
-  DevAccountEmail: theobalestra@me.com
-  DevAccountToken: sek7bmwr5a36exwo1n15pfgufg9rtr8ac9sbm4ijdzjsw4cpyrj1tp87sjzhas6j41x79x77fdqhnsbu5xhoancpxtpqxfswe9fetuyryuyrhce87tq7ea5fo17o1d5nsjhaa5ja61ug41c8qq7hutjihsadtjd6bfwmyw4du44z13uexwbeqyh35yart7ganpdb5a4w
-  SelectedStudio: Bouncy Pully
-  SdkPath: Assets/PlayFabSdk
+  DevAccountEmail: 
+  DevAccountToken: 
+  SelectedStudio: 
+  SdkPath: 
   EdExPath: 
   LocalCloudScriptPath: 
   PanelIsShown: 0
-  curMainMenuIdx: 1
+  curMainMenuIdx: 0
   curSubMenuIdx: 0

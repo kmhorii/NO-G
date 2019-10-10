@@ -13,9 +13,15 @@ public class ShootingGun : MonoBehaviour
     public Transform muzzle;
 
     public bool isShooting = false;
-    
+    public bool aiming = false;
+    public bool isReloading = false;
+
     public int bulletSpeed;
     public float fireSpeed;
+
+    public int maxAmmo = 9;
+    public int currentAmmo;
+    public float reloadTime = 1.5f;
 
     public int maxBounces = 4;
     public float maxStepDistance = 1000;
@@ -23,15 +29,14 @@ public class ShootingGun : MonoBehaviour
     public Material previewMaterial;
 
     public Vector3[] bouncePoints;
+    public Vector3[] savedBounces;
 
     public LineRenderer lineRender;
 
-    public bool aiming;
+    public GameObject savedLineRendererObject;
+    public LineRenderer savedLineRender;
 
-    public int maxAmmo = 9;
-    public int currentAmmo;
-    public float reloadTime = 1.5f;
-    private bool isReloading = false;
+    public float savedPreviewTime = 1.5f;
 
     public Text ammoText;
     public Image ammoFill;
@@ -40,8 +45,12 @@ public class ShootingGun : MonoBehaviour
     {
         currentAmmo = maxAmmo;
         UpdateAmmoText();
+
         lineRender = GetComponent<LineRenderer>();
+        savedLineRender = savedLineRendererObject.GetComponent<LineRenderer>();
+
         lineRender.enabled = false;
+        savedLineRender.enabled = false;
     }
 
     private void Update()
@@ -106,6 +115,11 @@ public class ShootingGun : MonoBehaviour
         {
             isShooting = true;
 
+            if (Input.GetMouseButton(1))
+            {
+                SavePreview();
+            }
+
             currentAmmo--;
             UpdateAmmoText();
 
@@ -134,7 +148,27 @@ public class ShootingGun : MonoBehaviour
     {
         ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmo;
         ammoFill.fillAmount = (float)currentAmmo / maxAmmo;
-        //ammoFill.
+    }
+
+    private void SavePreview()
+    {
+        savedLineRender.enabled = true;
+        
+        savedBounces = bouncePoints;
+
+        for (int i = 0; i <= 4; i++)
+        {
+            savedLineRender.GetComponent<LineRenderer>().SetPosition(i, savedBounces[i]);
+        }
+
+        Invoke("SavePreviewCooldown", savedPreviewTime);
+
+        //savedLineRendererObject.SetActive(false);
+    }
+
+    private void SavePreviewCooldown()
+    {
+        savedLineRender.enabled = false;
     }
 
     private void ReloadFillBar(float value)
