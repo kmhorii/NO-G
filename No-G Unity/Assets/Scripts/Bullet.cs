@@ -37,8 +37,16 @@ public class Bullet : MonoBehaviour
         {
             if (bounceNumber <= maxBounces - 1)
             {
-                //collision.gameObject.GetComponent<Player>().playerHealth;
                 int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber));
+                collision.gameObject.GetComponent<PlayerHealthandAmmo>().currentHealth -= bulletDamage;
+                Destroy(gameObject);
+                gunReference.savedLineRender.enabled = false;
+            }
+
+            else
+            {
+                Destroy(gameObject);
+                gunReference.savedLineRender.enabled = false;
             }
         }
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerHealthandAmmo : MonoBehaviour
 {
-    public float maxHealth;
+    public float maxHealth = 100;
     public float currentHealth;
 
     public Slider healthbar;
