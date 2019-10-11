@@ -148,6 +148,7 @@ public class ShootingGun : MonoBehaviour
     {
         ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmo;
         ammoFill.fillAmount = (float)currentAmmo / maxAmmo;
+<<<<<<< Updated upstream
     }
 
     private void SavePreview()
@@ -169,6 +170,9 @@ public class ShootingGun : MonoBehaviour
     private void SavePreviewCooldown()
     {
         savedLineRender.enabled = false;
+=======
+        //ammoFill.
+>>>>>>> Stashed changes
     }
 
     private void ReloadFillBar(float value)
@@ -177,8 +181,13 @@ public class ShootingGun : MonoBehaviour
 
         if (value > 1) value = 1;
     }
+<<<<<<< Updated upstream
     
     // raycasts from muzzle til it hits a wall
+=======
+
+    // raycasts from muzzle till it hits a wall
+>>>>>>> Stashed changes
     // creates new raycast from hit point, stores point in array
     // repeats til last bounce
     private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
