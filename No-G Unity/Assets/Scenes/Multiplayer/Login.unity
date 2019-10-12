@@ -548,7 +548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   username: {fileID: 1286076534}
   password: {fileID: 983583007}
-  levelToLoad: 
+  levelToLoad: Photon
 --- !u!4 &888416892
 Transform:
   m_ObjectHideFlags: 0

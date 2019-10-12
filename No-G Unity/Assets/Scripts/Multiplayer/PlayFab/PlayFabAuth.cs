@@ -22,7 +22,7 @@ public class PlayFabAuth : MonoBehaviour
 		PlayFabClientAPI.LoginWithPlayFab(request, result => {
 			Alerts a = new Alerts();
 			StartCoroutine(a.CreateNewAlert(username.text + " You have logged in!"));
-			//SceneManager.LoadScene(levelToLoad);
+			SceneManager.LoadScene(levelToLoad);
 
 		}, error => {
 			Alerts a = new Alerts();
