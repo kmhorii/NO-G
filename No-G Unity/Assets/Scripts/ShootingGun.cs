@@ -44,7 +44,7 @@ public class ShootingGun : MonoBehaviour
     void Start()
     {
         currentAmmo = maxAmmo;
-        UpdateAmmoText();
+        //UpdateAmmoText();
 
         lineRender = GetComponent<LineRenderer>();
         savedLineRender = savedLineRendererObject.GetComponent<LineRenderer>();
@@ -104,7 +104,7 @@ public class ShootingGun : MonoBehaviour
         yield return new WaitForSeconds(reloadTime);
 
         currentAmmo = maxAmmo;
-        UpdateAmmoText();
+        //UpdateAmmoText();
 
         isReloading = false;
     }
@@ -121,7 +121,7 @@ public class ShootingGun : MonoBehaviour
             }
 
             currentAmmo--;
-            UpdateAmmoText();
+            //UpdateAmmoText();
 
             GameObject bullet = Instantiate(bulletPrefab) as GameObject;
 
@@ -144,11 +144,11 @@ public class ShootingGun : MonoBehaviour
         isShooting = false;
     }
 
-    private void UpdateAmmoText()
-    {
-        ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmo;
-        ammoFill.fillAmount = (float)currentAmmo / maxAmmo;
-    }
+    //private void UpdateAmmoText()
+    //{
+    //    ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmo;
+    //    ammoFill.fillAmount = (float)currentAmmo / maxAmmo;
+    //}
 
     private void SavePreview()
     {
