@@ -78,6 +78,7 @@ public class PlayerHealthandAmmo : MonoBehaviour
         {
             timeSpent = 0;
             reloadFill = 0;
+            reloadbar.value = reloadFill;
         }
     }
 
