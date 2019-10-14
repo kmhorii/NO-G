@@ -91,7 +91,7 @@ public class ShootingGun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (currentAmmo == 0)
-                Reload();
+                StartCoroutine(Reload());
             else
                 Shoot();
         }
