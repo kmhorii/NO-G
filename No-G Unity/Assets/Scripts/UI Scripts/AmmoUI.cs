@@ -15,7 +15,7 @@ public class AmmoUI: MonoBehaviour
 
 
 
-
+    public Image Realod;
 
     public Slider ammobar;
     public Slider reloadbar;

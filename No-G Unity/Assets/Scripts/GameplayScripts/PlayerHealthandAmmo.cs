@@ -66,7 +66,7 @@ public class PlayerHealthandAmmo : MonoBehaviour
         }
         if (isReloading)
         {
-            if (timeSpent < gun.reloadTime)
+            if (timeSpent < gun.reloadTime || currentAmmo == 0)
             {
                 timeSpent += Time.deltaTime;
                 reloadFill += (1f / gun.reloadTime) * Time.deltaTime;
