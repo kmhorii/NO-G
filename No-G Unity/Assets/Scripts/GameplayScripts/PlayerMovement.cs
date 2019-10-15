@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Photon;
+using Photon.Pun;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviourPun
 {
     Rigidbody rigidbody;
     Vector3 cameraDirection;
@@ -17,27 +19,38 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Camera mainCamera;
 
+	private GameObject cam;
+
     float cameraStartRotation_x;
     float xRotation;
     // Start is called before the first frame update
     void Start()
     {
+		cam = gameObject.transform.GetChild(0).gameObject;
+
+		gameObject.transform.localPosition = new Vector3(-1.8f, 2f, 1);
         rigidbody = GetComponent<Rigidbody>();
         currentDirection = Vector3.zero;
         cameraStartRotation_x = mainCamera.transform.rotation.x;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+		if (photonView.IsMine) cam.SetActive(true);
+		else cam.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        RotatePlayer();
-        MovePlayer();
-        if (Input.GetKeyUp(KeyCode.W))
-        {
-            ReturnCameraRotation();
-        }
+		if (photonView.IsMine)
+		{
+			RotatePlayer();
+			MovePlayer();
+			if (Input.GetKeyUp(KeyCode.W))
+			{
+				ReturnCameraRotation();
+			}
+		}
     }
 
     void GetCameraDirection()

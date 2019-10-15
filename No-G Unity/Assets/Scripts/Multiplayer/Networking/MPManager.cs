@@ -8,8 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class MPManager : MonoBehaviourPunCallbacks
 {
-    // Start is called before the first frame update
-    void Start()
+
+	public GameObject[] EnableObjectsOnConnect;
+	public GameObject[] DisableObjectsOnConnect;
+	// Start is called before the first frame update
+	void Start()
     {
 		PhotonNetwork.ConnectUsingSettings();
 		//PhotonNetwork.ConnectToRegion("usw");
@@ -17,6 +20,8 @@ public class MPManager : MonoBehaviourPunCallbacks
 
 	public override void OnConnectedToMaster()
 	{
+		foreach(GameObject obj in EnableObjectsOnConnect) obj.SetActive(true);
+		foreach(GameObject obj in DisableObjectsOnConnect) obj.SetActive(false);
 		Debug.Log("We are now connected to photon");
 	}
 
@@ -24,18 +29,28 @@ public class MPManager : MonoBehaviourPunCallbacks
 	{
 		PhotonNetwork.AutomaticallySyncScene = true;
 		PhotonNetwork.JoinRandomRoom();
+
+		Debug.Log("Joining room");
 	}
 
 	public override void OnJoinRandomFailed(short returnCode, string message)
 	{
 		CreateGame();
 	}
+
 	public void CreateGame()
 	{
 		PhotonNetwork.AutomaticallySyncScene = true;
+
 		RoomOptions ro = new RoomOptions { MaxPlayers = 2, IsOpen = true, IsVisible = true};
 		PhotonNetwork.CreateRoom("defaultGame", ro, TypedLobby.Default);
 
+		Debug.Log("Creating room");
+
+	}
+
+	public override void OnJoinedRoom()
+	{
 		SceneManager.LoadScene("MergeTest");
 	}
 }

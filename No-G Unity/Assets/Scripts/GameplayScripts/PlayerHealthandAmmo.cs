@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerHealthandAmmo : MonoBehaviour
 {
+	private Canvas canvas;
+
     public float maxHealth = 100;
     public float currentHealth;
 
@@ -29,7 +31,15 @@ public class PlayerHealthandAmmo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(maxHealth == 0)
+		healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
+		healthtext = GameObject.Find("HealthText").GetComponent<Text>();
+
+		ammobar = GameObject.Find("Ammobar").GetComponent<Slider>();
+		reloadbar = GameObject.Find("Reloadbar").GetComponent<Slider>();
+
+		ammotext = GameObject.Find("AmmoText").GetComponent<Text>();
+
+		if (maxHealth == 0)
         {
             maxHealth = 100f;
         }
@@ -52,6 +62,17 @@ public class PlayerHealthandAmmo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		if(ammotext == null)
+		{
+			healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
+			healthtext = GameObject.Find("HealthText").GetComponent<Text>();
+
+			ammobar = GameObject.Find("Ammobar").GetComponent<Slider>();
+			reloadbar = GameObject.Find("Reloadbar").GetComponent<Slider>();
+
+			ammotext = GameObject.Find("AmmoText").GetComponent<Text>();
+		}
+
         isReloading = gun.isReloading;
 
         if (gun == null)
