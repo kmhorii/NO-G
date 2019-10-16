@@ -148,4 +148,17 @@ public class PlayerHealthandAmmo : MonoBehaviour
         return convertammo.ToString("f0");
     }
 
+    void Respawn()
+    {
+        currentHealth = maxHealth;
+        healthbar.value = CalculateHealth();
+        healthtext.text = ConvertHealthFloattoString();
+
+        gun.currentAmmo = (int) maxAmmo;
+        currentAmmo = gun.currentAmmo;
+        ammobar.value = CalculateAmmo();
+        ammotext.text = ConvertAmmoFloattoString();
+
+        //optional reset location
+    }
 }
