@@ -33,7 +33,6 @@ public class ShootingGun : MonoBehaviour
 
     public LineRenderer lineRender;
 
-    public GameObject savedLineRendererObject;
     public LineRenderer savedLineRender;
 
     public float savedPreviewTime = 1.5f;
@@ -45,9 +44,6 @@ public class ShootingGun : MonoBehaviour
     {
         currentAmmo = maxAmmo;
         //UpdateAmmoText();
-
-        lineRender = GetComponent<LineRenderer>();
-        savedLineRender = savedLineRendererObject.GetComponent<LineRenderer>();
 
         lineRender.enabled = false;
         savedLineRender.enabled = false;
@@ -72,7 +68,7 @@ public class ShootingGun : MonoBehaviour
 
             for (int i = 0; i <= 4; i++)
             {
-                GetComponent<LineRenderer>().SetPosition(i, bouncePoints[i]);
+               lineRender.SetPosition(i, bouncePoints[i]);
             }
         }
 
@@ -93,7 +89,8 @@ public class ShootingGun : MonoBehaviour
             if (currentAmmo == 0)
                 StartCoroutine(Reload());
             else
-                Shoot();
+                if (!isShooting)
+                    Shoot();
         }
     }
 
