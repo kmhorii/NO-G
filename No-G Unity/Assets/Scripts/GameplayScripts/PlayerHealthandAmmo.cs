@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealthandAmmo : MonoBehaviour
 {
@@ -79,6 +80,7 @@ public class PlayerHealthandAmmo : MonoBehaviour
         {
             gun = GetComponentInChildren<ShootingGun>();
         }
+        isReloading = gun.isReloading;
         if (currentAmmo != gun.currentAmmo)
         {
             currentAmmo = gun.currentAmmo;
@@ -131,7 +133,7 @@ public class PlayerHealthandAmmo : MonoBehaviour
         currentHealth = 0;
         Debug.Log("Die");
         healthtext.text = "Dead";
-
+        //SceneManager.LoadScene("MergeTest");
     }
 
     float CalculateAmmo()
