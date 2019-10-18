@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
             {
                 player.GetComponent<MeshRenderer>().enabled = false;
                 player.GetComponentInChildren<ShootingGun>().enabled = false;
+                player.GetComponentInChildren<ShootingGun>().gameObject.SetActive(false);
+                player.GetComponent<PlayerMovement>().CurrentWeapon = null;
                 player.layer = 14;
 
                 if(player.GetComponent<PlayerHealthandAmmo>().killCount == 3)
@@ -58,6 +60,6 @@ public class GameManager : MonoBehaviour
 
     public void ReloadGame()
     {
-        SceneManager.LoadScene("Photon");
+        SceneManager.LoadScene("Master");
     }
 }
