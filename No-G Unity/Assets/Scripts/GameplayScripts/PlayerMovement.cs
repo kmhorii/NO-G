@@ -94,8 +94,11 @@ public class PlayerMovement : MonoBehaviourPun
 
 		if (Input.GetKeyDown(KeyCode.Mouse0))
 		{
-			CurrentWeapon.GetComponent<ShootingGun>().Shooting();
-		}
+            if (!CurrentWeapon.GetComponent<ShootingGun>().isShooting)
+            {
+                CurrentWeapon.GetComponent<ShootingGun>().Shooting();
+            }
+        }
 	}
 
     //Very basic movement toward center of camera

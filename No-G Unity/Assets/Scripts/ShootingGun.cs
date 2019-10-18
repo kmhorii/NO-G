@@ -56,10 +56,10 @@ public class ShootingGun : MonoBehaviourPun
     {
 		transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
 		transform.rotation = new Quaternion(mainCamera.transform.rotation.x, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, mainCamera.transform.rotation.w);
-		if (isReloading)
-		{
-			return;
-		}
+		//if (isReloading)
+		//{
+		//	return;
+		//}
     }
 
 	public void DownAiming()
@@ -104,15 +104,17 @@ public class ShootingGun : MonoBehaviourPun
 				SavePreview();
 			}
 			currentAmmo--;
-			//UpdateAmmoText();
+            //UpdateAmmoText();
 
-			Invoke("FireDelay", fireSpeed);
-		}
+            Invoke("FireDelay", fireSpeed);
+            //StartCoroutine("FireDelayTwo");
+        }
 		else
 		{
-			Invoke("FireDelay", fireSpeed);
-		}
-	}
+            Invoke("FireDelay", fireSpeed);
+            //StartCoroutine("FireDelayTwo");
+        }
+    }
 
     private IEnumerator Reload()
     {
@@ -142,6 +144,13 @@ public class ShootingGun : MonoBehaviourPun
 
     private void FireDelay()
     {
+        isShooting = false;
+    }
+
+    private IEnumerator FireDelayTwo()
+    {
+        yield return new WaitForSeconds(fireSpeed);
+
         isShooting = false;
     }
 
