@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon;
+using Photon.Pun;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviourPun
 {
     public ShootingGun gunReference;
 
@@ -23,34 +25,27 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 9)
+		if (collision.collider.tag == "Player")
+		{
+			PlayerHealthandAmmo pd = collision.gameObject.GetComponent<PlayerHealthandAmmo>();
+
+			if (bounceNumber <= maxBounces - 1)
+			{
+				int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber));
+				pd.DealDamage(bulletDamage);
+
+				Destroy(gameObject);
+				gunReference.savedLineRender.enabled = false;
+			}
+			else
+			{
+				Destroy(gameObject);
+				gunReference.savedLineRender.enabled = false;
+			}
+		}
+		else if (bounceNumber - 1 == 0)
         {
-            if (bounceNumber - 1 == 0)
-            {
-                Destroy(gameObject);
-            }
-
-            bounceNumber--;
-        }
-
-        if (collision.gameObject.layer == 11)
-        {
-            if (bounceNumber <= maxBounces - 1)
-            {
-                int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber));
-                collision.gameObject.GetComponent<PlayerHealthandAmmo>().DealDamage(bulletDamage);
-                Destroy(gameObject);
-                gunReference.savedLineRender.enabled = false;
-            }
-
-            else
-            {
-                Destroy(gameObject);
-                gunReference.savedLineRender.enabled = false;
-            }
-        }
-
-
+            Destroy(gameObject);
+        }else bounceNumber--;
     }
-    
 }

@@ -65,49 +65,57 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
     // Update is called once per frame
     void Update()
     {
-		if(ammotext == null)
+		if (photonView.IsMine)
 		{
-			healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
-			healthtext = GameObject.Find("HealthText").GetComponent<Text>();
+			healthbar.value = CalculateHealth();
+			healthtext.text = ConvertHealthFloattoString();
 
-			ammobar = GameObject.Find("Ammobar").GetComponent<Slider>();
-			reloadbar = GameObject.Find("Reloadbar").GetComponent<Slider>();
+			if (currentHealth <= 0) Die();
 
-			ammotext = GameObject.Find("AmmoText").GetComponent<Text>();
+			if (ammotext == null)
+			{
+				healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
+				healthtext = GameObject.Find("HealthText").GetComponent<Text>();
+
+				ammobar = GameObject.Find("Ammobar").GetComponent<Slider>();
+				reloadbar = GameObject.Find("Reloadbar").GetComponent<Slider>();
+
+				ammotext = GameObject.Find("AmmoText").GetComponent<Text>();
+			}
+
+			isReloading = gun.isReloading;
+
+			if (gun == null)
+			{
+				gun = GetComponentInChildren<ShootingGun>();
+			}
+			isReloading = gun.isReloading;
+			if (currentAmmo != gun.currentAmmo)
+			{
+				currentAmmo = gun.currentAmmo;
+				ammobar.value = CalculateAmmo();
+				ammotext.text = ConvertAmmoFloattoString();
+			}
+			if (isReloading)
+			{
+				if (timeSpent < gun.reloadTime || currentAmmo == 0)
+				{
+					timeSpent += Time.deltaTime;
+					reloadFill += (1f / gun.reloadTime) * Time.deltaTime;
+					reloadbar.value = reloadFill;
+
+				}
+			}
+			else
+			{
+				timeSpent = 0;
+				reloadFill = 0;
+				reloadbar.value = reloadFill;
+			}
 		}
-
-        isReloading = gun.isReloading;
-
-        if (gun == null)
-        {
-            gun = GetComponentInChildren<ShootingGun>();
-        }
-        isReloading = gun.isReloading;
-        if (currentAmmo != gun.currentAmmo)
-        {
-            currentAmmo = gun.currentAmmo;
-            ammobar.value = CalculateAmmo();
-            ammotext.text = ConvertAmmoFloattoString();
-        }
-        if (isReloading)
-        {
-            if (timeSpent < gun.reloadTime || currentAmmo == 0)
-            {
-                timeSpent += Time.deltaTime;
-                reloadFill += (1f / gun.reloadTime) * Time.deltaTime;
-                reloadbar.value = reloadFill;
-
-            }
-        }
-        else
-        {
-            timeSpent = 0;
-            reloadFill = 0;
-            reloadbar.value = reloadFill;
-        }
     }
 
-    private float CalculateHealth()
+	private float CalculateHealth()
     {
         return currentHealth / maxHealth;
     }
@@ -120,30 +128,17 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 
     public void DealDamage(float damagevalue)
     {
-		if(photonView.IsMine)
-		{
+		//if(photonView.IsMine)
+		//{
 			photonView.RPC("Damage", RpcTarget.All, damagevalue);
-		}
-        /*//Minus player health w/ damage value
-        currentHealth -= damagevalue;
-        healthbar.value = CalculateHealth();
-        healthtext.text = ConvertHealthFloattoString();
-
-        //If player health =0, trigger death
-        if (currentHealth <= 0)
-            Die();*/
+		//}
     }
+
 	[PunRPC]
 	void Damage(float damageValue)
 	{
 		//Minus player health w/ damage value
 		currentHealth -= damageValue;
-		healthbar.value = CalculateHealth();
-		healthtext.text = ConvertHealthFloattoString();
-
-		//If player health =0, trigger death
-		if (currentHealth <= 0)
-			Die();
 	}
 
     private void Die()
@@ -187,7 +182,7 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 			stream.SendNext(currentHealth);
 		}else if(stream.IsReading)
 		{
-			currentHealth =  (int)stream.ReceiveNext();
+			currentHealth = (float)stream.ReceiveNext();
 		}
 	}
 }
