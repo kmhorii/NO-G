@@ -23,6 +23,9 @@ public class PlayerMovement : MonoBehaviourPun
 
     float cameraStartRotation_x;
     float xRotation;
+
+	public GameObject CurrentWeapon;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,8 +47,10 @@ public class PlayerMovement : MonoBehaviourPun
     {
 		if (photonView.IsMine)
 		{
+			if (CurrentWeapon != null) ShootGun();
 			RotatePlayer();
 			MovePlayer();
+
 			if (Input.GetKeyUp(KeyCode.W))
 			{
 				ReturnCameraRotation();
@@ -64,6 +69,34 @@ public class PlayerMovement : MonoBehaviourPun
         GetCameraDirection();
         currentDirection += cameraDirection;
     }
+
+	void ShootGun()
+	{
+		if (Input.GetKeyDown(KeyCode.Mouse1))
+		{
+			CurrentWeapon.GetComponent<ShootingGun>().DownAiming();
+		}
+
+		if (Input.GetKey(KeyCode.Mouse1))
+		{
+			CurrentWeapon.GetComponent<ShootingGun>().Aiming();
+		}
+
+		if (Input.GetKeyUp(KeyCode.Mouse1))
+		{
+			CurrentWeapon.GetComponent<ShootingGun>().DoneAiming();
+		}
+
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			CurrentWeapon.GetComponent<ShootingGun>().Reloading();
+		}
+
+		if (Input.GetKeyDown(KeyCode.Mouse0))
+		{
+			CurrentWeapon.GetComponent<ShootingGun>().Shooting();
+		}
+	}
 
     //Very basic movement toward center of camera
     //May add raycasts to see if there's anything in the way.

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon;
+using Photon.Pun;
 
-public class PlayerHealthandAmmo : MonoBehaviour
+public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 {
 	private Canvas canvas;
 
@@ -118,15 +120,31 @@ public class PlayerHealthandAmmo : MonoBehaviour
 
     public void DealDamage(float damagevalue)
     {
-        //Minus player health w/ damage value
+		if(photonView.IsMine)
+		{
+			photonView.RPC("Damage", RpcTarget.All, damagevalue);
+		}
+        /*//Minus player health w/ damage value
         currentHealth -= damagevalue;
         healthbar.value = CalculateHealth();
         healthtext.text = ConvertHealthFloattoString();
 
         //If player health =0, trigger death
         if (currentHealth <= 0)
-            Die();
+            Die();*/
     }
+	[PunRPC]
+	void Damage(float damageValue)
+	{
+		//Minus player health w/ damage value
+		currentHealth -= damageValue;
+		healthbar.value = CalculateHealth();
+		healthtext.text = ConvertHealthFloattoString();
+
+		//If player health =0, trigger death
+		if (currentHealth <= 0)
+			Die();
+	}
 
     private void Die()
     {
@@ -161,4 +179,15 @@ public class PlayerHealthandAmmo : MonoBehaviour
 
         //optional reset location
     }
+
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+		if(stream.IsWriting)
+		{
+			stream.SendNext(currentHealth);
+		}else if(stream.IsReading)
+		{
+			currentHealth =  (int)stream.ReceiveNext();
+		}
+	}
 }
