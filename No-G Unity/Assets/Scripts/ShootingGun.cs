@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon;
+using Photon.Pun;
 
 //https://www.youtube.com/watch?v=GttdLYKEJAM
 //https://www.youtube.com/watch?v=kAx5g9V5bcM
 
-public class ShootingGun : MonoBehaviour
+public class ShootingGun : MonoBehaviourPun
 {
     public GameObject bulletPrefab;
     public Transform muzzle;
+	public GameObject mainCamera;
 
     public bool isShooting = false;
     public bool aiming = false;
@@ -51,48 +54,65 @@ public class ShootingGun : MonoBehaviour
 
     private void Update()
     {
-        if (isReloading)
-        {
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            aiming = true;
-            lineRender.enabled = true;
-        }
-
-        if (Input.GetKey(KeyCode.Mouse1))
-        {
-            DrawPredictionShotLong(muzzle.position, muzzle.forward, maxBounces);
-
-            for (int i = 0; i <= 4; i++)
-            {
-               lineRender.SetPosition(i, bouncePoints[i]);
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            aiming = false;
-            lineRender.enabled = false;
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(Reload());
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if (currentAmmo == 0)
-                StartCoroutine(Reload());
-            else
-                if (!isShooting)
-                    Shoot();
-        }
+		transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+		transform.rotation = new Quaternion(mainCamera.transform.rotation.x, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, mainCamera.transform.rotation.w);
+		if (isReloading)
+		{
+			return;
+		}
     }
+
+	public void DownAiming()
+	{
+		aiming = true;
+		lineRender.enabled = true;
+	}
+
+	public void Aiming()
+	{
+		DrawPredictionShotLong(muzzle.position, muzzle.forward, maxBounces);
+
+		for (int i = 0; i <= 4; i++)
+		{
+			lineRender.SetPosition(i, bouncePoints[i]);
+		}
+	}
+
+	public void DoneAiming()
+	{
+		aiming = false;
+		lineRender.enabled = false;
+	}
+
+	public void Reloading()
+	{
+		StartCoroutine(Reload());
+		return;
+	}
+
+	public void Shooting()
+	{
+		if (currentAmmo == 0)
+			StartCoroutine(Reload());
+		else if (!isShooting)
+		{
+			Shoot();
+			isShooting = true;
+
+			if (Input.GetMouseButton(1))
+			{
+				SavePreview();
+			}
+			currentAmmo--;
+			//UpdateAmmoText();
+
+			Invoke("FireDelay", fireSpeed);
+		}
+		else
+		{
+			Invoke("FireDelay", fireSpeed);
+		}
+	}
 
     private IEnumerator Reload()
     {
@@ -108,33 +128,17 @@ public class ShootingGun : MonoBehaviour
 
     private void Shoot()
     {
-        if (!isShooting)
-        {
-            isShooting = true;
-
-            if (Input.GetMouseButton(1))
-            {
-                SavePreview();
-            }
-
-            currentAmmo--;
-            //UpdateAmmoText();
-
-            GameObject bullet = Instantiate(bulletPrefab) as GameObject;
-
-            bullet.transform.position = muzzle.transform.position;
-            bullet.transform.rotation = muzzle.transform.rotation;
-
-            Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            rb.velocity = muzzle.transform.forward * bulletSpeed;
-
-            Invoke("FireDelay", fireSpeed);
-        }
-        else
-        {
-            Invoke("FireDelay", fireSpeed);
-        }
+		photonView.RPC("RPCShoot", RpcTarget.All);
     }
+
+	[PunRPC]
+	public void RPCShoot()
+	{
+		GameObject bullet = Instantiate(bulletPrefab, muzzle.transform.position, muzzle.transform.rotation);
+
+		Rigidbody rb = bullet.GetComponent<Rigidbody>();
+		rb.velocity = muzzle.transform.forward * bulletSpeed;
+	}
 
     private void FireDelay()
     {
