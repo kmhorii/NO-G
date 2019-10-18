@@ -5,19 +5,31 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public Text timerText;
-    private float startTime;
+    //public Text timerText;
+    private int startTime = 120;
+
+    int currentTime = 0;
+
+    [SerializeField] Text timerText;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        startTime = Time.time;
+        currentTime = startTime;
+        InvokeRepeating("CountdownTimer", 0,1);
+        // startTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+        
+       
+
+        /*
         float t = Time.time - startTime;
 
         string minutes = ((int)(t) / 60).ToString();
@@ -26,5 +38,16 @@ public class Timer : MonoBehaviour
         //timerText.text = seconds;
 
         timerText.text = minutes + ":" + seconds;
+        */
+    }
+
+    void CountdownTimer()
+    {
+        currentTime -= 1;
+        timerText.text = currentTime.ToString();
+        if (currentTime <= 0)
+        {
+            currentTime = 0;
+        }
     }
 }
