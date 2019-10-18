@@ -34,6 +34,8 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 
     public Text ammotext;
 
+    public AudioSource impactSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,7 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 		reloadbar = GameObject.Find("Reloadbar").GetComponent<Slider>();
 
 		ammotext = GameObject.Find("AmmoText").GetComponent<Text>();
+        impactSound = GetComponent<AudioSource>();
 
 		if (maxHealth == 0)
         {
@@ -136,6 +139,7 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 		//if(photonView.IsMine)
 		//{
 			photonView.RPC("Damage", RpcTarget.All, damagevalue);
+        impactSound.Play();
 		//}
     }
 
