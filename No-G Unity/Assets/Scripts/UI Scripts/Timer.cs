@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
     //public Text timerText;
     private int startTime = 120;
 
-    int currentTime = 0;
+    public int currentTime = 0;
 
     [SerializeField] Text timerText;
 

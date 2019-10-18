@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour
         players = GameObject.FindGameObjectsWithTag("Player");
         Debug.Log(players.Length);
 
+        //if(this.GetComponent<Timer>().currentTime == 0)
+        //{
+        //    gameOver = true;
+        //}
+
         if (gameOver)
         {
             foreach (GameObject player in players)
