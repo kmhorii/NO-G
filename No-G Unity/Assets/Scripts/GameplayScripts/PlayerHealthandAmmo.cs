@@ -146,6 +146,8 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
         currentHealth = 0;
         Debug.Log("Die");
         healthtext.text = "Dead";
+
+        Respawn();
         //SceneManager.LoadScene("MergeTest");
     }
 
