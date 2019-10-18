@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
     {
         gameOver = false;
         players = GameObject.FindGameObjectsWithTag("Player");
+        if(panel == null)
+        {
+            panel = GameObject.FindGameObjectWithTag("GameOver");
+        }
         panel.SetActive(false);
     }
 

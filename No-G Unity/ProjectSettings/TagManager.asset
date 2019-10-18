@@ -8,6 +8,8 @@ TagManager:
   - Gun
   - Bullet
   - AlertMsg
+  - GameManager
+  - GameOver
   layers:
   - Default
   - TransparentFX
