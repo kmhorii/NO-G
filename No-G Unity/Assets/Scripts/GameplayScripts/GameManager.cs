@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,7 +37,6 @@ public class GameManager : MonoBehaviour
             {
                 player.GetComponent<MeshRenderer>().enabled = false;
                 player.GetComponentInChildren<ShootingGun>().enabled = false;
-                player.GetComponentInChildren<Bullet>().enabled = false;
                 player.layer = 14;
 
                 if(player.GetComponent<PlayerHealthandAmmo>().killCount == 3)
