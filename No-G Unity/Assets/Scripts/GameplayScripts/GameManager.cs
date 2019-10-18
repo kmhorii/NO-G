@@ -26,11 +26,15 @@ public class GameManager : MonoBehaviour
             panel = GameObject.FindGameObjectWithTag("GameOver");
         }
         panel.SetActive(false);
+        Debug.Log(players.Length);
     }
 
     // Update is called once per frame
     void Update()
     {
+        players = GameObject.FindGameObjectsWithTag("Player");
+        Debug.Log(players.Length);
+
         if (gameOver)
         {
             foreach (GameObject player in players)
@@ -46,6 +50,8 @@ public class GameManager : MonoBehaviour
                 player.GetComponent<PlayerHealthandAmmo>().enabled = false;
             }
             panel.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             winText.text = "The winner is " + winner;
         }
     }
