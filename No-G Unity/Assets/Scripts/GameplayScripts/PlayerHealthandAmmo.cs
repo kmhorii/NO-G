@@ -122,8 +122,29 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 			}
 		}
     }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(collision.collider.tag == "Bullet")
+    //    {
+    //        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+    //        if (bullet.bounceNumber <= bullet.maxBounces - 1)
+    //        {
+    //            int bulletDamage = bullet.defaultDamage - (bullet.damageReduction * (bullet.maxBounces - bullet.bounceNumber));
+    //            DealDamage(bulletDamage);
 
-	private float CalculateHealth()
+    //            Destroy(bullet);
+    //            bullet.gunReference.savedLineRender.enabled = false;
+    //        }
+    //        else
+    //        {
+    //            Destroy(bullet);
+    //            bullet.gunReference.savedLineRender.enabled = false;
+    //        }
+    //    }
+        
+    //}
+    
+    private float CalculateHealth()
     {
         return currentHealth / maxHealth;
     }
@@ -136,11 +157,11 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 
     public void DealDamage(float damagevalue)
     {
-		//if(photonView.IsMine)
-		//{
+		if(photonView.IsMine)
+		{
 			photonView.RPC("Damage", RpcTarget.All, damagevalue);
-        impactSound.Play();
-		//}
+            impactSound.Play();
+		}
     }
 
 	[PunRPC]
@@ -213,4 +234,5 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 			currentHealth = (float)stream.ReceiveNext();
 		}
 	}
+    
 }

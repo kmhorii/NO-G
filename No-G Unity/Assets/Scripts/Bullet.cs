@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviourPun
     public ShootingGun gunReference;
 
     public int bounceNumber;
-    private int maxBounces;
+    public int maxBounces;
 
     public int playerHealth;
 
@@ -25,27 +25,31 @@ public class Bullet : MonoBehaviourPun
 
     private void OnCollisionEnter(Collision collision)
     {
-		if (collision.collider.tag == "Player")
-		{
-			PlayerHealthandAmmo pd = collision.gameObject.GetComponent<PlayerHealthandAmmo>();
-
-			if (bounceNumber <= maxBounces - 1)
-			{
-				int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber));
-				pd.DealDamage(bulletDamage);
-
-				Destroy(gameObject);
-				gunReference.savedLineRender.enabled = false;
-			}
-			else
-			{
-				Destroy(gameObject);
-				gunReference.savedLineRender.enabled = false;
-			}
-		}
-		else if (bounceNumber - 1 == 0)
+        if (collision.collider.tag == "Player")
         {
-            Destroy(gameObject);
-        }else bounceNumber--;
+            PlayerHealthandAmmo pd = collision.gameObject.GetComponent<PlayerHealthandAmmo>();
+
+            if (bounceNumber <= maxBounces - 1)
+            {
+                int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber));
+                pd.DealDamage(bulletDamage);
+
+                Destroy(gameObject);
+                gunReference.savedLineRender.enabled = false;
+            }
+            else
+            {
+                Destroy(gameObject);
+                gunReference.savedLineRender.enabled = false;
+            }
+        }
+        else if (collision.collider.tag == "Wall")
+        {
+            if (bounceNumber - 1 == 0)
+            {
+                Destroy(gameObject);
+            }
+            else bounceNumber--;
+        }
     }
 }

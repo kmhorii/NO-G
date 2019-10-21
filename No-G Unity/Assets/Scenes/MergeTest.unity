@@ -281,6 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56123630a07ae2b4bb8bdd353ed8e2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTime: 0
   timerText: {fileID: 924838008}
 --- !u!114 &130445578
 MonoBehaviour:
@@ -2408,6 +2409,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle12
       objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2482,6 +2488,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Obstacle11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
@@ -2558,6 +2569,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle2
       objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2632,6 +2648,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Obstacle3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
@@ -2708,6 +2729,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle10
       objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2782,6 +2808,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Obstacle4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
@@ -2900,6 +2931,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle9
       objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2974,6 +3010,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Obstacle7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
@@ -3050,6 +3091,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle5
       objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3125,6 +3171,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle8
       objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3199,6 +3250,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Obstacle6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
@@ -3290,7 +3346,7 @@ GameObject:
   - component: {fileID: 2256369734646015088}
   m_Layer: 9
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3442,7 +3498,7 @@ GameObject:
   - component: {fileID: 2256369735261824857}
   m_Layer: 9
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3497,7 +3553,7 @@ GameObject:
   - component: {fileID: 2256369735656778845}
   m_Layer: 9
   m_Name: Wall (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3589,7 +3645,7 @@ GameObject:
   - component: {fileID: 2256369735859189877}
   m_Layer: 9
   m_Name: Wall (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3694,7 +3750,7 @@ GameObject:
   - component: {fileID: 2256369735946780922}
   m_Layer: 9
   m_Name: Wall (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3795,7 +3851,7 @@ GameObject:
   - component: {fileID: 2256369735980727431}
   m_Layer: 9
   m_Name: Ceiling
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5283,6 +5339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Obstacle1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
