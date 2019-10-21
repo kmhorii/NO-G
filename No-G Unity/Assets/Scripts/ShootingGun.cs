@@ -54,9 +54,12 @@ public class ShootingGun : MonoBehaviourPun
 
     private void Update()
     {
-		transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
-		transform.rotation = new Quaternion(mainCamera.transform.rotation.x, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, mainCamera.transform.rotation.w);
-		//if (isReloading)
+        if (photonView.IsMine)
+        {
+            transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+            transform.rotation = new Quaternion(mainCamera.transform.rotation.x, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, mainCamera.transform.rotation.w);
+        }
+        //if (isReloading)
 		//{
 		//	return;
 		//}

@@ -122,28 +122,50 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 			}
 		}
     }
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if(collision.collider.tag == "Bullet")
-    //    {
-    //        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-    //        if (bullet.bounceNumber <= bullet.maxBounces - 1)
-    //        {
-    //            int bulletDamage = bullet.defaultDamage - (bullet.damageReduction * (bullet.maxBounces - bullet.bounceNumber));
-    //            DealDamage(bulletDamage);
-
-    //            Destroy(bullet);
-    //            bullet.gunReference.savedLineRender.enabled = false;
-    //        }
-    //        else
-    //        {
-    //            Destroy(bullet);
-    //            bullet.gunReference.savedLineRender.enabled = false;
-    //        }
-    //    }
-        
-    //}
-    
+    //private void OnCollisionEnter(Collision collision)
+
+    //{
+
+    //    if(collision.collider.tag == "Bullet")
+
+    //    {
+
+    //        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+
+    //        if (bullet.bounceNumber <= bullet.maxBounces - 1)
+
+    //        {
+
+    //            int bulletDamage = bullet.defaultDamage - (bullet.damageReduction * (bullet.maxBounces - bullet.bounceNumber));
+
+    //            DealDamage(bulletDamage);
+
+
+
+    //            Destroy(bullet);
+
+    //            bullet.gunReference.savedLineRender.enabled = false;
+
+    //        }
+
+    //        else
+
+    //        {
+
+    //            Destroy(bullet);
+
+    //            bullet.gunReference.savedLineRender.enabled = false;
+
+    //        }
+
+    //    }
+
+        
+
+    //}
+
+    
+
     private float CalculateHealth()
     {
         return currentHealth / maxHealth;
@@ -159,7 +181,8 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
     {
 		if(photonView.IsMine)
 		{
-			photonView.RPC("Damage", RpcTarget.All, damagevalue);
+			photonView.RPC("Damage", RpcTarget.All, damagevalue);
+
             impactSound.Play();
 		}
     }
