@@ -40,13 +40,9 @@ public class ShootingGun : MonoBehaviourPun
 
     public float savedPreviewTime = 1.5f;
 
-    public Text ammoText;
-    public Image ammoFill;
-
     void Start()
     {
         currentAmmo = maxAmmo;
-        //UpdateAmmoText();
 
         lineRender.enabled = false;
         savedLineRender.enabled = false;
@@ -59,10 +55,6 @@ public class ShootingGun : MonoBehaviourPun
             transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
             transform.rotation = new Quaternion(mainCamera.transform.rotation.x, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, mainCamera.transform.rotation.w);
         }
-        //if (isReloading)
-		//{
-		//	return;
-		//}
     }
 
 	public void DownAiming()
@@ -107,15 +99,12 @@ public class ShootingGun : MonoBehaviourPun
 				SavePreview();
 			}
 			currentAmmo--;
-            //UpdateAmmoText();
 
             Invoke("FireDelay", fireSpeed);
-            //StartCoroutine("FireDelayTwo");
         }
 		else
 		{
             Invoke("FireDelay", fireSpeed);
-            //StartCoroutine("FireDelayTwo");
         }
     }
 
@@ -126,7 +115,6 @@ public class ShootingGun : MonoBehaviourPun
         yield return new WaitForSeconds(reloadTime);
 
         currentAmmo = maxAmmo;
-        //UpdateAmmoText();
 
         isReloading = false;
     }
@@ -157,12 +145,6 @@ public class ShootingGun : MonoBehaviourPun
         isShooting = false;
     }
 
-    //private void UpdateAmmoText()
-    //{
-    //    ammoText.text = "Ammo: " + currentAmmo + "/" + maxAmmo;
-    //    ammoFill.fillAmount = (float)currentAmmo / maxAmmo;
-    //}
-
     private void SavePreview()
     {
         savedLineRender.enabled = true;
@@ -175,14 +157,11 @@ public class ShootingGun : MonoBehaviourPun
         }
 
         Invoke("SavePreviewCooldown", savedPreviewTime);
-
-        //savedLineRendererObject.SetActive(false);
     }
 
     private void SavePreviewCooldown()
     {
         savedLineRender.enabled = false;
-        //ammoFill.
     }
 
     private void ReloadFillBar(float value)
@@ -191,11 +170,10 @@ public class ShootingGun : MonoBehaviourPun
 
         if (value > 1) value = 1;
     }
-    
-    // raycasts from muzzle til it hits a wall
 
     // raycasts from muzzle till it hits a wall
-    // creates new raycast from hit point, stores point in array
+    // creates new raycast from where the raycast hits in direction based on Vector3.Reflect() 
+    // stores point in array
     // repeats til last bounce
     private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
     {
@@ -246,6 +224,7 @@ public class ShootingGun : MonoBehaviourPun
         bouncePoints[4] = position;
     }
 
+    // recursive version, couldn't figure out how to store the vector points with this
     //private void DrawPredictionShot(Vector3 position, Vector3 direction, int bouncesRemaining)
     //{
     //    if (bouncesRemaining == 0)
