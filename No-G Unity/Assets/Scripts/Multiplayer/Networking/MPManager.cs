@@ -15,6 +15,7 @@ public class MPManager : MonoBehaviourPunCallbacks
 	void Start()
     {
 		PhotonNetwork.ConnectUsingSettings();
+		PhotonNetwork.NickName = PlayerInfo.Name;
 		//PhotonNetwork.ConnectToRegion("usw");
     }
 
@@ -22,6 +23,8 @@ public class MPManager : MonoBehaviourPunCallbacks
 	{
 		foreach(GameObject obj in EnableObjectsOnConnect) obj.SetActive(true);
 		foreach(GameObject obj in DisableObjectsOnConnect) obj.SetActive(false);
+
+		
 		Debug.Log("We are now connected to photon");
 	}
 
@@ -42,9 +45,9 @@ public class MPManager : MonoBehaviourPunCallbacks
 	{
 		PhotonNetwork.AutomaticallySyncScene = true;
 
+		int rnd = Random.Range(0, 10000);
 		RoomOptions ro = new RoomOptions { MaxPlayers = 2, IsOpen = true, IsVisible = true};
-		PhotonNetwork.CreateRoom("defaultGame", ro, TypedLobby.Default);
-
+		PhotonNetwork.CreateRoom("default#" + rnd, ro, TypedLobby.Default);
 		Debug.Log("Creating room");
 
 	}

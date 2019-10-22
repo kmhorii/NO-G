@@ -131,6 +131,8 @@ public class ShootingGun : MonoBehaviourPun
 
 		Rigidbody rb = bullet.GetComponent<Rigidbody>();
 		rb.velocity = muzzle.transform.forward * bulletSpeed;
+
+		bullet.GetComponent<Bullet>().shooter = PlayerInfo.Name;
 	}
 
     private void FireDelay()

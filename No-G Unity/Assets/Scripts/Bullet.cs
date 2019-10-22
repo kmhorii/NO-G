@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviourPun
 {
     public ShootingGun gunReference;
 
+	public string shooter;
     public int bounceNumber;
     public int maxBounces;
 

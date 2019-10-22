@@ -8,7 +8,6 @@ using Photon.Pun;
 
 public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 {
-    private GameManager gm;
 	private Canvas canvas;
 
     public int killCount;
@@ -39,7 +38,6 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         killCount = 0; 
 		healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
 		healthtext = GameObject.Find("HealthText").GetComponent<Text>();
@@ -205,7 +203,6 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
         {
             if (player.GetComponent<PlayerHealthandAmmo>().killCount == 3)
             {
-                gm.gameOver = true;
                 break;
             }
         }

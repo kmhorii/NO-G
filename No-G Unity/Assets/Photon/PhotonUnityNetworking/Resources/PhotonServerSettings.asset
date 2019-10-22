@@ -37,5 +37,7 @@ MonoBehaviour:
   - Damage
   - RPCShoot
   - RpcShoot
+  - AddPlayerCount
+  - RemovePlayerCount
   DisableAutoOpenWizard: 1
   ShowSettings: 1

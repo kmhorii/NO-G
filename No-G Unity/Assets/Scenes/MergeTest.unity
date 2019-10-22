@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -209,10 +209,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 130445575}
-  - component: {fileID: 130445574}
   - component: {fileID: 130445576}
   - component: {fileID: 130445577}
-  - component: {fileID: 130445578}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -220,19 +218,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &130445574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 130445573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14aeada3ad51a124f8fa3330d36ca8bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpawnTime: 0
 --- !u!4 &130445575
 Transform:
   m_ObjectHideFlags: 0
@@ -265,7 +250,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 130445574}
+  - {fileID: 0}
   viewIdField: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -283,21 +268,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentTime: 0
   timerText: {fileID: 924838008}
---- !u!114 &130445578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 130445573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e600422c1e6365a439c8a68ff44d7e28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOver: 0
-  panel: {fileID: 0}
-  winText: {fileID: 1420685900}
 --- !u!1 &253936250
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,7 +626,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 130445578}
+      - m_Target: {fileID: 0}
         m_MethodName: ReloadGame
         m_Mode: 1
         m_Arguments:
