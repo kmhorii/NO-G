@@ -15,8 +15,9 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	void Start()
     {
 		GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
-		player.name = PhotonNetwork.NickName;
+        player.GetComponent<PlayerMovement>().PlayerName = PlayerInfo.Name;
 
+        photonView.RPC("DebugLog", RpcTarget.All, PlayerInfo.Name);
 		photonView.RPC("AddPlayerCount", RpcTarget.All);
 	}
 
@@ -24,6 +25,12 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     void Update()
     {
 
+    }
+
+    [PunRPC]
+    void DebugLog(string debug)
+    {
+        Debug.Log(debug);
     }
 
 	[PunRPC]

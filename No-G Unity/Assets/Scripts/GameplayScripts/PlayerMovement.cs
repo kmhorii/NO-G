@@ -11,6 +11,19 @@ public class PlayerMovement : MonoBehaviourPun
     Vector3 cameraDirection;
     Vector3 currentDirection;
 
+    private string playerName;
+    public string PlayerName
+    {
+        get
+        {
+            return playerName;
+        }
+
+        set
+        {
+            playerName = value;
+        }
+    }
     [SerializeField]
     float rotateSpeed;
     [SerializeField]
@@ -58,6 +71,11 @@ public class PlayerMovement : MonoBehaviourPun
 		}
     }
 
+    [PunRPC]
+    void setPlayerName(string name)
+    {
+        if(!photonView.IsMine) this.gameObject.name = name;
+    }
     void GetCameraDirection()
     {
         cameraDirection = Camera.main.transform.forward;
