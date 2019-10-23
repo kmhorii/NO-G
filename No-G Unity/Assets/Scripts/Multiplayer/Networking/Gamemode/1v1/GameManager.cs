@@ -85,12 +85,16 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	public void WinGame()
 	{
 		winGame.SetActive(true);
-	}
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
 	public void LoseGame()
 	{
 		loseGame.SetActive(true);
-	}
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
 	public void StartGame()
 	{
