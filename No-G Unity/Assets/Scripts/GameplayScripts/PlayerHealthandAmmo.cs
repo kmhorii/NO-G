@@ -10,14 +10,15 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 {
 	private Canvas canvas;
 
+	public bool playerJustJoined = true;
     public int killCount;
 
     public float maxHealth = 100;
-    public float currentHealth;
+    public float currentHealth = 100;
 
     public Slider healthbar;
     public Text healthtext;
-
+	
     ShootingGun gun;
 
     public float currentAmmo;
@@ -25,6 +26,10 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 
     private float timeSpent;
     private float reloadFill;
+
+	public GameObject winScreen;
+	public GameObject loseScreen;
+	public Text endText;
 
     public bool isReloading = false;
 
@@ -39,6 +44,7 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
     void Start()
     {
         killCount = 0; 
+
 		healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
 		healthtext = GameObject.Find("HealthText").GetComponent<Text>();
 
@@ -46,6 +52,10 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 		reloadbar = GameObject.Find("Reloadbar").GetComponent<Slider>();
 
 		ammotext = GameObject.Find("AmmoText").GetComponent<Text>();
+
+		winScreen = GameObject.Find("WinScreen");
+		loseScreen = GameObject.Find("LoseScreen");
+
         impactSound = GetComponent<AudioSource>();
 
 		if (maxHealth == 0)
@@ -119,50 +129,7 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 				reloadbar.value = reloadFill;
 			}
 		}
-    }
-    //private void OnCollisionEnter(Collision collision)
-
-    //{
-
-    //    if(collision.collider.tag == "Bullet")
-
-    //    {
-
-    //        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-
-    //        if (bullet.bounceNumber <= bullet.maxBounces - 1)
-
-    //        {
-
-    //            int bulletDamage = bullet.defaultDamage - (bullet.damageReduction * (bullet.maxBounces - bullet.bounceNumber));
-
-    //            DealDamage(bulletDamage);
-
-
-
-    //            Destroy(bullet);
-
-    //            bullet.gunReference.savedLineRender.enabled = false;
-
-    //        }
-
-    //        else
-
-    //        {
-
-    //            Destroy(bullet);
-
-    //            bullet.gunReference.savedLineRender.enabled = false;
-
-    //        }
-
-    //    }
-
-        
-
-    //}
-
-    
+    }   
 
     private float CalculateHealth()
     {
@@ -180,8 +147,6 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 		if(photonView.IsMine)
 		{
 			photonView.RPC("Damage", RpcTarget.All, damagevalue);
-
-            impactSound.Play();
 		}
     }
 
@@ -190,6 +155,7 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 	{
 		//Minus player health w/ damage value
 		currentHealth -= damageValue;
+		impactSound.Play();
 	}
 
     private void Die()
@@ -198,17 +164,29 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
         Debug.Log("Die");
         healthtext.text = "Dead";
 
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		/*GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
             if (player.GetComponent<PlayerHealthandAmmo>().killCount == 3)
             {
                 break;
             }
-        }
-        Respawn();
+        }*/
+
+		//photonView.RPC("GameOver", RpcTarget.All);
+        //Respawn();
         //SceneManager.LoadScene("MergeTest");
     }
+
+	/*public void Win()
+	{
+		winScreen.SetActive(true);
+	}
+
+	public void Lose()
+	{
+		loseScreen.SetActive(true);
+	}*/
 
     float CalculateAmmo()
     {

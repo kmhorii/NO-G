@@ -351,6 +351,9 @@ MonoBehaviour:
   healthtext: {fileID: 0}
   currentAmmo: 0
   maxAmmo: 0
+  winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}
+  endText: {fileID: 0}
   isReloading: 0
   ammobar: {fileID: 0}
   reloadbar: {fileID: 0}

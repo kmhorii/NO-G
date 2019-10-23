@@ -41,5 +41,7 @@ MonoBehaviour:
   - RemovePlayerCount
   - setPlayerName
   - DebugLog
+  - NewPlayerJoined
+  - GameOver
   DisableAutoOpenWizard: 1
   ShowSettings: 1

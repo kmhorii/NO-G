@@ -121,18 +121,18 @@ public class ShootingGun : MonoBehaviourPun
 
     private void Shoot()
     {
-		photonView.RPC("RPCShoot", RpcTarget.All);
+		photonView.RPC("RPCShoot", RpcTarget.All, PlayerInfo.Name);
     }
 
 	[PunRPC]
-	public void RPCShoot()
+	public void RPCShoot(string shooter)
 	{
 		GameObject bullet = Instantiate(bulletPrefab, muzzle.transform.position, muzzle.transform.rotation);
 
 		Rigidbody rb = bullet.GetComponent<Rigidbody>();
 		rb.velocity = muzzle.transform.forward * bulletSpeed;
 
-		bullet.GetComponent<Bullet>().shooter = PlayerInfo.Name;
+		bullet.GetComponent<Bullet>().shooter = shooter;
 	}
 
     private void FireDelay()
