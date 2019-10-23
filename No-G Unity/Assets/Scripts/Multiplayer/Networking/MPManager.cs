@@ -15,7 +15,7 @@ public class MPManager : MonoBehaviourPunCallbacks
 	void Start()
     {
 		PhotonNetwork.ConnectUsingSettings();
-		//PhotonNetwork.NickName = PlayerInfo.Name;
+		PhotonNetwork.NickName = PlayerInfo.Name;
 		//PhotonNetwork.ConnectToRegion("usw");
     }
 

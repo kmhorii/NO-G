@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	void Start()
     {
 		GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
-		//player.name = PhotonNetwork.NickName;
+		player.name = PhotonNetwork.NickName;
 
 		photonView.RPC("AddPlayerCount", RpcTarget.All);
 	}
