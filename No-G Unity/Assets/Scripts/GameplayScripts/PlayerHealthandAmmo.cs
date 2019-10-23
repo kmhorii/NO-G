@@ -57,6 +57,7 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
 		loseScreen = GameObject.Find("LoseScreen");
 
         impactSound = GetComponent<AudioSource>();
+        Debug.Log(impactSound);
 
 		if (maxHealth == 0)
         {

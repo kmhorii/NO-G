@@ -226,6 +226,11 @@ public class ShootingGun : MonoBehaviourPun
         bouncePoints[4] = position;
     }
 
+    public void RespawnGun()
+    {
+        currentAmmo = maxAmmo;
+    }
+
     // recursive version, couldn't figure out how to store the vector points with this
     //private void DrawPredictionShot(Vector3 position, Vector3 direction, int bouncesRemaining)
     //{

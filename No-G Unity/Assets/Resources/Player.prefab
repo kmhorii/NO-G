@@ -176,8 +176,9 @@ GameObject:
   - component: {fileID: 3685824452654221112}
   - component: {fileID: 3685824452654221104}
   - component: {fileID: -4431593576184647997}
-  - component: {fileID: 3685824452654221106}
   - component: {fileID: 7323025999265635649}
+  - component: {fileID: 7679899630436172536}
+  - component: {fileID: 4893626091186023055}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -312,7 +313,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: -4431593576184647997}
-  - {fileID: 3685824452654221106}
+  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -332,34 +333,6 @@ MonoBehaviour:
   objRot: {x: 0, y: 0, z: 0, w: 0}
   objScl: {x: 0, y: 0, z: 0}
   LerpSpeed: 3
---- !u!114 &3685824452654221106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3685824452654221113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33dff9e7681b516458556054903ccbef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerJustJoined: 1
-  killCount: 0
-  maxHealth: 100
-  currentHealth: 0
-  healthbar: {fileID: 0}
-  healthtext: {fileID: 0}
-  currentAmmo: 0
-  maxAmmo: 0
-  winScreen: {fileID: 0}
-  loseScreen: {fileID: 0}
-  endText: {fileID: 0}
-  isReloading: 0
-  ammobar: {fileID: 0}
-  reloadbar: {fileID: 0}
-  ammotext: {fileID: 0}
-  impactSound: {fileID: 0}
 --- !u!82 &7323025999265635649
 AudioSource:
   m_ObjectHideFlags: 0
@@ -456,6 +429,52 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7679899630436172536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685824452654221113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67bf5cd24f67562499cc007294d9ec68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerJustJoined: 1
+  isDead: 0
+  maxHealth: 100
+  currentHealth: 100
+  lives: 3
+  gun: {fileID: 0}
+  impactSound: {fileID: 0}
+--- !u!114 &4893626091186023055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685824452654221113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cfb40038a8f4d74695701d5884b4866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ph: {fileID: 0}
+  maxHealth: 0
+  currentHealth: 0
+  lives: 0
+  healthbar: {fileID: 0}
+  healthtext: {fileID: 0}
+  currentAmmo: 0
+  maxAmmo: 0
+  isReloading: 0
+  winScreen: {fileID: 0}
+  loseScreen: {fileID: 0}
+  endText: {fileID: 0}
+  ammobar: {fileID: 0}
+  reloadbar: {fileID: 0}
+  ammotext: {fileID: 0}
 --- !u!1 &3685824452708716462
 GameObject:
   m_ObjectHideFlags: 0

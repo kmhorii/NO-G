@@ -35,9 +35,9 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     {
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
-			if(plyr.GetComponent<PlayerHealthandAmmo>().currentHealth <= 0)
+			if(plyr.GetComponent<PlayerHealth>().isDead)
 			{
-				if (!plyr.GetComponent<PlayerHealthandAmmo>().playerJustJoined)
+				if (!plyr.GetComponent<PlayerHealth>().playerJustJoined)
 				{
 					if (plyr.GetPhotonView().IsMine) LoseGame();
 					else WinGame();
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 					Cursor.visible = true;
 					Cursor.lockState = CursorLockMode.None;
 				}
-				else plyr.GetComponent<PlayerHealthandAmmo>().playerJustJoined = false;
+				else plyr.GetComponent<PlayerHealth>().playerJustJoined = false;
 			}
 		}
 	}

@@ -28,7 +28,7 @@ public class Bullet : MonoBehaviourPun
     {
         if (collision.collider.tag == "Player")
         {
-            PlayerHealthandAmmo pd = collision.gameObject.GetComponent<PlayerHealthandAmmo>();
+            PlayerHealth pd = collision.gameObject.GetComponent<PlayerHealth>();
 
             if (bounceNumber <= maxBounces - 1)
             {

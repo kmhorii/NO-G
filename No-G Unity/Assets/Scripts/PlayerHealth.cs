@@ -13,7 +13,10 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public float currentHealth = 100;
     public int lives = 3;
 
+    public ShootingGun gun;
+
     public AudioSource impactSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,11 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
             maxHealth = 100f;
         }
         currentHealth = maxHealth;
+
+        impactSound = GetComponent<AudioSource>();
+        Debug.Log(impactSound);
+
+        gun = GetComponentInChildren<ShootingGun>();
     }
 
     // Update is called once per frame
@@ -53,10 +61,16 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         impactSound.Play();
         if(currentHealth <= 0)
         {
+            currentHealth = 0;
             lives--;
-            if(lives < 0)
+            if(lives <= 0)
             {
                 lives = 0;
+                Die();
+            }
+            else
+            {
+                Respawn();
             }
         }
     }
@@ -71,6 +85,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     void Respawn()
     {
         currentHealth = maxHealth;
+        gun.RespawnGun();
         //grab a gun and call ammo respawn
         //optional reset location
     }
