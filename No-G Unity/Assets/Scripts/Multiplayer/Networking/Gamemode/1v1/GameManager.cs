@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 				{
 					if (plyr.GetPhotonView().IsMine) LoseGame();
 					else WinGame();
+
+					Cursor.visible = true;
+					Cursor.lockState = CursorLockMode.None;
 				}
 				else plyr.GetComponent<PlayerHealthandAmmo>().playerJustJoined = false;
 			}

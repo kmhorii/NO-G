@@ -344,6 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dff9e7681b516458556054903ccbef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerJustJoined: 1
   killCount: 0
   maxHealth: 100
   currentHealth: 0

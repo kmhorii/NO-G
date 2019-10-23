@@ -541,7 +541,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Join New Game
+  m_Text: Back to Lobby
 --- !u!222 &529538769
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -654,6 +654,7 @@ GameObject:
   - component: {fileID: 591364190}
   - component: {fileID: 591364189}
   - component: {fileID: 591364188}
+  - component: {fileID: 591364191}
   m_Layer: 5
   m_Name: BackToJoinGame
   m_TagString: Untagged
@@ -724,8 +725,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: ReloadGame
+      - m_Target: {fileID: 591364191}
+        m_MethodName: DisconnectGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -775,6 +776,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 591364186}
   m_CullTransparentMesh: 0
+--- !u!114 &591364191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591364186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e3e2ddd84ac0b4fa872264c1f6df07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &627349764
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,6 +2275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33dff9e7681b516458556054903ccbef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerJustJoined: 1
   killCount: 0
   maxHealth: 100
   currentHealth: 0
@@ -2440,6 +2454,7 @@ GameObject:
   - component: {fileID: 2075017224}
   - component: {fileID: 2075017223}
   - component: {fileID: 2075017222}
+  - component: {fileID: 2075017225}
   m_Layer: 5
   m_Name: BackToJoinGame
   m_TagString: Untagged
@@ -2510,8 +2525,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: ReloadGame
+      - m_Target: {fileID: 2075017225}
+        m_MethodName: DisconnectGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2561,6 +2576,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075017220}
   m_CullTransparentMesh: 0
+--- !u!114 &2075017225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075017220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e3e2ddd84ac0b4fa872264c1f6df07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2125600433
 GameObject:
   m_ObjectHideFlags: 0
@@ -2631,7 +2658,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Join New Game
+  m_Text: Back to Lobby
 --- !u!222 &2125600436
 CanvasRenderer:
   m_ObjectHideFlags: 0
