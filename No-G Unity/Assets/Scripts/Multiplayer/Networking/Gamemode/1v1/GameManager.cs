@@ -35,7 +35,9 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     {
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
-			if(plyr.GetComponent<PlayerHealth>().isDead)
+			if(plyr.name.ToLower().Contains("player(clone)")) plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
+
+			if (plyr.GetComponent<PlayerHealth>().isDead)
 			{
 				if (!plyr.GetComponent<PlayerHealth>().playerJustJoined)
 				{

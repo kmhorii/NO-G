@@ -217,7 +217,7 @@ public class PlayerHealthandAmmo : MonoBehaviourPun, IPunObservable
         {
             if(player != this.gameObject)
             {
-                player.GetComponent<PlayerHealthandAmmo>().killCount++;
+               //player.GetComponent<PlayerHealthandAmmo>().killCount++;
             }
         }
         //optional reset location
