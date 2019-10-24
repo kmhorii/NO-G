@@ -464,8 +464,14 @@ MonoBehaviour:
   maxHealth: 0
   currentHealth: 0
   lives: 0
+  life1: {fileID: 0}
+  life2: {fileID: 0}
+  life3: {fileID: 0}
+  enemyHealth: 0
   healthbar: {fileID: 0}
   healthtext: {fileID: 0}
+  enemyHealthbar: {fileID: 0}
+  enemyHealthtext: {fileID: 0}
   currentAmmo: 0
   maxAmmo: 0
   isReloading: 0

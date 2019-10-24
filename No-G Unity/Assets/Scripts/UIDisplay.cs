@@ -11,8 +11,17 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public float currentHealth;
     public int lives;
 
+    public GameObject life1;
+    public GameObject life2;
+    public GameObject life3;
+
+
+    public float enemyHealth;
+
     public Slider healthbar;
     public Text healthtext;
+    public Slider enemyHealthbar;
+    public Text enemyHealthtext;
 
     ShootingGun gun;
 
@@ -40,12 +49,20 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         currentHealth = ph.currentHealth;
         lives = ph.lives;
 
+        life1 = GameObject.Find("Life 1");
+        life2 = GameObject.Find("Life 2");
+        life3 = GameObject.Find("Life 3");
+
+
         gun = GetComponentInChildren<ShootingGun>();
         maxAmmo = gun.maxAmmo;
         currentAmmo = gun.currentAmmo;
 
         healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
         healthtext = GameObject.Find("HealthText").GetComponent<Text>();
+
+        enemyHealthbar = GameObject.Find("Healthbar (Enemy)").GetComponent<Slider>();
+        enemyHealthtext = GameObject.Find("HealthText (Enemy)").GetComponent<Text>();
 
         healthbar.value = CalculateHealth();
         healthtext.text = ConvertHealthFloattoString();
@@ -65,6 +82,11 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     {
         if (photonView.IsMine)
         {
+            if(lives != ph.lives)
+            {
+                lives = ph.lives;
+                DisplayLives();
+            }
             if (currentHealth != ph.currentHealth)
             {
                 currentHealth = ph.currentHealth;
@@ -104,6 +126,15 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             }
 
         }
+        else
+        {
+            enemyHealth = photonView.gameObject.GetComponent<PlayerHealth>().currentHealth;
+            enemyHealthbar.value = enemyHealth/maxHealth;
+            if(enemyHealthtext.text != photonView.name)
+            {
+                enemyHealthtext.text = photonView.name;
+            }
+        }
 
     }
 
@@ -129,6 +160,34 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         return convertammo.ToString("f0");
     }
 
+    void DisplayLives()
+    {
+        switch (lives)
+        {
+            case 0:
+                life1.SetActive(false);
+                life2.SetActive(false);
+                life3.SetActive(false);
+                break;
+            case 1:
+                life2.SetActive(false);
+                life3.SetActive(false);
+                break;
+            case 2:
+                life3.SetActive(false);
+                break;
+            case 3:
+                life1.SetActive(true);
+                life2.SetActive(true);
+                life3.SetActive(true);
+                break;
+            default:
+                life1.SetActive(false);
+                life2.SetActive(false);
+                life3.SetActive(false);
+                break;
+        }
+    }
     //public void RespawnUI()
     //{
     //    currentHealth = maxHealth;
