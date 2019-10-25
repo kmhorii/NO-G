@@ -54,7 +54,7 @@ public class Timer : MonoBehaviour
         timerText.text = currentTime.ToString();
         if (currentTime <= 0)
         {
-            currentTime = 0;
+            currentTime = 1;
         }
     }
 }
