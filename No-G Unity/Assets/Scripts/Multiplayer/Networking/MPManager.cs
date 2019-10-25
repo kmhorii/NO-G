@@ -19,7 +19,15 @@ public class MPManager : MonoBehaviourPunCallbacks
 		//PhotonNetwork.ConnectToRegion("usw");
     }
 
-	public override void OnConnectedToMaster()
+    private void Update()
+    {
+        if (Input.GetButtonDown("Submit"))
+        {
+            JoinGame();
+        }
+    }
+
+    public override void OnConnectedToMaster()
 	{
 		foreach(GameObject obj in EnableObjectsOnConnect) obj.SetActive(true);
 		foreach(GameObject obj in DisableObjectsOnConnect) obj.SetActive(false);

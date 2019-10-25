@@ -9,7 +9,14 @@ using UnityEngine.SceneManagement;
 public class LoadBack : MonoBehaviourPun
 {
 
-	public void DisconnectGame()
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            DisconnectGame();
+        }
+    }
+    public void DisconnectGame()
 	{
 		StartCoroutine(Disconnecting());
 	}
