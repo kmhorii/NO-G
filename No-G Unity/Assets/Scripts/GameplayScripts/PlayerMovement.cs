@@ -154,9 +154,9 @@ public class PlayerMovement : MonoBehaviourPun
     //It's a little unwieldy right now, but we'll smooth it out later
     void RotatePlayer()
     {
-        xRotation += -Input.GetAxis("Mouse Y") * rotateSpeed;
+        xRotation += -Input.GetAxis("Mouse Y") * rotateSpeed *Time.deltaTime;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
-        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * rotateSpeed);
+        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * rotateSpeed*Time.deltaTime);
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         //if(mainCamera.transform.rotation.x > 90)
         //{

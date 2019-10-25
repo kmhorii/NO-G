@@ -292,7 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previewOn: 0
   alreadyFired: 0
-  rotateSpeed: 4
+  rotateSpeed: 240
   movementSpeed: 3
   mainCamera: {fileID: 3685824452708716460}
   CurrentWeapon: {fileID: 8196529589716227544}
