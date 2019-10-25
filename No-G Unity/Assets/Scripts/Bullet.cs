@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviourPun
 
     public int playerHealth;
 
-    public int defaultDamage = 34;
+    public int defaultDamage = 34;      
     public int damageReduction = 2;
 
     void Start()
@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviourPun
 
             if (bounceNumber <= maxBounces - 1)
             {
-                int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber));
+                int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber - 1));
                 pd.DealDamage(bulletDamage);
 
                 Destroy(gameObject);
