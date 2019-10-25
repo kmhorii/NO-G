@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 	public GameObject winGame;
 	public GameObject loseGame;
+	public Timer timerClock;
 
 	// Start is called before the first frame update
 	void Start()
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	// Update is called once per frame
 	void Update()
     {
+		if (GameObject.FindGameObjectsWithTag("Player").Length == 2) StartGame();
+
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
 			if(plyr.name.ToLower().Contains("player(clone)")) plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
@@ -58,11 +61,6 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
 			plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
-		}
-
-		if(GameObject.FindGameObjectsWithTag("Player").Length == 2)
-		{
-			StartGame();
 		}
 	}
 
@@ -100,7 +98,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 	public void StartGame()
 	{
-
+		timerClock.starting = true;
 	}
 
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

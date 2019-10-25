@@ -8,6 +8,8 @@ public class Timer : MonoBehaviour
     //public Text timerText;
     private int startTime = 120;
 
+	public bool starting = false;
+	public bool started = false;
     public int currentTime = 0;
 
     [SerializeField] Text timerText;
@@ -16,20 +18,25 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentTime = startTime;
-        InvokeRepeating("CountdownTimer", 0,1);
         // startTime = Time.time;
     }
 
     // Update is called once per frame
     void Update()
     {
+		if(!started)
+		{
+			if (starting)
+			{
+				started = true;
+				currentTime = startTime;
+				InvokeRepeating("CountdownTimer", 0, 1);
+			}
+		}
 
 
-        
-       
 
-        /*
+		/*
         float t = Time.time - startTime;
 
         string minutes = ((int)(t) / 60).ToString();
@@ -39,7 +46,7 @@ public class Timer : MonoBehaviour
 
         timerText.text = minutes + ":" + seconds;
         */
-    }
+	}
 
     void CountdownTimer()
     {
