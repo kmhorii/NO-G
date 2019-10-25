@@ -26,7 +26,7 @@ public class ShootingGun : MonoBehaviourPun
     public int currentAmmo;
     public float reloadTime = 1.5f;
 
-    public int maxBounces = 8;
+    public int maxBounces = 4;
     public float maxStepDistance = 1000;
 
     public Material previewMaterial;
@@ -48,6 +48,8 @@ public class ShootingGun : MonoBehaviourPun
         savedLineRender.enabled = false;
     }
 
+    //Tracking camera for Photon
+    //Previous bug of not finding camera when loading in player
     private void Update()
     {
         if (photonView.IsMine)
@@ -57,6 +59,7 @@ public class ShootingGun : MonoBehaviourPun
         }
     }
 
+    //Preview Shot
 	public void DownAiming()
 	{
 		aiming = true;
@@ -79,12 +82,14 @@ public class ShootingGun : MonoBehaviourPun
 		lineRender.enabled = false;
 	}
 
+    //Reload
 	public void Reloading()
 	{
 		StartCoroutine(Reload());
 		return;
 	}
 
+    //Shooting
 	public void Shooting()
 	{
 		if (currentAmmo == 0)
@@ -119,11 +124,14 @@ public class ShootingGun : MonoBehaviourPun
         isReloading = false;
     }
 
+    //Photon Shooting
     private void Shoot()
     {
 		photonView.RPC("RPCShoot", RpcTarget.All, PlayerInfo.Name);
     }
 
+
+    //Spawning Bullet for Photon
 	[PunRPC]
 	public void RPCShoot(string shooter)
 	{
