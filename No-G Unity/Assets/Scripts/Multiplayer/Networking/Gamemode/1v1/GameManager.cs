@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	// Update is called once per frame
 	void Update()
     {
+
 		if (GameObject.FindGameObjectsWithTag("Player").Length == 2) StartGame();
 
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))

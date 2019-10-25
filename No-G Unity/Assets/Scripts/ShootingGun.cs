@@ -64,10 +64,12 @@ public class ShootingGun : MonoBehaviourPun
 	{
 		aiming = true;
 		lineRender.enabled = true;
-	}
+        Debug.Log(lineRender.enabled);
+    }
 
 	public void Aiming()
 	{
+        lineRender.enabled = true;
 		DrawPredictionShotLong(muzzle.position, muzzle.forward, maxBounces);
 
 		for (int i = 0; i <= 4; i++)
@@ -94,12 +96,12 @@ public class ShootingGun : MonoBehaviourPun
 	{
 		if (currentAmmo == 0)
 			StartCoroutine(Reload());
-		else if (!isShooting)
+		else if (!isShooting && !isReloading)
 		{
 			Shoot();
 			isShooting = true;
 
-			if (Input.GetMouseButton(1))
+			if (Input.GetMouseButton(1) || Input.GetAxisRaw("Preview") == 1)
 			{
 				SavePreview();
 			}
@@ -187,6 +189,8 @@ public class ShootingGun : MonoBehaviourPun
     // repeats til last bounce
     private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
     {
+        //Debug.Log("Drawing");
+
         Vector3 startingPosition = position;
         Vector3 startingDirection = direction;
 

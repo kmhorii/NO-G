@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviourPun
     Vector3 cameraDirection;
     Vector3 currentDirection;
 
+    public bool previewOn = false;
+    public bool alreadyFired = false;
+
     private string playerName;
     public string PlayerName
     {
@@ -90,32 +93,46 @@ public class PlayerMovement : MonoBehaviourPun
 
 	void ShootGun()
 	{
-		if (Input.GetKeyDown(KeyCode.Mouse1))
+        //Debug.Log(Input.GetKeyDown(KeyCode.Mouse1));
+        //Debug.Log("Key: " + Input.GetKey(KeyCode.Mouse1));
+
+        if (Input.GetKeyDown(KeyCode.Mouse1) || (Input.GetAxisRaw("Preview") == 1 && !previewOn))
 		{
+            previewOn = true;
 			CurrentWeapon.GetComponent<ShootingGun>().DownAiming();
+            CurrentWeapon.GetComponent<ShootingGun>().lineRender.enabled = true;
 		}
 
-		if (Input.GetKey(KeyCode.Mouse1))
+		if (Input.GetKey(KeyCode.Mouse1) || (Input.GetAxisRaw("Preview") == 1 && previewOn))
 		{
-			CurrentWeapon.GetComponent<ShootingGun>().Aiming();
-		}
+            CurrentWeapon.GetComponent<ShootingGun>().Aiming();
+        }
 
-		if (Input.GetKeyUp(KeyCode.Mouse1))
+        if (Input.GetKeyUp(KeyCode.Mouse1) || (Input.GetAxisRaw("Preview") == 0 && previewOn))
 		{
 			CurrentWeapon.GetComponent<ShootingGun>().DoneAiming();
-		}
+            previewOn = false;
 
-		if (Input.GetKeyDown(KeyCode.R))
+        }
+
+        //Reload set to x or r
+        if (Input.GetButtonDown("Reload"))
 		{
 			CurrentWeapon.GetComponent<ShootingGun>().Reloading();
 		}
 
-		if (Input.GetKeyDown(KeyCode.Mouse0))
+        //Firing set to mouse0 or right trigger
+		if (Input.GetKeyDown(KeyCode.Mouse0)|| (Input.GetAxisRaw("Fire1") == 1 && !alreadyFired))
 		{
-            if (!CurrentWeapon.GetComponent<ShootingGun>().isShooting)
+            alreadyFired = true;
+            if (!CurrentWeapon.GetComponent<ShootingGun>().isShooting && !CurrentWeapon.GetComponent<ShootingGun>().isReloading)
             {
                 CurrentWeapon.GetComponent<ShootingGun>().Shooting();
             }
+        }
+        if(Input.GetAxisRaw("Fire1") == 0)
+        {
+            alreadyFired = false;
         }
 	}
 
@@ -123,7 +140,7 @@ public class PlayerMovement : MonoBehaviourPun
     //May add raycasts to see if there's anything in the way.
     void MovePlayer()
     {
-        if (Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetButtonDown("Move"))
         {
             GetCameraDirection();
             rigidbody.AddForce(cameraDirection*movementSpeed, ForceMode.VelocityChange);
