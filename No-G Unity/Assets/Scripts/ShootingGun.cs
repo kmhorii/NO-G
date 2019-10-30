@@ -26,7 +26,7 @@ public class ShootingGun : MonoBehaviourPun
     public int currentAmmo;
     public float reloadTime = 1.5f;
 
-    public int maxBounces = 4;
+    public int maxBounces = 8;
     public float maxStepDistance = 1000;
 
     public Material previewMaterial;
