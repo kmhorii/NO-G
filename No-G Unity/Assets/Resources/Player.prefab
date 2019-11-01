@@ -292,7 +292,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previewOn: 0
   alreadyFired: 0
-  rotateSpeed: 240
+  startPosition: {x: 0, y: 0, z: 0}
+  rotateSpeed: 4
   movementSpeed: 3
   mainCamera: {fileID: 3685824452708716460}
   CurrentWeapon: {fileID: 8196529589716227544}
@@ -449,6 +450,7 @@ MonoBehaviour:
   currentHealth: 100
   lives: 3
   gun: {fileID: 0}
+  player: {fileID: 0}
   impactSound: {fileID: 0}
 --- !u!114 &4893626091186023055
 MonoBehaviour:

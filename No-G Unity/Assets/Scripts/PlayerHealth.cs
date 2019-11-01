@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public int lives = 3;
 
     public ShootingGun gun;
+    public PlayerMovement player;
 
     public AudioSource impactSound;
 
@@ -28,9 +29,9 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         currentHealth = maxHealth;
 
         impactSound = GetComponent<AudioSource>();
-        Debug.Log(impactSound);
 
         gun = GetComponentInChildren<ShootingGun>();
+        player = GetComponent<PlayerMovement>();
     }
 
     // Update is called once per frame
@@ -88,6 +89,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         gun.RespawnGun();
         //grab a gun and call ammo respawn
         //optional reset location
+        player.RespawnPosition();
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

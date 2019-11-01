@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviourPun
     public bool previewOn = false;
     public bool alreadyFired = false;
 
+    public Vector3 startPosition;
+
     private string playerName;
     public string PlayerName
     {
@@ -53,6 +55,7 @@ public class PlayerMovement : MonoBehaviourPun
         cameraStartRotation_x = mainCamera.transform.rotation.x;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        startPosition = this.transform.position;
 
 		if (photonView.IsMine) cam.SetActive(true);
 		else cam.SetActive(false);
@@ -144,7 +147,6 @@ public class PlayerMovement : MonoBehaviourPun
         {
             GetCameraDirection();
             rigidbody.AddForce(cameraDirection*movementSpeed, ForceMode.VelocityChange);
-            Debug.Log("Moving");
             //AddForce();
         }
         //transform.position += currentDirection * Time.deltaTime * movementSpeed;
@@ -154,9 +156,9 @@ public class PlayerMovement : MonoBehaviourPun
     //It's a little unwieldy right now, but we'll smooth it out later
     void RotatePlayer()
     {
-        xRotation += -Input.GetAxis("Mouse Y") * rotateSpeed *Time.deltaTime;
+        xRotation += -Input.GetAxis("Mouse Y") * rotateSpeed *(1/Time.deltaTime)*Time.deltaTime;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
-        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * rotateSpeed*Time.deltaTime);
+        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * rotateSpeed* (1/Time.deltaTime)*Time.deltaTime);
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         //if(mainCamera.transform.rotation.x > 90)
         //{
@@ -174,5 +176,12 @@ public class PlayerMovement : MonoBehaviourPun
     {
         
         //mainCamera.transform.localRotation = Quaternion.Euler(-mainCamera.transform.localRotation.x *rotateSpeed, 0, 0);
+    }
+    public void RespawnPosition()
+    {
+        if (photonView.IsMine)
+        {
+            this.transform.position = startPosition;
+        }
     }
 }

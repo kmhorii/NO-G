@@ -61,8 +61,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
         healthtext = GameObject.Find("HealthText").GetComponent<Text>();
 
-        enemyHealthbar = GameObject.Find("Healthbar (Enemy)").GetComponent<Slider>();
-        enemyHealthtext = GameObject.Find("HealthText (Enemy)").GetComponent<Text>();
+        enemyHealthbar = GameObject.Find("Healthbar (Enemy) (1)").GetComponent<Slider>();
+        enemyHealthtext = GameObject.Find("HealthText (Enemy) (1)").GetComponent<Text>();
 
         healthbar.value = CalculateHealth();
         healthtext.text = ConvertHealthFloattoString();
