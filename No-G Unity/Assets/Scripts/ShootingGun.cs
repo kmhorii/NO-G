@@ -70,7 +70,7 @@ public class ShootingGun : MonoBehaviourPun
 	public void Aiming()
 	{
         lineRender.enabled = true;
-		DrawPredictionShotLong(muzzle.position, muzzle.forward, maxBounces);
+		DrawPredictionShotLong(muzzle.position, muzzle.forward, 4);
 
 		for (int i = 0; i <= 4; i++)
 		{
@@ -187,7 +187,7 @@ public class ShootingGun : MonoBehaviourPun
     // creates new raycast from where the raycast hits in direction based on Vector3.Reflect() 
     // stores point in array
     // repeats til last bounce
-    private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
+    /*private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
     {
         //Debug.Log("Drawing");
 
@@ -236,7 +236,7 @@ public class ShootingGun : MonoBehaviourPun
         }
 
         bouncePoints[4] = position;
-    }
+    }*/
 
     public void RespawnGun()
     {
@@ -244,28 +244,31 @@ public class ShootingGun : MonoBehaviourPun
     }
 
     // recursive version, couldn't figure out how to store the vector points with this
-    //private void DrawPredictionShot(Vector3 position, Vector3 direction, int bouncesRemaining)
-    //{
-    //    if (bouncesRemaining == 0)
-    //    {
-    //        return;
-    //    }
+    private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
+    {
+        int currentBounce = 4 - bouncesRemaining;
 
-    //    Vector3 startingPosition = position;
+        if (bouncesRemaining == 0) return;
+        else if(currentBounce == 0)
+        {
+            bouncePoints[0] = position;
+            DrawPredictionShotLong(position, direction, --bouncesRemaining);
 
-    //    Ray ray = new Ray(position, direction);
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(ray, out hit, maxStepDistance))
-    //    {
-    //        direction = Vector3.Reflect(direction, hit.normal);
-    //        position = hit.point;
-    //    }
-    //    else
-    //    {
-    //        position += direction * maxStepDistance;
-    //    }
+            return;
+        }
+        Vector3 startingPosition = position;
+        
+        Ray ray = new Ray(startingPosition, direction);
+        RaycastHit hit;
 
-    //    Gizmos.color = Color.green;
-    //    Gizmos.DrawLine(startingPosition, position);
-    //}
+        if (Physics.Raycast(ray, out hit, maxStepDistance))
+        {
+            direction = Vector3.Reflect(direction, hit.normal);
+            position = hit.point;
+        }
+
+        bouncePoints[currentBounce] = position;
+
+        DrawPredictionShotLong(position, direction, --bouncesRemaining);
+    }
 }
