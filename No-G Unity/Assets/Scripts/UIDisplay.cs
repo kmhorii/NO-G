@@ -65,13 +65,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
         healthtext = GameObject.Find("HealthText").GetComponent<Text>();
 
-<<<<<<< Updated upstream
         enemyHealthbar = GameObject.Find("Healthbar (Enemy) (1)").GetComponent<Slider>();
         enemyHealthtext = GameObject.Find("HealthText (Enemy) (1)").GetComponent<Text>();
-=======
-        //enemyHealthbar = GameObject.Find("Healthbar (Enemy)").GetComponent<Slider>();
-        //enemyHealthtext = GameObject.Find("HealthText (Enemy)").GetComponent<Text>();
->>>>>>> Stashed changes
 
         healthbar.value = CalculateHealth();
         healthtext.text = ConvertHealthFloattoString();
@@ -236,7 +231,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
        // Rayc
         RaycastHit hit;
-        RaycastHit Playerhit = collision.gameobject.name == "Player";
+
         //Vector3 startingPosition;
         //Vector3 fwd = transform.TransformDirection(Vector3.forward);
         // Ray ray = new Ray(startingPosition, direction);
@@ -246,16 +241,10 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         {
             Debug.DrawLine(ray.origin,hit.point);
 
-            if (Physics.Raycast(ray, out Playerhit))
+            if(hit.collider.tag == "Player")
             {
-                Debug.Log("Player hit");
+
             }
-           /*
-            if (Physics.Raycast(ray, out Playerhit))
-            {
-                Debug.Log("Player hit");
-            }
-            */
            Debug.Log(hit.transform.gameObject.name);
         }
         
