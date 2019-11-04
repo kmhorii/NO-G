@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviourPun
     public bool alreadyFired = false;
 
     public Vector3 startPosition;
+    public Quaternion startRotation;
 
     private string playerName;
     public string PlayerName
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviourPun
     }
     [SerializeField]
     float rotateSpeed;
+    float modifiedRotateSpeed;
     [SerializeField]
     float movementSpeed;
 
@@ -56,6 +58,7 @@ public class PlayerMovement : MonoBehaviourPun
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         startPosition = this.transform.position;
+        startRotation = this.transform.rotation;
 
 		if (photonView.IsMine) cam.SetActive(true);
 		else cam.SetActive(false);
@@ -66,8 +69,13 @@ public class PlayerMovement : MonoBehaviourPun
     {
 		if (photonView.IsMine)
 		{
-			if (CurrentWeapon != null) ShootGun();
-			RotatePlayer();
+            modifiedRotateSpeed = rotateSpeed * (1 / Time.deltaTime);
+			if (CurrentWeapon != null && !this.GetComponent<PlayerHealth>().isDead) ShootGun();
+            else if (this.GetComponent<PlayerHealth>().isDead)
+            {
+                CurrentWeapon.GetComponent<ShootingGun>().lineRender.enabled = false;
+            }
+            RotatePlayer();
 			MovePlayer();
 
 			if (Input.GetKeyUp(KeyCode.W))
@@ -156,9 +164,9 @@ public class PlayerMovement : MonoBehaviourPun
     //It's a little unwieldy right now, but we'll smooth it out later
     void RotatePlayer()
     {
-        xRotation += -Input.GetAxis("Mouse Y") * rotateSpeed *(1/Time.deltaTime)*Time.deltaTime;
+        xRotation += -Input.GetAxis("Mouse Y") * modifiedRotateSpeed *Time.deltaTime;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
-        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * rotateSpeed* (1/Time.deltaTime)*Time.deltaTime);
+        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * modifiedRotateSpeed *Time.deltaTime);
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         //if(mainCamera.transform.rotation.x > 90)
         //{
@@ -182,6 +190,7 @@ public class PlayerMovement : MonoBehaviourPun
         if (photonView.IsMine)
         {
             this.transform.position = startPosition;
+            this.transform.rotation = startRotation;
         }
     }
 }

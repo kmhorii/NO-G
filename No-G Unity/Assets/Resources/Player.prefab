@@ -293,6 +293,7 @@ MonoBehaviour:
   previewOn: 0
   alreadyFired: 0
   startPosition: {x: 0, y: 0, z: 0}
+  startRotation: {x: 0, y: 0, z: 0, w: 0}
   rotateSpeed: 4
   movementSpeed: 3
   mainCamera: {fileID: 3685824452708716460}
