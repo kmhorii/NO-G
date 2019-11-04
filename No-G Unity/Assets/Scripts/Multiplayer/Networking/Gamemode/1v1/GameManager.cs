@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	float timer = 0;
 	bool hasPlayerSpawned = false;
 	int CurPlayers;
+    List<GameObject> deadPlayers;
+    int numDeadPlayers;
 
 	public GameObject winGame;
 	public GameObject loseGame;
@@ -29,13 +31,13 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		{
 			plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
 		}
+        deadPlayers = new List<GameObject>();
 	}
 
 	// Update is called once per frame
 	void Update()
     {
-
-		if (GameObject.FindGameObjectsWithTag("Player").Length == 2) StartGame();
+		if (GameObject.FindGameObjectsWithTag("Player").Length >= 2) StartGame();
 
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
@@ -45,15 +47,55 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 			{
 				if (!plyr.GetComponent<PlayerHealth>().playerJustJoined)
 				{
-					if (plyr.GetPhotonView().IsMine) LoseGame();
-					else WinGame();
-
+					/*if (plyr.GetPhotonView().IsMine) */Spectate(plyr);
+                    //else WinGame();
+                    int count = 0;
+                    if(deadPlayers != null)
+                    {
+                        foreach (GameObject dead in deadPlayers)
+                        {
+                            if (plyr != dead)
+                            {
+                                count++;
+                            }
+                        }
+                        if (count == deadPlayers.Count)
+                        {
+                            deadPlayers.Add(plyr);
+                        }
+                    }
+                    else
+                    {
+                        deadPlayers.Add(plyr);
+                    }
+                    
 					Cursor.visible = true;
 					Cursor.lockState = CursorLockMode.None;
 				}
 				else plyr.GetComponent<PlayerHealth>().playerJustJoined = false;
 			}
+            
 		}
+        if(GameObject.FindGameObjectsWithTag("Player").Length - deadPlayers.Count == 1 && GameObject.FindGameObjectsWithTag("Player").Length > 1)
+        {
+            foreach(GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                if (!plyr.GetComponent<PlayerHealth>().isDead)
+                {
+                    if (plyr.GetPhotonView().IsMine)
+                    {
+                        WinGame();
+                    }
+                }
+                else
+                {
+                    if (plyr.GetPhotonView().IsMine)
+                    {
+                        LoseGame();
+                    }
+                }
+            }
+        }
 	}
 
 	[PunRPC]
@@ -97,7 +139,23 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         Cursor.lockState = CursorLockMode.None;
     }
 
-	public void StartGame()
+    public void Spectate(GameObject player)
+    {
+        Debug.Log("Spectating");
+        player.GetComponentInChildren<ShootingGun>().enabled = false;
+        //player.GetComponent<MeshRenderer>().enabled = false;
+        foreach(MeshRenderer mr in player.GetComponentsInChildren<MeshRenderer>())
+        {
+            mr.enabled = false;
+        }
+        player.layer = 14;
+        if (player.GetPhotonView().IsMine)
+        {
+            player.GetComponent<UIDisplay>().enabled = false;
+        }
+    }
+
+    public void StartGame()
 	{
 		timerClock.starting = true;
 	}
