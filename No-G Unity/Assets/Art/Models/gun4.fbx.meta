@@ -3,7 +3,37 @@ guid: 15e0540931a0b2e4bb035e950e8db010
 ModelImporter:
   serializedVersion: 26
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: bolts
+    second: {fileID: 2100000, guid: f20cf08635e19bf4fae0a59b96aef222, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cylinder1
+    second: {fileID: 2100000, guid: 87ef5f083056091468547665272870a2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grip
+    second: {fileID: 2100000, guid: e88f38a2e7a9f684cb6e79a8a530de0c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gunMetal
+    second: {fileID: 2100000, guid: f3b4f44a3736bee45a2dd506b1dd9a3c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hammer1
+    second: {fileID: 2100000, guid: fdfb707529124f14d9c6b0971f25883b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: trigger1
+    second: {fileID: 2100000, guid: 11c0cc42b3c004549b4428b678916b2d, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
