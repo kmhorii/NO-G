@@ -41,6 +41,10 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     public Text ammotext;
 
+    //
+    public Camera myCam;
+    public Transform muzzle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,8 +65,13 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
         healthtext = GameObject.Find("HealthText").GetComponent<Text>();
 
+<<<<<<< Updated upstream
         enemyHealthbar = GameObject.Find("Healthbar (Enemy) (1)").GetComponent<Slider>();
         enemyHealthtext = GameObject.Find("HealthText (Enemy) (1)").GetComponent<Text>();
+=======
+        //enemyHealthbar = GameObject.Find("Healthbar (Enemy)").GetComponent<Slider>();
+        //enemyHealthtext = GameObject.Find("HealthText (Enemy)").GetComponent<Text>();
+>>>>>>> Stashed changes
 
         healthbar.value = CalculateHealth();
         healthtext.text = ConvertHealthFloattoString();
@@ -75,6 +84,11 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
         winScreen = GameObject.Find("WinScreen");
         loseScreen = GameObject.Find("LoseScreen");
+
+        //
+        myCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+       
+        
     }
 
     // Update is called once per frame
@@ -124,7 +138,6 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
                 healthtext.text = "Dead";
 
             }
-
         }
         else
         {
@@ -135,7 +148,10 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
                 enemyHealthtext.text = photonView.name;
             }
         }
+        ////
 
+        RayUI();
+        
     }
 
     private float CalculateHealth()
@@ -211,5 +227,37 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         {
             currentHealth = (float)stream.ReceiveNext();
         }
+    }
+
+    void RayUI()
+    {
+        //Raycast For UI
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+       // Rayc
+        RaycastHit hit;
+        RaycastHit Playerhit = collision.gameobject.name == "Player";
+        //Vector3 startingPosition;
+        //Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        // Ray ray = new Ray(startingPosition, direction);
+
+
+        if (Physics.Raycast(myCam.transform.position, myCam.transform.forward, out hit))
+        {
+            Debug.DrawLine(ray.origin,hit.point);
+
+            if (Physics.Raycast(ray, out Playerhit))
+            {
+                Debug.Log("Player hit");
+            }
+           /*
+            if (Physics.Raycast(ray, out Playerhit))
+            {
+                Debug.Log("Player hit");
+            }
+            */
+           Debug.Log(hit.transform.gameObject.name);
+        }
+        
     }
 }

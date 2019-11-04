@@ -485,6 +485,8 @@ MonoBehaviour:
   ammobar: {fileID: 0}
   reloadbar: {fileID: 0}
   ammotext: {fileID: 0}
+  myCam: {fileID: 0}
+  muzzle: {fileID: 0}
 --- !u!1 &3685824452708716462
 GameObject:
   m_ObjectHideFlags: 0
