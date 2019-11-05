@@ -82,6 +82,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
         //
         myCam = GameObject.Find("Main Camera").GetComponent<Camera>();
+
+
        
         
     }
