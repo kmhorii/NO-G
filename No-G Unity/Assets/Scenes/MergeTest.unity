@@ -3486,6 +3486,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2) Health
       objectReference: {fileID: 0}
+    - target: {fileID: 6126424294562869340, guid: b80afb9626e5e4c4f8c4bf7435cc4b22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 377636203274404915, guid: b80afb9626e5e4c4f8c4bf7435cc4b22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3590,6 +3595,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200884127397226031, guid: b80afb9626e5e4c4f8c4bf7435cc4b22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200884127662594815, guid: b80afb9626e5e4c4f8c4bf7435cc4b22,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200884126425734818, guid: b80afb9626e5e4c4f8c4bf7435cc4b22,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200884126425734818, guid: b80afb9626e5e4c4f8c4bf7435cc4b22,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200884126425734818, guid: b80afb9626e5e4c4f8c4bf7435cc4b22,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b80afb9626e5e4c4f8c4bf7435cc4b22, type: 3}
@@ -6204,6 +6234,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy (3) Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162589127241286819, guid: ee1602b18585e14438934e41a1c3407f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5014685339474092871, guid: ee1602b18585e14438934e41a1c3407f,
         type: 3}
