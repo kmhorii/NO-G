@@ -88,7 +88,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         reloadbar.gameObject.SetActive(false);
 
 
-       
+        enemyHealthbar.gameObject.SetActive(false);
         
     }
 
@@ -250,7 +250,11 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
             if(hit.collider.tag == "Player")
             {
-
+                enemyHealthbar.gameObject.SetActive(true);
+            }
+            else
+            {
+                enemyHealthbar.gameObject.SetActive(false);
             }
            Debug.Log(hit.transform.gameObject.name);
         }
