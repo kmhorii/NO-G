@@ -475,6 +475,7 @@ MonoBehaviour:
   enemyHealth: 0
   healthbar: {fileID: 0}
   healthtext: {fileID: 0}
+  enemyObject: {fileID: 0}
   enemyHealthbar: {fileID: 0}
   enemyHealthtext: {fileID: 0}
   currentAmmo: 0
