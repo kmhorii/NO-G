@@ -20,6 +20,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     public Slider healthbar;
     public Text healthtext;
+
+    public GameObject enemyObject;
     public Slider enemyHealthbar;
     public Text enemyHealthtext;
 
@@ -97,7 +99,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     {
         if (photonView.IsMine)
         {
-            if(lives != ph.lives)
+            if (lives != ph.lives)
             {
                 lives = ph.lives;
                 DisplayLives();
@@ -140,19 +142,23 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
                 healthtext.text = "Dead";
 
             }
+            RayUI();
+
+            if (enemyObject != null)
+            {
+                enemyHealth = enemyObject.GetComponent<PlayerHealth>().currentHealth;
+                enemyHealthbar.value = enemyHealth / maxHealth;
+                if (enemyHealthtext.text != enemyObject.GetPhotonView().name)
+                {
+                    enemyHealthtext.text = enemyObject.GetPhotonView().name;
+                }
+            }
         }
         else
         {
-            enemyHealth = photonView.gameObject.GetComponent<PlayerHealth>().currentHealth;
-            enemyHealthbar.value = enemyHealth/maxHealth;
-            if(enemyHealthtext.text != photonView.name)
-            {
-                enemyHealthtext.text = photonView.name;
-            }
+         
         }
         ////
-
-        RayUI();
         
     }
 
@@ -250,11 +256,15 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
             if(hit.collider.tag == "Player")
             {
+                enemyObject = hit.collider.gameObject;
                 enemyHealthbar.gameObject.SetActive(true);
+                enemyHealthtext.gameObject.SetActive(true);
             }
             else
             {
+                enemyObject = null;
                 enemyHealthbar.gameObject.SetActive(false);
+                enemyHealthtext.gameObject.SetActive(false);
             }
            Debug.Log(hit.transform.gameObject.name);
         }
