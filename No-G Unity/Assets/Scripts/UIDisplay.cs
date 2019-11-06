@@ -43,7 +43,9 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     //
     public Camera myCam;
-    public Transform muzzle;
+
+
+ 
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +85,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         //
         myCam = GameObject.Find("Main Camera").GetComponent<Camera>();
 
+        reloadbar.gameObject.SetActive(false);
+
 
        
         
@@ -116,12 +120,13 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             }
             if (isReloading)
             {
+                reloadbar.gameObject.SetActive(false);
                 if (timeSpent < gun.reloadTime || currentAmmo == 0)
                 {
                     timeSpent += Time.deltaTime;
                     reloadFill += (1f / gun.reloadTime) * Time.deltaTime;
                     reloadbar.value = reloadFill;
-
+                    reloadbar.gameObject.SetActive(true);
                 }
             }
             else
