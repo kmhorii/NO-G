@@ -54,7 +54,7 @@ public class MPManager : MonoBehaviourPunCallbacks
 		PhotonNetwork.AutomaticallySyncScene = true;
 
 		int rnd = Random.Range(0, 10000);
-		RoomOptions ro = new RoomOptions { MaxPlayers = 5, IsOpen = true, IsVisible = true};
+		RoomOptions ro = new RoomOptions { MaxPlayers = 4, IsOpen = true, IsVisible = true};
 		PhotonNetwork.CreateRoom("default#" + rnd, ro, TypedLobby.Default);
 		Debug.Log("Creating room");
 

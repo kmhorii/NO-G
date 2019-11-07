@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     {
 		if (GameObject.FindGameObjectsWithTag("Player").Length >= 2) StartGame();
 
+		if (GameObject.FindGameObjectsWithTag("Player").Length == 3) StartGame();
+
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
 			if(plyr.name.ToLower().Contains("player(clone)")) plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
@@ -47,28 +49,19 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 			{
 				if (!plyr.GetComponent<PlayerHealth>().playerJustJoined)
 				{
-					/*if (plyr.GetPhotonView().IsMine) */Spectate(plyr);
-                    //else WinGame();
-                    int count = 0;
-                    if(deadPlayers != null)
-                    {
-                        foreach (GameObject dead in deadPlayers)
-                        {
-                            if (plyr != dead)
-                            {
-                                count++;
-                            }
-                        }
-                        if (count == deadPlayers.Count)
-                        {
-                            deadPlayers.Add(plyr);
-                        }
-                    }
-                    else
-                    {
-                        deadPlayers.Add(plyr);
-                    }
-                    
+					Destroy(plyr);
+					if (GameObject.FindGameObjectsWithTag("Player").Length > 2)
+					{
+						
+					}
+					else
+					{
+						this.GetComponent<PlayerMovement>().enabled = false;
+						this.GetComponent<PlayerHealth>().enabled = false;
+						if (plyr.GetPhotonView().IsMine) LoseGame();
+						else WinGame();
+					}
+
 					Cursor.visible = true;
 					Cursor.lockState = CursorLockMode.None;
 				}
