@@ -266,7 +266,7 @@ public class ShootingGun : MonoBehaviourPun
             direction = Vector3.Reflect(direction, hit.normal);
             position = hit.point;
         }
-
+        
         bouncePoints[currentBounce] = position;
 
         DrawPredictionShotLong(position, direction, --bouncesRemaining);

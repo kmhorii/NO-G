@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3685824452098483029}
   - component: {fileID: 3685824452098483028}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: savedPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -666,7 +666,7 @@ GameObject:
   m_Component:
   - component: {fileID: 80006800958336764}
   - component: {fileID: 4812575531474598671}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: previewShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

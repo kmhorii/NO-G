@@ -11,6 +11,7 @@ TagManager:
   - GameManager
   - GameOver
   - Wall
+  - NotBouncyWall
   layers:
   - Default
   - TransparentFX

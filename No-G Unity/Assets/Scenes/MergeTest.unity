@@ -6727,21 +6727,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle1
       objectReference: {fileID: 0}
-    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
-        type: 3}
-      propertyPath: m_TagString
-      value: Wall
-      objectReference: {fileID: 0}
-    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8495727715749588078, guid: 85e9cf44b89e8504cadb22a304b657a1,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 8495727715749588079, guid: 85e9cf44b89e8504cadb22a304b657a1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6796,16 +6781,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180.00002
-      objectReference: {fileID: 0}
-    - target: {fileID: 8106236487167622513, guid: 85e9cf44b89e8504cadb22a304b657a1,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8106236487167622513, guid: 85e9cf44b89e8504cadb22a304b657a1,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85e9cf44b89e8504cadb22a304b657a1, type: 3}
