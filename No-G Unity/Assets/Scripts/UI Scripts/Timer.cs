@@ -73,6 +73,7 @@ public class Timer : MonoBehaviour
         countdownText.text = currCDTime.ToString();
         if (currCDTime == -1)
         {
+           countdownText.text = "START";
            countdownText.gameObject.SetActive(false);
            currentTime = startTime;
            InvokeRepeating("RoundTimer", 0, 1);
