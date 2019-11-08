@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+    //Round Timer
     //public Text timerText;
     private int startTime = 120;
 
@@ -12,7 +13,10 @@ public class Timer : MonoBehaviour
 	public bool started = false;
     public int currentTime = 0;
 
-    [SerializeField] Text timerText;
+    [SerializeField] Text timerText, countdownText;
+
+    //GameStart CountDown
+    private int countdownTime = 5;
 
 
     // Start is called before the first frame update
@@ -26,7 +30,12 @@ public class Timer : MonoBehaviour
     {
 		if(!started)
 		{
-			if (starting)
+            if (starting)
+            {
+                currentTime = countdownTime;
+                InvokeRepeating("CountdownTimer", 0, 1);
+            }
+			if (starting && countdownTime == 0)
 			{
 				started = true;
 				currentTime = startTime;
