@@ -5422,6 +5422,21 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 4412628102780409905, guid: 609277d9a4a40974b8d60fff3a6aae35,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412628102780409905, guid: 609277d9a4a40974b8d60fff3a6aae35,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.047054
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412628102780409905, guid: 609277d9a4a40974b8d60fff3a6aae35,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -274
+      objectReference: {fileID: 0}
     - target: {fileID: 4412628101541896916, guid: 609277d9a4a40974b8d60fff3a6aae35,
         type: 3}
       propertyPath: m_FontData.m_Font

@@ -136,6 +136,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
                 timeSpent = 0;
                 reloadFill = 0;
                 reloadbar.value = reloadFill;
+                reloadbar.gameObject.SetActive(false);
             }
             if (ph.isDead)
             {
