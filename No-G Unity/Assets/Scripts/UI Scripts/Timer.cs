@@ -26,7 +26,6 @@ public class Timer : MonoBehaviour
     void Start()
     {
         // startTime = Time.time;
-        Debug.Log("Countdown Start");
         countdownText.gameObject.SetActive(true);
     }
 
@@ -38,16 +37,10 @@ public class Timer : MonoBehaviour
             if (starting)
             {
                 started = true;
-                Debug.Log("Countdown Start");
                 currCDTime = countdownTime;
                 InvokeRepeating("CountdownTimer", 0, 1);
                 //countdownText.gameObject.SetActive(false);
             }
-			if (countdownTime == 0)
-            { 
-				currentTime = startTime;
-				InvokeRepeating("RoundTimer", 0, 1);
-			}
 		}
 
 
@@ -78,9 +71,11 @@ public class Timer : MonoBehaviour
     {
         currCDTime -= 1;
         countdownText.text = currCDTime.ToString();
-        if (currCDTime == 0)
+        if (currCDTime == -1)
         {
            countdownText.gameObject.SetActive(false);
+           currentTime = startTime;
+           InvokeRepeating("RoundTimer", 0, 1);
         }
     }
 
