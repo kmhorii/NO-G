@@ -17,7 +17,7 @@ public class Timer : MonoBehaviour
     [SerializeField] Text timerText, countdownText;
 
     //GameStart CountDown
-    private int countdownTime = 5;
+    private int countdownTime = 10;
     public int currCDTime = 0;
 
 
@@ -26,6 +26,8 @@ public class Timer : MonoBehaviour
     void Start()
     {
         // startTime = Time.time;
+        Debug.Log("Countdown Start");
+        countdownText.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -35,13 +37,14 @@ public class Timer : MonoBehaviour
 		{
             if (starting)
             {
+                started = true;
+                Debug.Log("Countdown Start");
                 currCDTime = countdownTime;
                 InvokeRepeating("CountdownTimer", 0, 1);
-                countdownText.gameObject.SetActive(false);
+                //countdownText.gameObject.SetActive(false);
             }
-			if (starting && countdownTime == 0)
-			{
-				started = true;
+			if (countdownTime == 0)
+            { 
 				currentTime = startTime;
 				InvokeRepeating("RoundTimer", 0, 1);
 			}
@@ -75,9 +78,10 @@ public class Timer : MonoBehaviour
     {
         currCDTime -= 1;
         countdownText.text = currCDTime.ToString();
-        if (currCDTime <= 0)
+        if (currCDTime == 0)
         {
-            currCDTime = 1;
+           countdownText.gameObject.SetActive(false);
         }
     }
+
 }

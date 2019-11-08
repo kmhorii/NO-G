@@ -288,6 +288,7 @@ MonoBehaviour:
   currentTime: 0
   timerText: {fileID: 924838008}
   countdownText: {fileID: 1419347158}
+  currCDTime: 0
 --- !u!1001 &194455691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2469,14 +2470,14 @@ RectTransform:
   m_GameObject: {fileID: 1419347156}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5667, y: 1.5667, z: 1.5667}
+  m_LocalScale: {x: 0.9204362, y: 1.5667, z: 1.5667}
   m_Children: []
   m_Father: {fileID: 764587345}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 37, y: 0}
+  m_AnchoredPosition: {x: 64, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1419347158
