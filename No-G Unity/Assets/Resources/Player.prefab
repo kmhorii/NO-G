@@ -333,10 +333,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c2b2222c9a57ed40a32fb5fb369eff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objPos: {x: 0, y: 0, z: 0}
-  objRot: {x: 0, y: 0, z: 0, w: 0}
-  objScl: {x: 0, y: 0, z: 0}
-  LerpSpeed: 3
+  interpolationBackTime: 0.2
+  extrapolationLimit: 0.5
+  maxSpeedDeltaSqr: 9
+  syncLocalPosition: 1
+  syncLocalRotation: 1
+  checkForSpeedHacks: 0
 --- !u!82 &7323025999265635649
 AudioSource:
   m_ObjectHideFlags: 0
@@ -798,10 +800,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c2b2222c9a57ed40a32fb5fb369eff7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objPos: {x: 0, y: 0, z: 0}
-  objRot: {x: 0, y: 0, z: 0, w: 0}
-  objScl: {x: 0, y: 0, z: 0}
-  LerpSpeed: 3
+  interpolationBackTime: 0.2
+  extrapolationLimit: 0.5
+  maxSpeedDeltaSqr: 9
+  syncLocalPosition: 1
+  syncLocalRotation: 1
+  checkForSpeedHacks: 0
 --- !u!114 &5742307101901287347
 MonoBehaviour:
   m_ObjectHideFlags: 0
