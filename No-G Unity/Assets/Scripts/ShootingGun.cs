@@ -54,6 +54,8 @@ public class ShootingGun : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
+			gameObject.layer = 15;
+			foreach(Transform child in transform) child.gameObject.layer = 15;
             transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
             transform.rotation = new Quaternion(mainCamera.transform.rotation.x, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, mainCamera.transform.rotation.w);
         }

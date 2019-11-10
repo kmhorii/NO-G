@@ -17,6 +17,7 @@ public class Bullet : MonoBehaviourPun
     public int defaultDamage = 34;      
     public int damageReduction = 2;
 
+	public bool exitPlayer = false;
     void Start()
     {
         gunReference = GameObject.FindGameObjectWithTag("Gun").GetComponent<ShootingGun>();
@@ -28,21 +29,28 @@ public class Bullet : MonoBehaviourPun
     {
         if (collision.collider.tag == "Player")
         {
-            PlayerHealth pd = collision.gameObject.GetComponent<PlayerHealth>();
+			if (collision.collider.GetType() == typeof(CapsuleCollider))
+			{
+				PlayerHealth pd = collision.gameObject.GetComponent<PlayerHealth>();
 
-            if (bounceNumber <= maxBounces - 1)
-            {
-                int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber - 1));
-                pd.DealDamage(bulletDamage);
+				if (bounceNumber <= maxBounces - 1)
+				{
+					int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber - 1));
+					pd.DealDamage(bulletDamage);
 
-                Destroy(gameObject);
-                gunReference.savedLineRender.enabled = false;
-            }
-            else
-            {
-                Destroy(gameObject);
-                gunReference.savedLineRender.enabled = false;
-            }
+					Destroy(gameObject);
+					gunReference.savedLineRender.enabled = false;
+				}
+				else
+				{
+					Destroy(gameObject);
+					gunReference.savedLineRender.enabled = false;
+				}
+			}
+			else
+			{
+				Physics.IgnoreCollision(collision.collider, GetComponent<SphereCollider>());
+			}
         }
         else if (collision.collider.tag == "Wall")
         {

@@ -12,6 +12,7 @@ TagManager:
   - GameOver
   - Wall
   - NotBouncyWall
+  - MyGun
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - notBouncyWall
   - gun
   - spectator
-  - 
+  - mygun
   - 
   - 
   - 
