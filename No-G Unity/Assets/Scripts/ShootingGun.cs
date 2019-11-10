@@ -22,9 +22,9 @@ public class ShootingGun : MonoBehaviourPun
     public int bulletSpeed;
     public float fireSpeed;
 
-    public int maxAmmo = 9;
+    public int maxAmmo = 3;
     public int currentAmmo;
-    public float reloadTime = 1.5f;
+    public float reloadTime = 3f;
 
     public int maxBounces = 8;
     public float maxStepDistance = 1000;
@@ -58,6 +58,18 @@ public class ShootingGun : MonoBehaviourPun
 			foreach(Transform child in transform) child.gameObject.layer = 15;
             transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
             transform.rotation = new Quaternion(mainCamera.transform.rotation.x, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, mainCamera.transform.rotation.w);
+            if(currentAmmo < maxAmmo && !isReloading)
+            {
+                isReloading = true;
+                Invoke("ChargeBullet", reloadTime);
+            }
+            else
+            {
+                if(currentAmmo > maxAmmo)
+                {
+                    currentAmmo = maxAmmo;
+                }
+            }
         }
     }
 
@@ -96,9 +108,9 @@ public class ShootingGun : MonoBehaviourPun
     //Shooting
 	public void Shooting()
 	{
-		if (currentAmmo == 0)
-			StartCoroutine(Reload());
-		else if (!isShooting && !isReloading)
+		//if (currentAmmo == 0)
+		//	StartCoroutine(Reload());
+		if (!isShooting && currentAmmo > 0)
 		{
 			Shoot();
 			isShooting = true;
@@ -108,24 +120,44 @@ public class ShootingGun : MonoBehaviourPun
 				SavePreview();
 			}
 			currentAmmo--;
-
-            Invoke("FireDelay", fireSpeed);
+            isShooting = false;
+            //Invoke("FireDelay", fireSpeed);
         }
 		else
 		{
-            Invoke("FireDelay", fireSpeed);
+            //Invoke("FireDelay", fireSpeed);
         }
     }
 
     private IEnumerator Reload()
     {
-        isReloading = true;
+        if(currentAmmo < maxAmmo)
+        {
+            isReloading = true;
 
-        yield return new WaitForSeconds(reloadTime);
+            yield return new WaitForSeconds(reloadTime);
 
-        currentAmmo = maxAmmo;
+            currentAmmo++;
 
-        isReloading = false;
+        }
+        else
+        {
+            isReloading = false;
+            if(currentAmmo > maxAmmo)
+            {
+                currentAmmo = maxAmmo;
+            }
+        }
+        
+    }
+
+    private void ChargeBullet()
+    {
+        if(currentAmmo < maxAmmo)
+        {
+            currentAmmo++;
+            isReloading = false;
+        }
     }
 
     //Photon Shooting

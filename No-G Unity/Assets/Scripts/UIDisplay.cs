@@ -181,7 +181,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     string ConvertAmmoFloattoString()
     {
-        float convertammo = CalculateAmmo() * 10;
+        float convertammo = CalculateAmmo() * maxAmmo;
         return convertammo.ToString("f0");
     }
 

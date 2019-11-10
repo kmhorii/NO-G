@@ -136,12 +136,12 @@ public class PlayerMovement : MonoBehaviourPun
 		if (Input.GetKeyDown(KeyCode.Mouse0)|| (Input.GetAxisRaw("Fire1") == 1 && !alreadyFired))
 		{
             alreadyFired = true;
-            if (!CurrentWeapon.GetComponent<ShootingGun>().isShooting && !CurrentWeapon.GetComponent<ShootingGun>().isReloading)
+            if (!CurrentWeapon.GetComponent<ShootingGun>().isShooting && CurrentWeapon.GetComponent<ShootingGun>().currentAmmo > 0)
             {
                 CurrentWeapon.GetComponent<ShootingGun>().Shooting();
             }
         }
-        if(Input.GetAxisRaw("Fire1") == 0)
+        if(Input.GetKeyUp(KeyCode.Mouse0)|| Input.GetAxisRaw("Fire1") == 0)
         {
             alreadyFired = false;
         }
