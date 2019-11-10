@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     public void StartGame()
 	{
 		timerClock.starting = true;
+		PhotonNetwork.CurrentRoom.IsOpen = false;
 	}
 
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

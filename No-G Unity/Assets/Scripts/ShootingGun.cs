@@ -72,7 +72,7 @@ public class ShootingGun : MonoBehaviourPun
 	public void Aiming()
 	{
         lineRender.enabled = true;
-		DrawPredictionShotLong(muzzle.position, muzzle.forward, 4);
+		DrawPredictionShotLong(muzzle.position, muzzle.forward, 5);
 
 		for (int i = 0; i <= 4; i++)
 		{
@@ -248,7 +248,7 @@ public class ShootingGun : MonoBehaviourPun
     // recursive version, couldn't figure out how to store the vector points with this
     private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
     {
-        int currentBounce = 4 - bouncesRemaining;
+        int currentBounce = 5 - bouncesRemaining;
 
         if (bouncesRemaining == 0) return;
         else if(currentBounce == 0)
