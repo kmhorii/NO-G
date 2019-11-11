@@ -275,6 +275,7 @@ public class ShootingGun : MonoBehaviourPun
     public void RespawnGun()
     {
         currentAmmo = maxAmmo;
+        isReloading = false;
     }
 
     // recursive version, couldn't figure out how to store the vector points with this
