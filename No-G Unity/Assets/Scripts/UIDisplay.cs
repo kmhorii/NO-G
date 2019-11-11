@@ -15,6 +15,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public GameObject life2;
     public GameObject life3;
 
+	public GameObject[] damageFeed;
 
     public float enemyHealth;
 
@@ -61,7 +62,12 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         life2 = GameObject.Find("Life 2");
         life3 = GameObject.Find("Life 3");
 
+		damageFeed = new GameObject[3];
 
+		for(int i = 0; i < 3; i++)
+		{
+			damageFeed[i] = GameObject.Find("Kill_" + (i + 1));
+		}
         gun = GetComponentInChildren<ShootingGun>();
         maxAmmo = gun.maxAmmo;
         currentAmmo = gun.currentAmmo;
@@ -162,6 +168,16 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         ////
         
     }
+
+	public void UpdateKillFeed(string shooter, string defender, bool kill)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			damageFeed[i].GetComponent<Text>().text = damageFeed[i + 1].GetComponent<Text>().text;
+		}
+
+		damageFeed[2].GetComponent<Text>().text = shooter + ((kill) ? " killed " : " shot ") + defender;
+	}
 
     private float CalculateHealth()
     {

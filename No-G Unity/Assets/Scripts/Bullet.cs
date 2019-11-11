@@ -36,7 +36,7 @@ public class Bullet : MonoBehaviourPun
 				if (bounceNumber <= maxBounces - 1)
 				{
 					int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber - 1));
-					pd.DealDamage(bulletDamage);
+					pd.DealDamage(shooter, bulletDamage);
 
 					Destroy(gameObject);
 					gunReference.savedLineRender.enabled = false;

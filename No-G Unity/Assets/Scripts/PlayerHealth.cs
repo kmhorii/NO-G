@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 
     public AudioSource impactSound;
 
+	public UIDisplay display;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 
         gun = GetComponentInChildren<ShootingGun>();
         player = GetComponent<PlayerMovement>();
+		display = GetComponent<UIDisplay>();
     }
 
     // Update is called once per frame
@@ -46,35 +48,41 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void DealDamage(float damagevalue)
+	void KillFeed(string attacker, string defender, bool death)
+	{
+		display.UpdateKillFeed(attacker, defender, death);
+	}
+
+	public void DealDamage(string shooter, float damagevalue)
     {
         if (photonView.IsMine)
         {
-            photonView.RPC("Damage", RpcTarget.All, damagevalue);
+            photonView.RPC("Damage", RpcTarget.All, shooter, damagevalue);
         }
     }
 
     [PunRPC]
-    void Damage(float damageValue)
+    void Damage(string shooter, float damageValue)
     {
         //Minus player health w/ damage value
         currentHealth -= damageValue;
         impactSound.Play();
-        if(currentHealth <= 0)
-        {
-            currentHealth = 0;
-            lives--;
-            if(lives <= 0)
-            {
-                lives = 0;
-                Die();
-            }
-            else
-            {
-                Respawn();
-            }
-        }
-    }
+		if (currentHealth <= 0)
+		{
+			KillFeed(shooter, this.gameObject.name, true);
+			currentHealth = 0;
+			lives--;
+			if (lives <= 0)
+			{
+				lives = 0;
+				Die();
+			}
+			else
+			{
+				Respawn();
+			}
+		}else KillFeed(shooter, this.gameObject.name, false);
+	}
 
     private void Die()
     {

@@ -36,59 +36,42 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 	// Update is called once per frame
 	void Update()
-    {
+	{
 		if (GameObject.FindGameObjectsWithTag("Player").Length >= 2) StartGame();
-
-		if (GameObject.FindGameObjectsWithTag("Player").Length == 3) StartGame();
 
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
-			if(plyr.name.ToLower().Contains("player(clone)")) plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
+			if (plyr.name.ToLower().Contains("player(clone)"))
+			{
+				plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
+			}
 
 			if (plyr.GetComponent<PlayerHealth>().isDead)
 			{
-				if (!plyr.GetComponent<PlayerHealth>().playerJustJoined)
+				if (GameObject.FindGameObjectsWithTag("Player").Length > 2)
 				{
-					Destroy(plyr);
-					if (GameObject.FindGameObjectsWithTag("Player").Length > 2)
+					if (plyr.GetPhotonView().IsMine)
 					{
-						
+						Destroy(plyr);
+						PhotonNetwork.Instantiate("Spectator", Vector3.zero, Quaternion.identity, 0);
 					}
-					else
-					{
-						this.GetComponent<PlayerMovement>().enabled = false;
-						this.GetComponent<PlayerHealth>().enabled = false;
-						if (plyr.GetPhotonView().IsMine) LoseGame();
-						else WinGame();
-					}
-
-					Cursor.visible = true;
-					Cursor.lockState = CursorLockMode.None;
 				}
-				else plyr.GetComponent<PlayerHealth>().playerJustJoined = false;
+				else
+				{
+					this.GetComponent<PlayerMovement>().enabled = false;
+					this.GetComponent<PlayerHealth>().enabled = false;
+
+					if (plyr.GetPhotonView().IsMine) LoseGame();
+					else WinGame();
+
+					Destroy(plyr);
+				}
+
+				Cursor.visible = true;
+				Cursor.lockState = CursorLockMode.None;
 			}
-            
+
 		}
-        if(GameObject.FindGameObjectsWithTag("Player").Length - deadPlayers.Count == 1 && GameObject.FindGameObjectsWithTag("Player").Length > 1)
-        {
-            foreach(GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
-            {
-                if (!plyr.GetComponent<PlayerHealth>().isDead)
-                {
-                    if (plyr.GetPhotonView().IsMine)
-                    {
-                        WinGame();
-                    }
-                }
-                else
-                {
-                    if (plyr.GetPhotonView().IsMine)
-                    {
-                        LoseGame();
-                    }
-                }
-            }
-        }
 	}
 
 	[PunRPC]
@@ -130,22 +113,6 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		loseGame.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-    }
-
-    public void Spectate(GameObject player)
-    {
-        Debug.Log("Spectating");
-        player.GetComponentInChildren<ShootingGun>().enabled = false;
-        //player.GetComponent<MeshRenderer>().enabled = false;
-        foreach(MeshRenderer mr in player.GetComponentsInChildren<MeshRenderer>())
-        {
-            mr.enabled = false;
-        }
-        player.layer = 14;
-        if (player.GetPhotonView().IsMine)
-        {
-            player.GetComponent<UIDisplay>().enabled = false;
-        }
     }
 
     public void StartGame()

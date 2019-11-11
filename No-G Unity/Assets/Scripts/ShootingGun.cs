@@ -40,6 +40,7 @@ public class ShootingGun : MonoBehaviourPun
 
     public float savedPreviewTime = 1.5f;
 
+	public string shooter;
     void Start()
     {
         currentAmmo = maxAmmo;
@@ -217,69 +218,17 @@ public class ShootingGun : MonoBehaviourPun
         if (value > 1) value = 1;
     }
 
-    // raycasts from muzzle till it hits a wall
-    // creates new raycast from where the raycast hits in direction based on Vector3.Reflect() 
-    // stores point in array
-    // repeats til last bounce
-    /*private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
-    {
-        //Debug.Log("Drawing");
-
-        Vector3 startingPosition = position;
-        Vector3 startingDirection = direction;
-
-        bouncePoints[0] = position;
-
-        Ray ray = new Ray(startingPosition, direction);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, maxStepDistance))
-        {
-            direction = Vector3.Reflect(direction, hit.normal);
-            position = hit.point;
-        }
-
-        startingPosition = position;
-        startingDirection = direction;
-        bouncePoints[1] = position;
-
-        ray = new Ray(startingPosition, direction);
-        if (Physics.Raycast(ray, out hit, maxStepDistance))
-        {
-            direction = Vector3.Reflect(direction, hit.normal);
-            position = hit.point;
-        }
-
-        startingPosition = position;
-        bouncePoints[2] = position;
-
-        ray = new Ray(startingPosition, direction);
-        if (Physics.Raycast(ray, out hit, maxStepDistance))
-        {
-            direction = Vector3.Reflect(direction, hit.normal);
-            position = hit.point;
-        }
-
-        startingPosition = position;
-        bouncePoints[3] = position;
-
-        ray = new Ray(startingPosition, direction);
-        if (Physics.Raycast(ray, out hit, maxStepDistance))
-        {
-            direction = Vector3.Reflect(direction, hit.normal);
-            position = hit.point;
-        }
-
-        bouncePoints[4] = position;
-    }*/
-
     public void RespawnGun()
     {
         currentAmmo = maxAmmo;
         isReloading = false;
     }
 
-    // recursive version, couldn't figure out how to store the vector points with this
-    private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
+	// raycasts from muzzle till it hits a wall
+	// creates new raycast from where the raycast hits in direction based on Vector3.Reflect() 
+	// stores point in array
+	// repeats til last bounce
+	private void DrawPredictionShotLong(Vector3 position, Vector3 direction, int bouncesRemaining)
     {
         int currentBounce = 5 - bouncesRemaining;
 

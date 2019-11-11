@@ -43,5 +43,6 @@ MonoBehaviour:
   - DebugLog
   - NewPlayerJoined
   - GameOver
+  - UpdateKillFeed
   DisableAutoOpenWizard: 1
   ShowSettings: 1

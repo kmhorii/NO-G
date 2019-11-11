@@ -13,6 +13,7 @@ TagManager:
   - Wall
   - NotBouncyWall
   - MyGun
+  - Spectator
   layers:
   - Default
   - TransparentFX
