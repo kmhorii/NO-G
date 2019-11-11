@@ -15,7 +15,11 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public GameObject life2;
     public GameObject life3;
 
-	public GameObject[] damageFeed;
+    public GameObject bullet1;
+    public GameObject bullet2;
+    public GameObject bullet3;
+
+    public GameObject[] damageFeed;
 
     public float enemyHealth;
 
@@ -39,7 +43,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public GameObject loseScreen;
     public Text endText;
 
-    public Slider ammobar;
+    //public Slider ammobar;
     public Slider reloadbar;
 
     public Text ammotext;
@@ -62,7 +66,11 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         life2 = GameObject.Find("Life 2");
         life3 = GameObject.Find("Life 3");
 
-		damageFeed = new GameObject[3];
+        bullet1 = GameObject.Find("bullet1Full");
+        bullet2 = GameObject.Find("bullet2Full");
+        bullet3 = GameObject.Find("bullet3Full");
+
+        damageFeed = new GameObject[3];
 
 		for(int i = 0; i < 3; i++)
 		{
@@ -81,7 +89,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         healthbar.value = CalculateHealth();
         healthtext.text = ConvertHealthFloattoString();
 
-        ammobar = GameObject.Find("Ammobar").GetComponent<Slider>();
+        //ammobar = GameObject.Find("Ammobar").GetComponent<Slider>();
         reloadbar = GameObject.Find("Reloadbar").GetComponent<Slider>();
         isReloading = gun.isReloading;
 
@@ -119,7 +127,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             if (currentAmmo != gun.currentAmmo)
             {
                 currentAmmo = gun.currentAmmo;
-                ammobar.value = CalculateAmmo();
+                //ammobar.value = CalculateAmmo();
                 ammotext.text = ConvertAmmoFloattoString();
             }
             if (isReloading != gun.isReloading)
@@ -191,6 +199,31 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     }
     float CalculateAmmo()
     {
+        if (currentAmmo == 0)
+        {
+            bullet1.SetActive(false);
+            bullet2.SetActive(false);
+            bullet3.SetActive(false);
+        }
+        else if (currentAmmo == 1)
+        {
+            bullet1.SetActive(true);
+            bullet2.SetActive(false);
+            bullet3.SetActive(false);
+        }
+        else if (currentAmmo == 2)
+        {
+            bullet1.SetActive(true);
+            bullet2.SetActive(true);
+            bullet3.SetActive(false);
+        }
+        else if (currentAmmo == 3)
+        {
+            bullet1.SetActive(true);
+            bullet2.SetActive(true);
+            bullet3.SetActive(true);
+        }
+
         return currentAmmo / maxAmmo;
     }
 
