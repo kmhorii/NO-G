@@ -7,11 +7,11 @@ public class UIManager: MonoBehaviour
 {
    public void Create()
 	{
-		SceneManager.LoadSceneAsync("Register", LoadSceneMode.Additive);
+		SceneManager.LoadSceneAsync("Register", LoadSceneMode.Single);
 	}
 
 	public void Login()
 	{
-		SceneManager.LoadScene("Login", LoadSceneMode.Additive);
+		SceneManager.LoadScene("Login", LoadSceneMode.Single);
 	}
 }

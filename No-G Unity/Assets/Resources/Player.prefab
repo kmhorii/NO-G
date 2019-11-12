@@ -328,6 +328,7 @@ MonoBehaviour:
   gun: {fileID: 0}
   player: {fileID: 0}
   impactSound: {fileID: 0}
+  display: {fileID: 0}
 --- !u!114 &4893626091186023055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +348,7 @@ MonoBehaviour:
   life1: {fileID: 0}
   life2: {fileID: 0}
   life3: {fileID: 0}
+  damageFeed: []
   enemyHealth: 0
   healthbar: {fileID: 0}
   healthtext: {fileID: 0}
