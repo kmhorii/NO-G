@@ -348,6 +348,9 @@ MonoBehaviour:
   life1: {fileID: 0}
   life2: {fileID: 0}
   life3: {fileID: 0}
+  bullet1: {fileID: 0}
+  bullet2: {fileID: 0}
+  bullet3: {fileID: 0}
   damageFeed: []
   enemyHealth: 0
   healthbar: {fileID: 0}
@@ -361,7 +364,6 @@ MonoBehaviour:
   winScreen: {fileID: 0}
   loseScreen: {fileID: 0}
   endText: {fileID: 0}
-  ammobar: {fileID: 0}
   reloadbar: {fileID: 0}
   ammotext: {fileID: 0}
   myCam: {fileID: 0}
