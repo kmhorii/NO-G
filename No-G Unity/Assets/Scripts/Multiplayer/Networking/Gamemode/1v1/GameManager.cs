@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		plyr.GetComponent<MeshRenderer>().enabled = false;
 
 		plyr.gameObject.layer = 14;
+		plyr.gameObject.tag = "Spectator";
 
 		foreach(Transform child in plyr.transform)
 		{
