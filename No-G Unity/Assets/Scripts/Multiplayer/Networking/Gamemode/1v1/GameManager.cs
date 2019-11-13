@@ -103,7 +103,11 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 		foreach(Transform child in plyr.transform)
 		{
-			if (child.gameObject.tag == "Gun") child.gameObject.GetComponent<ShootingGun>().enabled = false;
+            if (child.gameObject.tag == "Gun")
+            {
+                child.gameObject.GetComponent<ShootingGun>().enabled = false;
+                child.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            }
 		}
 	}
 
