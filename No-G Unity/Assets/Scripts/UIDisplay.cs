@@ -304,7 +304,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         {
             Debug.DrawLine(ray.origin,hit.point);
 
-            if(hit.collider.tag == "Player")
+            if(hit.collider.tag == "Player" && hit.collider.gameObject.name != this.name)
             {
                 enemyObject = hit.collider.gameObject;
                 enemyHealthbar.gameObject.SetActive(true);
@@ -316,7 +316,9 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
                 enemyHealthbar.gameObject.SetActive(false);
                 enemyHealthtext.gameObject.SetActive(false);
             }
-           Debug.Log(hit.transform.gameObject.name);
+        
+          // Debug.Log(hit.transform.gameObject.name);
+         //  Debug.Log(hit.transform.gameObject.tag);
         }
         
     }
