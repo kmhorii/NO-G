@@ -35,8 +35,9 @@ public class ShootingGun : MonoBehaviourPun
     public Vector3[] savedBounces;
 
     public LineRenderer lineRender;
-
     public LineRenderer savedLineRender;
+
+    public Material previewHitMaterial;
 
     public float savedPreviewTime = 1.5f;
 
@@ -249,6 +250,11 @@ public class ShootingGun : MonoBehaviourPun
         {
             direction = Vector3.Reflect(direction, hit.normal);
             position = hit.point;
+
+            if (hit.collider.gameObject.CompareTag("Player"))
+                lineRender.material = previewHitMaterial;
+            else
+                lineRender.material = previewMaterial;
         }
         
         bouncePoints[currentBounce] = position;

@@ -32,8 +32,17 @@ public class InputFieldManager : MonoBehaviour
             if (!currentSystem.alreadySelecting && currentSystem.currentSelectedGameObject != null
                 /*&& EventSystem.current.currentSelectedGameObject.GetComponent<InputField>() != null*/)
             {
-                Selectable nextElement = EventSystem.current.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnDown();
-                if(nextElement != null)
+                Selectable nextElement;
+                if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                {
+                    nextElement = currentSystem.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnUp();
+                }
+                else
+                {
+                    nextElement = currentSystem.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnDown();
+
+                }
+                if (nextElement != null)
                 {
                     Debug.Log(nextElement.gameObject);
                     InputField inputfield = nextElement.GetComponent<InputField>();
