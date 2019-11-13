@@ -83,8 +83,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         healthbar = GameObject.Find("Healthbar").GetComponent<Slider>();
         healthtext = GameObject.Find("HealthText").GetComponent<Text>();
 
-        enemyHealthbar = GameObject.Find("Healthbar (Enemy) (1)").GetComponent<Slider>();
-        enemyHealthtext = GameObject.Find("HealthText (Enemy) (1)").GetComponent<Text>();
+        enemyHealthbar = GameObject.Find("Healthbar_Enemy").GetComponent<Slider>();
+        enemyHealthtext = GameObject.Find("HealthText_Enemy").GetComponent<Text>();
 
         healthbar.value = CalculateHealth();
         healthtext.text = ConvertHealthFloattoString();
@@ -182,7 +182,11 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 		for (int i = 0; i < 2; i++)
 		{
 			damageFeed[i].GetComponent<Text>().text = damageFeed[i + 1].GetComponent<Text>().text;
+			damageFeed[i].GetComponent<Text>().color = damageFeed[i + 1].GetComponent<Text>().color;
 		}
+
+		if (kill) damageFeed[2].GetComponent<Text>().color = new Color(255, 0, 0, 255);
+		else damageFeed[2].GetComponent<Text>().color = new Color(89, 235, 245, 255);
 
 		damageFeed[2].GetComponent<Text>().text = shooter + ((kill) ? " killed " : " shot ") + defender;
 	}
@@ -304,7 +308,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         {
             Debug.DrawLine(ray.origin,hit.point);
 
-            if(hit.collider.tag == "Player")
+            if(hit.collider.tag == "Player" && hit.collider.gameObject.name != this.name)
             {
                 enemyObject = hit.collider.gameObject;
                 enemyHealthbar.gameObject.SetActive(true);
@@ -316,7 +320,9 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
                 enemyHealthbar.gameObject.SetActive(false);
                 enemyHealthtext.gameObject.SetActive(false);
             }
-           Debug.Log(hit.transform.gameObject.name);
+        
+          // Debug.Log(hit.transform.gameObject.name);
+         //  Debug.Log(hit.transform.gameObject.tag);
         }
         
     }

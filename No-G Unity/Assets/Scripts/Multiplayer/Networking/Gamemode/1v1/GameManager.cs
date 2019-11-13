@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPun, IPunObservable
 {
@@ -10,16 +11,24 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	float timer = 0;
 	bool hasPlayerSpawned = false;
 	int CurPlayers;
-    List<GameObject> deadPlayers;
-    int numDeadPlayers;
+	int CurPlayersPlaying;
 
 	public GameObject winGame;
 	public GameObject loseGame;
-	public Timer timerClock;
+	public Timer countdownTimer;
+	public Timer gameTimer;
 
+	public bool gameStarted = false;
+	public bool countdownStarted = false;
+	public GameObject[] spawnPoints;
+
+	public List<GameObject> alivePlayers;
 	// Start is called before the first frame update
 	void Start()
     {
+		alivePlayers = new List<GameObject>();
+
+		CurPlayers = PhotonNetwork.CurrentRoom.PlayerCount;
 		GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
         player.GetComponent<PlayerMovement>().PlayerName = PlayerInfo.Name;
 
@@ -31,46 +40,97 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		{
 			plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
 		}
-        deadPlayers = new List<GameObject>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (GameObject.FindGameObjectsWithTag("Player").Length >= 2) StartGame();
+		CurPlayers = PhotonNetwork.CurrentRoom.PlayerCount;
+		CurPlayersPlaying = GameObject.FindGameObjectsWithTag("Player").Length;
 
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
-			if (plyr.name.ToLower().Contains("player(clone)"))
-			{
-				plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
-			}
+			if (plyr.name.ToLower().Contains("player(clone)")) plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
+		}
 
-			if (plyr.GetComponent<PlayerHealth>().isDead)
+		if (!gameStarted)
+		{
+			if (!countdownStarted)
 			{
-				if (GameObject.FindGameObjectsWithTag("Player").Length > 2)
+				if (CurPlayers >= 2) StartCountdown();
+			}
+			else
+			{
+				if (CurPlayers < 2) StopCountdown();
+				else if (countdownTimer.isFinished)
+				{
+					StartGame();
+				}
+			}
+		}else
+		{
+			Debug.Log("Checking Death");
+			foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
+			{
+				DeathCheck(plyr);
+			}
+		}
+	}
+
+	public void DeathCheck(GameObject plyr)
+	{
+		Debug.Log(plyr.name + " is " + ((plyr.GetComponent<PlayerHealth>().isDead) ? "Dead" : "Not Dead"));
+		if (plyr.GetComponent<PlayerHealth>().isDead)
+		{
+				plyr.GetComponent<PlayerHealth>().hasBeenDead = true;
+
+				alivePlayers.Remove(plyr);
+
+				Spectate(plyr);
+
+				if (alivePlayers.Count >= 2)
 				{
 					if (plyr.GetPhotonView().IsMine)
 					{
-						Destroy(plyr);
-						PhotonNetwork.Instantiate("Spectator", Vector3.zero, Quaternion.identity, 0);
 					}
 				}
 				else
 				{
-					this.GetComponent<PlayerMovement>().enabled = false;
-					this.GetComponent<PlayerHealth>().enabled = false;
+					//this.GetComponent<PlayerMovement>().enabled = false;
+					//this.GetComponent<PlayerHealth>().enabled = false;
 
 					if (plyr.GetPhotonView().IsMine) LoseGame();
 					else WinGame();
-
-					Destroy(plyr);
 				}
 
 				Cursor.visible = true;
 				Cursor.lockState = CursorLockMode.None;
-			}
+		}
+	}
 
+	public void Spectate(GameObject plyr)
+	{
+		plyr.GetComponent<PlayerHealth>().enabled = false;
+		plyr.GetComponent<MeshRenderer>().enabled = false;
+
+		plyr.gameObject.layer = 14;
+		plyr.gameObject.tag = "Spectator";
+
+		CurPlayersPlaying = GameObject.FindGameObjectsWithTag("Player").Length;
+
+		foreach (Transform child in plyr.transform)
+		{
+            if (child.gameObject.tag == "Gun")
+            {
+                child.gameObject.GetComponent<ShootingGun>().enabled = false;
+                child.gameObject.GetComponent<MeshRenderer>().enabled = false;
+				child.gameObject.GetComponent<MeshCollider>().enabled = false;
+
+				foreach(Transform gunChild in child)
+				{
+					if(gunChild.GetComponent<MeshRenderer>() != null) gunChild.gameObject.GetComponent<MeshRenderer>().enabled = false;
+				}
+            }
 		}
 	}
 
@@ -112,12 +172,37 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	{
 		loseGame.SetActive(true);
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.None; 
     }
 
-    public void StartGame()
+	public void StopCountdown()
 	{
-		timerClock.starting = true;
+		countdownStarted = false;
+		countdownTimer.ResetClock();
+	}
+
+    public void StartCountdown()
+	{
+		countdownStarted = true;
+		countdownTimer.StartClock();
+	}
+
+	public void StartGame()
+	{
+		gameStarted = true;
+
+		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
+		{
+			alivePlayers.Add(plyr);
+
+			if(plyr.GetPhotonView().IsMine)
+			{
+				plyr.GetComponent<PlayerHealth>().takeDamage = true;
+				plyr.transform.position = spawnPoints[plyr.GetComponent<PhotonView>().Owner.ActorNumber - 1].transform.position;
+			}
+		}
+
+		gameTimer.StartClock();
 		PhotonNetwork.CurrentRoom.IsOpen = false;
 	}
 
@@ -126,9 +211,17 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		if(stream.IsWriting)
 		{
 			stream.SendNext(CurPlayers);
+			stream.SendNext(gameStarted);
+			stream.SendNext(countdownStarted);
+
+			stream.SendNext(JsonUtility.ToJson(alivePlayers));
 		}else if(stream.IsReading)
 		{
 			CurPlayers = (int)stream.ReceiveNext();
+			gameStarted = (bool)stream.ReceiveNext();
+			countdownStarted = (bool)stream.ReceiveNext();
+
+			JsonUtility.FromJson<List<GameObject>>((string)stream.ReceiveNext());
 		}
 	}
 }

@@ -101,11 +101,11 @@ public class ShootingGun : MonoBehaviourPun
 	}
 
     //Reload
-	public void Reloading()
+	/*public void Reloading()
 	{
 		StartCoroutine(Reload());
 		return;
-	}
+	}*/
 
     //Shooting
 	public void Shooting()
@@ -131,7 +131,7 @@ public class ShootingGun : MonoBehaviourPun
         }
     }
 
-    private IEnumerator Reload()
+    /*private IEnumerator Reload()
     {
         if(currentAmmo < maxAmmo)
         {
@@ -151,7 +151,7 @@ public class ShootingGun : MonoBehaviourPun
             }
         }
         
-    }
+    }*/
 
     private void ChargeBullet()
     {

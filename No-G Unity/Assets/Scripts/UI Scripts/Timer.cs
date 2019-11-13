@@ -2,31 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon;
+using Photon.Pun;
 
-public class Timer : MonoBehaviour
+public class Timer : MonoBehaviourPun, IPunObservable
 {
     //Round Timer
     //public Text timerText;
-    private int startTime = 120;
+    public float timeLength = 120;
 
 	public bool starting = false;
 	public bool started = false;
-    public int currentTime = 0;
+	public bool isFinished = false;
+
+    public float timerLeft = 0;
 
     
-    [SerializeField] Text timerText, countdownText;
-
-    //GameStart CountDown
-    private int countdownTime = 10;
-    public int currCDTime = 0;
-
-
+    public Text timerText;
 
     // Start is called before the first frame update
     void Start()
     {
         // startTime = Time.time;
-        countdownText.gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -37,47 +34,54 @@ public class Timer : MonoBehaviour
             if (starting)
             {
                 started = true;
-                currCDTime = countdownTime;
-                InvokeRepeating("CountdownTimer", 0, 1);
-                //countdownText.gameObject.SetActive(false);
+                timerLeft = timeLength;
+
+				timerText.gameObject.SetActive(true);
+				starting = false;
             }
 		}
+		else
+		{
+			timerLeft -= Time.deltaTime;
 
-
-
-		/*
-        float t = Time.time - startTime;
-
-        string minutes = ((int)(t) / 60).ToString();
-        string seconds = (t % 60).ToString("f2");
-
-        //timerText.text = seconds;
-
-        timerText.text = minutes + ":" + seconds;
-        */
+			timerText.text = ((int)timerLeft/60).ToString() + ": " + ((int)timerLeft % 60).ToString();
+			if(timerLeft <= 0)
+			{
+				timerText.gameObject.SetActive(false);
+				started = false;
+				isFinished = true;
+			}
+		}
 	}
 
-    void RoundTimer()
-    {
-        currentTime -= 1;
-        timerText.text = currentTime.ToString();
-        if (currentTime <= 0)
-        {
-            currentTime = 1;
-        }
-    }
+	public void StartClock()
+	{
+		starting = true;
+	}
 
-    void CountdownTimer()
-    {
-        currCDTime -= 1;
-        countdownText.text = currCDTime.ToString();
-        if (currCDTime == -1)
-        {
-           countdownText.text = "START";
-           countdownText.gameObject.SetActive(false);
-           currentTime = startTime;
-           InvokeRepeating("RoundTimer", 0, 1);
-        }
-    }
+	public void ResetClock()
+	{
+		started = false;
+		starting = false;
 
+		isFinished = false;
+	}
+
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+	{
+		if (stream.IsWriting)
+		{
+			stream.SendNext(timerLeft);
+			stream.SendNext(starting);
+			stream.SendNext(started);
+			stream.SendNext(isFinished);
+}
+		else if (stream.IsReading)
+		{
+			timerLeft = (float)stream.ReceiveNext();
+			starting = (bool)stream.ReceiveNext();
+			started = (bool)stream.ReceiveNext();
+			isFinished = (bool)stream.ReceiveNext();
+		}
+	}
 }
