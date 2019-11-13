@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public bool playerJustJoined = true;
     public bool isDead = false;
 
+	public bool takeDamage = false;
     public float maxHealth = 100;
     public float currentHealth = 100;
     public int lives = 3;
@@ -64,24 +65,28 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void Damage(string shooter, float damageValue)
     {
-        //Minus player health w/ damage value
-        currentHealth -= damageValue;
-        impactSound.Play();
-		if (currentHealth <= 0)
+		if (takeDamage)
 		{
-			KillFeed(shooter, this.gameObject.name, true);
-			currentHealth = 0;
-			lives--;
-			if (lives <= 0)
+			//Minus player health w/ damage value
+			currentHealth -= damageValue;
+			impactSound.Play();
+			if (currentHealth <= 0)
 			{
-				lives = 0;
-				Die();
+				KillFeed(shooter, this.gameObject.name, true);
+				currentHealth = 0;
+				lives--;
+				if (lives <= 0)
+				{
+					lives = 0;
+					Die();
+				}
+				else
+				{
+					Respawn();
+				}
 			}
-			else
-			{
-				Respawn();
-			}
-		}else KillFeed(shooter, this.gameObject.name, false);
+			else KillFeed(shooter, this.gameObject.name, false);
+		}
 	}
 
     private void Die()

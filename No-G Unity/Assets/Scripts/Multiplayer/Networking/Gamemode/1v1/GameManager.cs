@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPun, IPunObservable
 {
@@ -10,16 +11,18 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	float timer = 0;
 	bool hasPlayerSpawned = false;
 	int CurPlayers;
-    List<GameObject> deadPlayers;
-    int numDeadPlayers;
 
 	public GameObject winGame;
 	public GameObject loseGame;
-	public Timer timerClock;
+	public Timer countdownTimer;
+	public Timer gameTimer;
 
+	public bool gameStarted = false;
+	public GameObject[] spawnPoints;
 	// Start is called before the first frame update
 	void Start()
     {
+		CurPlayers = PhotonNetwork.CurrentRoom.PlayerCount;
 		GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
         player.GetComponent<PlayerMovement>().PlayerName = PlayerInfo.Name;
 
@@ -31,49 +34,59 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		{
 			plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
 		}
-        deadPlayers = new List<GameObject>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (GameObject.FindGameObjectsWithTag("Player").Length >= 2) StartGame();
+		CurPlayers = PhotonNetwork.CurrentRoom.PlayerCount;
 
-		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
+		if (gameStarted)
 		{
-			if (plyr.name.ToLower().Contains("player(clone)"))
+			foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 			{
-				plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
+				if (plyr.name.ToLower().Contains("player(clone)")) plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
+
+				DeathCheck(plyr);
 			}
-
-			if (plyr.GetComponent<PlayerHealth>().isDead)
-			{
-				if (GameObject.FindGameObjectsWithTag("Player").Length > 2)
-				{
-					if (plyr.GetPhotonView().IsMine)
-					{
-						Destroy(plyr);
-						PhotonNetwork.Instantiate("Spectator", Vector3.zero, Quaternion.identity, 0);
-					}
-				}
-				else
-				{
-					this.GetComponent<PlayerMovement>().enabled = false;
-					this.GetComponent<PlayerHealth>().enabled = false;
-
-					if (plyr.GetPhotonView().IsMine) LoseGame();
-					else WinGame();
-
-					Destroy(plyr);
-				}
-
-				Cursor.visible = true;
-				Cursor.lockState = CursorLockMode.None;
-			}
-
 		}
+		else
+		{
+			if (CurPlayers >= 2) StartCountdown();
+			else StopCountdown();
+
+			if (countdownTimer.isFinished) StartGame();
+		}
+
 	}
 
+	public void DeathCheck(GameObject plyr)
+	{
+		if (plyr.GetComponent<PlayerHealth>().isDead)
+		{
+			if (GameObject.FindGameObjectsWithTag("Player").Length > 2)
+			{
+				if (plyr.GetPhotonView().IsMine)
+				{
+					Destroy(plyr);
+					PhotonNetwork.Instantiate("Spectator", Vector3.zero, Quaternion.identity, 0);
+				}
+			}
+			else
+			{
+				this.GetComponent<PlayerMovement>().enabled = false;
+				this.GetComponent<PlayerHealth>().enabled = false;
+
+				if (plyr.GetPhotonView().IsMine) LoseGame();
+				else WinGame();
+
+				Destroy(plyr);
+			}
+
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
+		}
+	}
 	[PunRPC]
 	void NewPlayerJoined()
 	{
@@ -112,12 +125,35 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	{
 		loseGame.SetActive(true);
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.None; 
     }
 
-    public void StartGame()
+	public void StopCountdown()
 	{
-		timerClock.starting = true;
+		countdownTimer.ResetClock();
+	}
+
+    public void StartCountdown()
+	{
+		countdownTimer.StartClock();
+	}
+
+	public void StartGame()
+	{
+		gameStarted = true;
+		int i = 0;
+		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
+		{
+			plyr.GetComponent<PlayerHealth>().takeDamage = true;
+
+			if(plyr.GetPhotonView().IsMine)
+			{
+				plyr.transform.position = spawnPoints[i].transform.position;
+			}
+			i++;
+		}
+
+		gameTimer.StartClock();
 		PhotonNetwork.CurrentRoom.IsOpen = false;
 	}
 
