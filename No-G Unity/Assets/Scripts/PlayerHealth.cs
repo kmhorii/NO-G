@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 {
     public bool playerJustJoined = true;
     public bool isDead = false;
+	public bool hasBeenDead = false;
 
 	public bool takeDamage = false;
     public float maxHealth = 100;
@@ -65,7 +66,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void Damage(string shooter, float damageValue)
     {
-		//if (takeDamage)
+		if (takeDamage)
 		{
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
@@ -110,10 +111,18 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             stream.SendNext(currentHealth);
+			stream.SendNext(takeDamage);
+			stream.SendNext(isDead);
+
+			stream.SendNext(hasBeenDead);
         }
         else if (stream.IsReading)
         {
             currentHealth = (float)stream.ReceiveNext();
-        }
+			takeDamage = (bool)stream.ReceiveNext();
+			isDead = (bool)stream.ReceiveNext();
+
+			hasBeenDead = (bool)stream.ReceiveNext();
+		}
     }
 }

@@ -72,10 +72,16 @@ public class Timer : MonoBehaviourPun, IPunObservable
 		if (stream.IsWriting)
 		{
 			stream.SendNext(timerLeft);
-		}
+			stream.SendNext(starting);
+			stream.SendNext(started);
+			stream.SendNext(isFinished);
+}
 		else if (stream.IsReading)
 		{
 			timerLeft = (float)stream.ReceiveNext();
+			starting = (bool)stream.ReceiveNext();
+			started = (bool)stream.ReceiveNext();
+			isFinished = (bool)stream.ReceiveNext();
 		}
 	}
 }

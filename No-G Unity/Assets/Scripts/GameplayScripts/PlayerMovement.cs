@@ -127,10 +127,10 @@ public class PlayerMovement : MonoBehaviourPun
         }
 
         //Reload set to x or r
-        if (Input.GetButtonDown("Reload"))
+        /*if (Input.GetButtonDown("Reload"))
 		{
 			CurrentWeapon.GetComponent<ShootingGun>().Reloading();
-		}
+		}*/
 
         //Firing set to mouse0 or right trigger
 		if (Input.GetKeyDown(KeyCode.Mouse0)|| (Input.GetAxisRaw("Fire1") == 1 && !alreadyFired))

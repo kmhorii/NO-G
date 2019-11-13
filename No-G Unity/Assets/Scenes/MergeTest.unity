@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: NaN, g: NaN, b: NaN, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -218,6 +218,8 @@ MonoBehaviour:
   loseGame: {fileID: 961684366}
   countdownTimer: {fileID: 130445577}
   gameTimer: {fileID: 130445578}
+  gameStarted: 0
+  countdownStarted: 0
   spawnPoints:
   - {fileID: 67304838}
   - {fileID: 1011905153}
@@ -4336,6 +4338,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7140644631366682010, guid: 609277d9a4a40974b8d60fff3a6aae35,
+        type: 3}
+      propertyPath: m_Name
+      value: Health_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412628102235285329, guid: 609277d9a4a40974b8d60fff3a6aae35,
+        type: 3}
+      propertyPath: m_Name
+      value: HealthText_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412628102488545030, guid: 609277d9a4a40974b8d60fff3a6aae35,
+        type: 3}
+      propertyPath: m_Name
+      value: Healthbar_Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
