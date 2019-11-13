@@ -65,7 +65,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void Damage(string shooter, float damageValue)
     {
-		if (takeDamage)
+		//if (takeDamage)
 		{
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;

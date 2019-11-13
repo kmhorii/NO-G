@@ -45,17 +45,19 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		{
 			foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 			{
-				if (plyr.name.ToLower().Contains("player(clone)")) plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
+				if (plyr.name.ToLower().Contains("player(clone)"))
+                    plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
 
 				DeathCheck(plyr);
 			}
 		}
 		else
 		{
-			if (CurPlayers >= 2) StartCountdown();
+            if (countdownTimer.isFinished) StartGame();
+
+            else if (CurPlayers >= 2) StartCountdown();
 			else StopCountdown();
 
-			if (countdownTimer.isFinished) StartGame();
 		}
 
 	}
