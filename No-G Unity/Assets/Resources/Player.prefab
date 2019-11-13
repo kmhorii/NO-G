@@ -322,6 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerJustJoined: 1
   isDead: 0
+  takeDamage: 0
   maxHealth: 100
   currentHealth: 100
   lives: 3
