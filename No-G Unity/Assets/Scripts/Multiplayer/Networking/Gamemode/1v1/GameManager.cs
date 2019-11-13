@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	float timer = 0;
 	bool hasPlayerSpawned = false;
 	int CurPlayers;
+	int CurPlayersPlaying;
 
 	public GameObject winGame;
 	public GameObject loseGame;
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 	public bool gameStarted = false;
 	public GameObject[] spawnPoints;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	void Update()
 	{
 		CurPlayers = PhotonNetwork.CurrentRoom.PlayerCount;
+		CurPlayersPlaying = GameObject.FindGameObjectsWithTag("Player").Length;
 
 		if (gameStarted)
 		{
@@ -52,10 +55,9 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		}
 		else
 		{
-			if (CurPlayers >= 2) StartCountdown();
-			else StopCountdown();
-
 			if (countdownTimer.isFinished) StartGame();
+			else if (CurPlayers >= 2) StartCountdown();
+			else StopCountdown();
 		}
 
 	}
@@ -64,12 +66,15 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	{
 		if (plyr.GetComponent<PlayerHealth>().isDead)
 		{
-			if (GameObject.FindGameObjectsWithTag("Player").Length > 2)
+			Spectate(plyr);
+
+			if (CurPlayersPlaying > 2)
 			{
 				if (plyr.GetPhotonView().IsMine)
 				{
-					Destroy(plyr);
-					PhotonNetwork.Instantiate("Spectator", Vector3.zero, Quaternion.identity, 0);
+					//Spectate(plyr);
+					//Destroy(plyr);
+					//PhotonNetwork.Instantiate("Spectator", Vector3.zero, Quaternion.identity, 0);
 				}
 			}
 			else
@@ -80,13 +85,27 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 				if (plyr.GetPhotonView().IsMine) LoseGame();
 				else WinGame();
 
-				Destroy(plyr);
+				//Destroy(plyr);
 			}
 
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
 		}
 	}
+
+	public void Spectate(GameObject plyr)
+	{
+		plyr.GetComponent<PlayerHealth>().enabled = false;
+		plyr.GetComponent<MeshRenderer>().enabled = false;
+
+		foreach (BoxCollider bc in plyr.GetComponents<BoxCollider>()) bc.enabled = false;
+
+		foreach(Transform child in plyr.transform)
+		{
+			if (child.gameObject.tag == "Gun") child.gameObject.GetComponent<ShootingGun>().enabled = false;
+		}
+	}
+
 	[PunRPC]
 	void NewPlayerJoined()
 	{
