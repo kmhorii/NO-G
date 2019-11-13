@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		plyr.GetComponent<PlayerHealth>().enabled = false;
 		plyr.GetComponent<MeshRenderer>().enabled = false;
 
-		foreach (BoxCollider bc in plyr.GetComponents<BoxCollider>()) bc.enabled = false;
+		plyr.gameObject.layer = 14;
 
 		foreach(Transform child in plyr.transform)
 		{
