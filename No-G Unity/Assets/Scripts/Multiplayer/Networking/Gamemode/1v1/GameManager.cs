@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Photon;
 using Photon.Pun;
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	int CurPlayers;
 	int CurPlayersPlaying;
 
+    public GameObject winner;
+
 	public GameObject winGame;
 	public GameObject loseGame;
 	public Timer countdownTimer;
@@ -20,6 +23,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 	public bool gameStarted = false;
 	public bool countdownStarted = false;
+    public bool gameOver = false;
 	public GameObject[] spawnPoints;
 
 	public List<GameObject> alivePlayers;
@@ -52,29 +56,60 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		{
 			if (plyr.name.ToLower().Contains("player(clone)")) plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
 		}
+        if (!gameOver)
+        {
+            if (!gameStarted)
+            {
+                if (!countdownStarted)
+                {
+                    if (CurPlayers >= 2) StartCountdown();
+                }
+                else
+                {
+                    if (CurPlayers < 2) StopCountdown();
+                    else if (countdownTimer.isFinished)
+                    {
+                        StartGame();
+                    }
+                }
+            }
+            else
+            {
+                if (gameTimer.isFinished)
+                {
+                    gameOver = true;
+                }
+                foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    DeathCheck(plyr);
+                }
+            }
+            
+        }
+        else
+        {
+            if (gameStarted && gameTimer.isFinished)
+            {
+                foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+                {
+                    player.GetComponentInChildren<ShootingGun>().enabled = false;
+                    player.GetComponent<PlayerMovement>().enabled = false;
+                }
 
-		if (!gameStarted)
-		{
-			if (!countdownStarted)
-			{
-				if (CurPlayers >= 2) StartCountdown();
-			}
-			else
-			{
-				if (CurPlayers < 2) StopCountdown();
-				else if (countdownTimer.isFinished)
-				{
-					StartGame();
-				}
-			}
-		}else
-		{
-			Debug.Log("Checking Death");
-			foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
-			{
-				DeathCheck(plyr);
-			}
-		}
+                CheckForWinner();
+                Debug.Log("The winner is: " + winner.name);
+                if (winner.GetPhotonView().IsMine)
+                {
+                    WinGame();
+                }
+                else
+                {
+                    LoseGame();
+                }
+
+            }
+        }
+		
 	}
 
 	public void DeathCheck(GameObject plyr)
@@ -101,6 +136,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 					if (plyr.GetPhotonView().IsMine) LoseGame();
 					else WinGame();
+                    gameOver = true;
 				}
 
 				Cursor.visible = true;
@@ -160,6 +196,98 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	{
 		CurPlayers--;
 	}
+
+    //Will use lexicographic order to determine winner:
+    //Checks who has the most lives
+    //If that's one person, they win
+    //If there are ties, check who has the most health left
+    //If that's one person, they win
+    //If there's a tie there, maybe in the future we could then check who has the most kills or shots landed
+    //Should maybe in the distant distant future implement a tie-breaker/"sudden death" round in the rare case that 
+    //everything is a tie
+    public void CheckForWinner()
+    {
+        int tiedForLives = 0;
+        List<int> livesOnly = new List<int>();
+        List<GameObject> playersOnly = new List<GameObject>();
+        IOrderedEnumerable<KeyValuePair<GameObject, int>> sortedLives = SortByLives(GameObject.FindGameObjectsWithTag("Player"));
+        foreach (KeyValuePair<GameObject, int> pair in sortedLives)
+        {
+            livesOnly.Add(pair.Value);
+            playersOnly.Add(pair.Key);
+        }
+        for(int i = livesOnly.Count -1; i >= 1; i--)
+        {
+            Debug.Log("The current indices are: " + i + " " + (i-1));
+
+            if (livesOnly[i] == livesOnly[i - 1])
+            {
+                tiedForLives++;
+            }
+        }
+        if (tiedForLives == 0)
+        {
+            winner = playersOnly[playersOnly.Count - 1];
+        }
+        else
+        {
+            int tiedForHealth = 0;
+            List<int> healthOnly = new List<int>();
+            playersOnly = new List<GameObject>();
+            IOrderedEnumerable<KeyValuePair<GameObject, int>> sortedHealth = SortByHealth(GameObject.FindGameObjectsWithTag("Player"));
+            foreach (KeyValuePair<GameObject, int> pair in sortedHealth)
+            {
+                healthOnly.Add(pair.Value);
+                playersOnly.Add(pair.Key);
+            }
+            for (int i = healthOnly.Count - 1; i >= 1; i--)
+            {
+                if (healthOnly[i] == healthOnly[i - 1])
+                {
+                    tiedForHealth++;
+                }
+            }
+            if (tiedForHealth == 0)
+            {
+                winner = playersOnly[playersOnly.Count - 1];
+            }
+            else
+            {
+                Debug.Log("It's a tie");
+            }
+        }
+
+    }
+    private IOrderedEnumerable<KeyValuePair<GameObject, int>> SortByLives(GameObject[] players)
+    {
+        Dictionary<GameObject, int> remainingLives = new Dictionary<GameObject, int>();
+        foreach(GameObject player in players)
+        {
+            remainingLives.Add(player, player.GetComponent<PlayerHealth>().lives);
+        }
+
+        IOrderedEnumerable<KeyValuePair<GameObject, int>> sortedByLives;
+        sortedByLives = from pair in remainingLives
+                      orderby pair.Value 
+                      select pair;
+
+        return sortedByLives;
+    }
+    private IOrderedEnumerable<KeyValuePair<GameObject, int>> SortByHealth(GameObject[] players)
+    {
+        Dictionary<GameObject, int> remainingHealth = new Dictionary<GameObject, int>();
+        foreach (GameObject player in players)
+        {
+            remainingHealth.Add(player, (int)player.GetComponent<PlayerHealth>().currentHealth);
+        }
+
+        IOrderedEnumerable<KeyValuePair<GameObject, int>> sortedByHealth;
+        sortedByHealth = from pair in remainingHealth
+                      orderby pair.Value
+                      select pair;
+
+        return sortedByHealth;
+    }
 
 	public void WinGame()
 	{

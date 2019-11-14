@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnTime: 0
+  winner: {fileID: 0}
   winGame: {fileID: 196959848}
   loseGame: {fileID: 961684366}
   countdownTimer: {fileID: 130445577}
@@ -226,6 +227,7 @@ MonoBehaviour:
   - {fileID: 52224855}
   - {fileID: 321707424}
   - {fileID: 1359258914}
+  alivePlayers: []
 --- !u!4 &130445575
 Transform:
   m_ObjectHideFlags: 0
@@ -4144,14 +4146,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 196959848, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 961684366, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4412628101915063792, guid: 609277d9a4a40974b8d60fff3a6aae35,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4287,6 +4281,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 196959848, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 961684366, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4412628101543899168, guid: 609277d9a4a40974b8d60fff3a6aae35,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -4353,6 +4355,30 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Healthbar_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 337375535, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 337375535, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 337375535, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397536851, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397536851, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397536851, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
