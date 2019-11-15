@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using System;
 
 public class UIDisplay : MonoBehaviourPun, IPunObservable
 {
@@ -45,14 +46,19 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     //public Slider ammobar;
     public Slider reloadbar;
-
     public Text ammotext;
-
-    //
     public Camera myCam;
 
+    /*
+    //Texture for Damage UI
+    public Texture health100;
+    public Texture health66;
+    public Texture health32;
+    public Texture health0;
+    */
 
- 
+    public Image damageUI;
+
 
     // Start is called before the first frame update
     void Start()
@@ -101,11 +107,14 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         //
         myCam = GameObject.Find("Main Camera").GetComponent<Camera>();
 
+       
+
         reloadbar.gameObject.SetActive(false);
 
-
         enemyHealthbar.gameObject.SetActive(false);
-        
+        //DamageUI Color
+        damageUI = GameObject.Find("DamageUI").GetComponent<Image>();
+        damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 0);
     }
 
     // Update is called once per frame
@@ -174,6 +183,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
          
         }
         ////
+        BloodUI();
         
     }
 
@@ -323,7 +333,38 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         
           // Debug.Log(hit.transform.gameObject.name);
          //  Debug.Log(hit.transform.gameObject.tag);
-        }
+         }
         
     }
+
+    
+    void BloodUI()
+    {
+        if (currentHealth == 100)
+        {
+            Debug.Log("100");
+            damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 0);
+            // GUI.DrawTexture(new Rect (0, 0, Screen.width, Screen.height), health100);
+        }
+        if(currentHealth == 66)
+        {
+            Debug.Log("66");
+            damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 50);
+            // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health66);
+        }
+        if(currentHealth == 32)
+        {
+            Debug.Log("32");
+            damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 100);
+            // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health32);
+        }
+        if(currentHealth == 0)
+        {
+            Debug.Log("0");
+            damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 150);
+            // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health0);
+        }
+    }
+    
+    
 }
