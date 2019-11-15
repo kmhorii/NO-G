@@ -118,7 +118,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 0);
         //SpeedUI
         speedUI = GameObject.Find("SpeedUI").GetComponent<Image>();
-        speedeUI.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+        //speedUI.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
     }
 
     // Update is called once per frame

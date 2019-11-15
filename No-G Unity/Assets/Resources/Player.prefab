@@ -369,6 +369,7 @@ MonoBehaviour:
   ammotext: {fileID: 0}
   myCam: {fileID: 0}
   damageUI: {fileID: 0}
+  speedUI: {fileID: 0}
 --- !u!64 &1008821868715322753
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -378,7 +379,7 @@ MeshCollider:
   m_GameObject: {fileID: 3685824452654221113}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14
@@ -688,7 +689,13 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
       value: 0.10187593
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 4812575531474598671, guid: db9e6829fc6616a418569e47922f4fa4,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3582803607183843439, guid: db9e6829fc6616a418569e47922f4fa4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: db9e6829fc6616a418569e47922f4fa4, type: 3}
 --- !u!1 &8196529589716227544 stripped
 GameObject:
