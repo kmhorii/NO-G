@@ -30,6 +30,7 @@ public class ShootingGun : MonoBehaviourPun
     public float maxStepDistance = 1000;
 
     public Material previewMaterial;
+    public Material previewHitMaterial;
 
     public Vector3[] bouncePoints;
     public Vector3[] savedBounces;
@@ -37,7 +38,7 @@ public class ShootingGun : MonoBehaviourPun
     public LineRenderer lineRender;
     public LineRenderer savedLineRender;
 
-    public Material previewHitMaterial;
+
 
     public float savedPreviewTime = 1.5f;
 
