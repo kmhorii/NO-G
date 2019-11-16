@@ -389,7 +389,15 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     */
     void DamageFlashUI()
     {
+        flashUI.gameObject.SetActive(true);
         Debug.Log("Flash");
-        flashUI.color = Color32.Lerp(startColor, endColor, Time.deltaTime * fadeSpeed);
+        flashUI.color = Color32.Lerp(startColor, endColor, Mathf.PingPong(Time.time * fadeSpeed, 1.0f))
+        Debug.Log("Flash Invoke");
+        Invoke("DisableFlash", 1);
+    }
+
+    void DisableFlash()
+    {
+        flashUI.gameObject.SetActive(false);
     }
 }
