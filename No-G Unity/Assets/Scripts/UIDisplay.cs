@@ -390,6 +390,6 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     void DamageFlashUI()
     {
         Debug.Log("Flash");
-        flashUI.color = Color32.Lerp(startColor, endColor, Mathf.PingPong(Time.time * fadeSpeed, 1.0f));
+        flashUI.color = Color32.Lerp(startColor, endColor, Time.deltaTime * fadeSpeed);
     }
 }
