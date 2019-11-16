@@ -196,7 +196,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
          
         }
         ////
-        BloodUI();
+        //BloodUI();
         
     }
 
@@ -351,7 +351,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     }
 
     
-    void BloodUI()
+    public void BloodUI()
     {
         if (currentHealth == 100)
         {
