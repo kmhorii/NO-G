@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Multiplayer/Photon.unity
     guid: 73514dca6d6e00a49af89975ddd6bd09
+  - enabled: 1
+    path: Assets/Scenes/Settings.unity
+    guid: 33b680debb688974ca81599e7c0a9cf1
   m_configObjects: {}

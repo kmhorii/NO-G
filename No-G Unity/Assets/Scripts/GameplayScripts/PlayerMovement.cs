@@ -30,8 +30,8 @@ public class PlayerMovement : MonoBehaviourPun
             playerName = value;
         }
     }
-    [SerializeField]
-    float rotateSpeed;
+   
+    public float rotateSpeed;
     float modifiedRotateSpeed;
     [SerializeField]
     float movementSpeed;

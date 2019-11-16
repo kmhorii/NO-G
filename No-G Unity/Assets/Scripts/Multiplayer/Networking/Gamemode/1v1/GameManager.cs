@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Photon;
 using Photon.Pun;
 using Photon.Realtime;
@@ -56,6 +57,22 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		{
 			if (plyr.name.ToLower().Contains("player(clone)")) plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
 		}
+
+        if (Input.GetButtonDown("Settings"))
+        {
+            if (!SceneManager.GetSceneByName("Settings").isLoaded)
+            {
+                SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                SceneManager.UnloadSceneAsync("Settings");
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+        }
         if (!gameOver)
         {
             if (!gameStarted)
