@@ -356,7 +356,6 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         if (currentHealth == 100)
         {
             //Debug.Log("100");
-            DamageFlashUI();
             damageUI.color = new Color32(194, 194, 194, 0);
             // GUI.DrawTexture(new Rect (0, 0, Screen.width, Screen.height), health100);
         }
@@ -390,6 +389,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     */
     void DamageFlashUI()
     {
+        Debug.Log("Flash");
         flashUI.color = Color.Lerp(startColor, endColor, 0.5f);
     }
 }
