@@ -61,10 +61,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public Image speedUI;
     public Image flashUI;
 
-    public Color startColor = new Color(255, 0, 0, 255);
-    public Color endColor = new Color(0, 0, 0, 0);
-
-    public float timeToFade = 1.0f;
+    public Color startColor = new Color32(255, 0, 0, 255);
+    public Color endColor = new Color32(0, 0, 0, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -126,7 +124,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         //speedUI.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         //DamageFlash
         flashUI = GameObject.Find("DamageFlash").GetComponent<Image>();
-        flashUI.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        flashUI.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
 
     }
 
@@ -390,6 +388,6 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     void DamageFlashUI()
     {
         Debug.Log("Flash");
-        flashUI.color = Color.Lerp(startColor, endColor, 0.5f);
+        flashUI.color = Color32.Lerp(startColor, endColor, 0.5f);
     }
 }
