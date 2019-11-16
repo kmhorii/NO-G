@@ -373,7 +373,7 @@ MonoBehaviour:
   flashUI: {fileID: 0}
   startColor: {r: 345.7922, g: 0, b: 0, a: 1}
   endColor: {r: 194, g: 194, b: 194, a: 0}
-  timeToFade: 1
+  fadeSpeed: 0.5
 --- !u!64 &1008821868715322753
 MeshCollider:
   m_ObjectHideFlags: 0
