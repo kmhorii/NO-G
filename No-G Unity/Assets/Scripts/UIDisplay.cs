@@ -64,6 +64,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public Color startColor = new Color32(255, 0, 0, 255);
     public Color endColor = new Color32(0, 0, 0, 0);
 
+    public float fadeSpeed = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -388,6 +390,6 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     void DamageFlashUI()
     {
         Debug.Log("Flash");
-        flashUI.color = Color32.Lerp(startColor, endColor, 0.5f);
+        flashUI.color = Color32.Lerp(startColor, endColor, Mathf.PingPong(Time.time * fadeSpeed, 1.0f));
     }
 }
