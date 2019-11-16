@@ -59,7 +59,12 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     public Image damageUI;
     public Image speedUI;
+    public Image flashUI;
 
+    public Color startColor = new Color(255, 0, 0, 255);
+    public Color endColor = new Color(0, 0, 0, 0);
+
+    public float timeToFade = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -117,8 +122,12 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         damageUI = GameObject.Find("DamageUI").GetComponent<Image>();
         damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 0);
         //SpeedUI
-        speedUI = GameObject.Find("SpeedUI").GetComponent<Image>();
+        //speedUI = GameObject.Find("SpeedUI").GetComponent<Image>();
         //speedUI.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+        //DamageFlash
+        flashUI = GameObject.Find("DamageFlash").GetComponent<Image>();
+        flashUI.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+
     }
 
     // Update is called once per frame
@@ -347,19 +356,22 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         if (currentHealth == 100)
         {
             //Debug.Log("100");
-            damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 0);
+            DamageFlashUI();
+            damageUI.color = new Color32(194, 194, 194, 0);
             // GUI.DrawTexture(new Rect (0, 0, Screen.width, Screen.height), health100);
         }
         if(currentHealth == 66)
         {
             //Debug.Log("66");
-            damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 50);
+            DamageFlashUI();
+            damageUI.color = new Color32(194, 194, 194, 50);
             // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health66);
         }
         if(currentHealth == 32)
         {
-           // Debug.Log("32");
-            damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 100);
+            // Debug.Log("32");
+            DamageFlashUI();
+            damageUI.color = new Color32(194, 194, 194, 100);
             // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health32);
         }
     
@@ -376,4 +388,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
        
     }
     */
+    void DamageFlashUI()
+    {
+        flashUI.color = Color.Lerp(startColor, endColor, 0.5f);
+    }
 }
