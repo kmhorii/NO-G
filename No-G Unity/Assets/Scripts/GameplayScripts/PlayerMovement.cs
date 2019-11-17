@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
-using Photon;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviourPun
@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviourPun
     Vector3 currentDirection;
 
     public bool previewOn = false;
+    public bool wasSettingsOpen = false;
     public bool alreadyFired = false;
 
     public Vector3 startPosition;
@@ -67,21 +68,25 @@ public class PlayerMovement : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-		if (photonView.IsMine)
+		if (photonView.IsMine) 
 		{
-            modifiedRotateSpeed = rotateSpeed * (1 / Time.deltaTime);
-			if (CurrentWeapon != null && !this.GetComponent<PlayerHealth>().isDead) ShootGun();
-            else if (this.GetComponent<PlayerHealth>().isDead)
+            if (!SceneManager.GetSceneByName("Settings").isLoaded)
             {
-                CurrentWeapon.GetComponent<ShootingGun>().lineRender.enabled = false;
-            }
-            RotatePlayer();
-			MovePlayer();
+                modifiedRotateSpeed = rotateSpeed * (1 / Time.deltaTime);
+                if (CurrentWeapon != null && !this.GetComponent<PlayerHealth>().isDead) ShootGun();
+                else if (this.GetComponent<PlayerHealth>().isDead)
+                {
+                    CurrentWeapon.GetComponent<ShootingGun>().lineRender.enabled = false;
+                }
+                RotatePlayer();
+                MovePlayer();
 
-			if (Input.GetKeyUp(KeyCode.W))
-			{
-				ReturnCameraRotation();
-			}
+                //if (Input.GetKeyUp(KeyCode.W))
+                //{
+                //    ReturnCameraRotation();
+                //}
+            }
+            wasSettingsOpen = SceneManager.GetSceneByName("Settings").isLoaded;
 		}
     }
 
@@ -151,7 +156,7 @@ public class PlayerMovement : MonoBehaviourPun
     //May add raycasts to see if there's anything in the way.
     void MovePlayer()
     {
-        if (Input.GetButtonDown("Move"))
+        if (Input.GetButtonDown("Move") && !wasSettingsOpen)
         {
             GetCameraDirection();
             rigidbody.AddForce(cameraDirection*movementSpeed, ForceMode.VelocityChange);
