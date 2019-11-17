@@ -47,7 +47,7 @@ public class Timer : MonoBehaviourPun, IPunObservable
                              ((int)timerLeft / 60).ToString() + ": 0" + ((int)timerLeft % 60).ToString():
                              ((int)timerLeft / 60).ToString() + ": " + ((int)timerLeft % 60).ToString();
 
-            timerText.text = ((int)timerLeft/60).ToString() + ": " + ((int)timerLeft % 60).ToString();
+            timerText.text = newText;
 			if(timerLeft <= 0)
 			{
 				timerText.gameObject.SetActive(false);
