@@ -11,10 +11,10 @@ public class LoadBack : MonoBehaviourPun
 
     private void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
-        {
-            DisconnectGame();
-        }
+        //if (Input.GetButtonDown("Cancel"))
+        //{
+        //    DisconnectGame();
+        //}
     }
     public void DisconnectGame()
 	{
