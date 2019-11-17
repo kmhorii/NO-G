@@ -254,7 +254,7 @@ public class ShootingGun : MonoBehaviourPun
 
             if (hit.collider.gameObject.CompareTag("Player"))
                 lineRender.material = previewHitMaterial;
-            else
+            else if(bouncesRemaining == 1)
                 lineRender.material = previewMaterial;
         }
         
