@@ -60,6 +60,9 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public Image damageUI;
     public Image speedUI;
     public Image flashUI;
+    public float flashAlphaDefault = 0.5f;
+    public float currentFlashAlpha;
+    public bool flashOn = false;
 
     public Color startColor = new Color32(255, 0, 0, 255);
     public Color endColor = new Color32(0, 0, 0, 0);
@@ -126,8 +129,9 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         //speedUI.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         //DamageFlash
         flashUI = GameObject.Find("DamageFlash").GetComponent<Image>();
-        flashUI.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
-      
+        flashUI.enabled = false;
+        //flashUI.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
+        currentFlashAlpha = flashAlphaDefault;
 
     }
 
@@ -190,6 +194,18 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
                 {
                     enemyHealthtext.text = enemyObject.GetPhotonView().name;
                 }
+            }
+            if (Input.GetKeyDown(KeyCode.R) && !flashOn)
+            {
+                flashOn = true;
+            }
+            if (flashOn)
+            {
+                DamageFlashUI(currentFlashAlpha);
+            }
+            else if(currentFlashAlpha == 0)
+            {
+                currentFlashAlpha = flashAlphaDefault;
             }
         }
         else
@@ -396,27 +412,54 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
        
     }
     */
-    public void DamageFlashUI()
+    public void DamageFlashUI(float alphaValue)
     {
+        if(alphaValue > 0)
+        {
+            if (!flashUI.enabled)
+            {
+                Debug.Log("Activating flash");
+                flashUI.enabled = true;
+            }
 
-        Debug.Log("Flash");
-        flashUI.gameObject.SetActive(true);
-        Color temp = flashUI.color;
-        temp.a = 1f;
-        flashUI.color = temp;
-     
-        if (flashUI.color.a > 0)
-        {
-            Debug.Log("fade");
-            temp.a -= Time.deltaTime / 2;
+            Color temp = flashUI.color;
+            temp.a = alphaValue;
             flashUI.color = temp;
+
+            
+            //Debug.Log("fade");
+            temp.a -= Time.deltaTime;
+            if(temp.a < 0)
+            {
+                temp.a = 0;
+                flashUI.enabled = false;
+                flashOn = false;
+            }
+            flashUI.color = temp;
+            currentFlashAlpha = temp.a;
+            
+            
+            //else
+            //{
+            //    temp.a = flashAlphaDefault;
+            //    flashUI.color = temp;
+            //    flashUI.enabled = false;
+            //    Debug.Log("no longer fading");
+            //    return;
+            //}
         }
+        else
         {
-            DisableFlash();
+            currentFlashAlpha = flashAlphaDefault;
+            flashUI.enabled = false;
+            flashOn = false;
+            return;
         }
-        //flashUI.color = Color32.Lerp(startColor, endColor, Time.deltaTime * fadeSpeed);
-        Debug.Log("Flash Invoke");
-        Invoke("DisableFlash", 2);
+        //Debug.Log("Flash");
+        
+     
+        
+       
     }
 
     void DisableFlash()

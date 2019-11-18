@@ -75,7 +75,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 			currentHealth -= damageValue;
 			impactSound.Play();
             display.BloodUI();
-            //display.DamageFlashUI();
+            display.flashOn = true;
 			if (currentHealth <= 0)
 			{
 				KillFeed(shooter, this.gameObject.name, true);
@@ -111,6 +111,9 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     {
         currentHealth = maxHealth;
         display.BloodUI();
+        display.flashOn = false;
+        //display.flashUI.enabled = false;
+        display.currentFlashAlpha = display.flashAlphaDefault;
         gun.RespawnGun();
         //grab a gun and call ammo respawn
         //optional reset location

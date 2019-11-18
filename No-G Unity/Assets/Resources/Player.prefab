@@ -375,6 +375,9 @@ MonoBehaviour:
   damageUI: {fileID: 0}
   speedUI: {fileID: 0}
   flashUI: {fileID: 0}
+  flashAlphaDefault: 0.5
+  currentFlashAlpha: 0
+  flashOn: 0
   startColor: {r: 345.7922, g: 0, b: 0, a: 1}
   endColor: {r: 194, g: 194, b: 194, a: 0}
   fadeSpeed: 0.5
