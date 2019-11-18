@@ -163,8 +163,9 @@ public class ShootingGun : MonoBehaviourPun
         if(currentAmmo < maxAmmo)
         {
             currentAmmo++;
-            isReloading = false;
         }
+        isReloading = false;
+
     }
 
     //Photon Shooting
