@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 	public void DeathCheck(GameObject plyr)
 	{
-		Debug.Log(plyr.name + " is " + ((plyr.GetComponent<PlayerHealth>().isDead) ? "Dead" : "Not Dead"));
+		//Debug.Log(plyr.name + " is " + ((plyr.GetComponent<PlayerHealth>().isDead) ? "Dead" : "Not Dead"));
 		if (plyr.GetComponent<PlayerHealth>().isDead)
 		{
 				plyr.GetComponent<PlayerHealth>().hasBeenDead = true;
