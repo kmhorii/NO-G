@@ -110,7 +110,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     void Respawn()
     {
         currentHealth = maxHealth;
-        display.BloodUI();
+        display.CrackedUI();
         display.flashOn = false;
         //display.flashUI.enabled = false;
         display.currentFlashAlpha = display.flashAlphaDefault;
