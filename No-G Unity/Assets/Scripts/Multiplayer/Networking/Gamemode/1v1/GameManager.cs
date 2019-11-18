@@ -343,6 +343,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 			if(plyr.GetPhotonView().IsMine)
 			{
 				plyr.GetComponent<PlayerHealth>().takeDamage = true;
+                plyr.GetComponentInChildren<ShootingGun>().currentAmmo = plyr.GetComponentInChildren<ShootingGun>().maxAmmo;
 				plyr.transform.position = spawnPoints[plyr.GetComponent<PhotonView>().Owner.ActorNumber - 1].transform.position;
 			}
 		}
