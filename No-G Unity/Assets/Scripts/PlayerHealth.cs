@@ -74,7 +74,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
 			impactSound.Play();
-            display.BloodUI();
+            display.CrackedUI();
             display.flashOn = true;
 			if (currentHealth <= 0)
 			{
