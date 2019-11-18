@@ -37,8 +37,14 @@ public class Bullet : MonoBehaviourPun
 				{
 					int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber - 1));
 					pd.DealDamage(shooter, bulletDamage);
+                    
+                    if(pd.name != shooter)
+                        GameObject.Find(shooter).GetComponentInChildren<ShootingGun>().shotsHitEnemy++;
+                    else
+                        GameObject.Find(shooter).GetComponentInChildren<ShootingGun>().shotsHitSelf++;
 
-					Destroy(gameObject);
+
+                    Destroy(gameObject);
 					gunReference.savedLineRender.enabled = false;
 				}
 				else

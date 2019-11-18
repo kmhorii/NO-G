@@ -14,6 +14,9 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public float maxHealth = 100;
     public float currentHealth = 100;
     public int lives = 3;
+    public int kills = 0;
+    public int selfKills = 0;
+    public int deaths = 0;
 
     public ShootingGun gun;
     public PlayerMovement player;
@@ -75,8 +78,13 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 			if (currentHealth <= 0)
 			{
 				KillFeed(shooter, this.gameObject.name, true);
+                if(GameObject.Find(shooter).name == this.gameObject.name)
+                {
+                    selfKills++;
+                }
 				currentHealth = 0;
 				lives--;
+                deaths++;
 				if (lives <= 0)
 				{
 					lives = 0;

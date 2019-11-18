@@ -42,6 +42,10 @@ public class ShootingGun : MonoBehaviourPun
 
     public float savedPreviewTime = 1.5f;
 
+    public int shotsFired = 0;
+    public int shotsHitEnemy = 0;
+    public int shotsHitSelf = 0;
+
 	public string shooter;
     void Start()
     {
@@ -180,6 +184,7 @@ public class ShootingGun : MonoBehaviourPun
 		rb.velocity = muzzle.transform.forward * bulletSpeed;
 
 		bullet.GetComponent<Bullet>().shooter = shooter;
+        shotsFired++;
 	}
 
     private void FireDelay()

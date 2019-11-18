@@ -327,6 +327,9 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   lives: 3
+  kills: 0
+  selfKills: 0
+  deaths: 0
   gun: {fileID: 0}
   player: {fileID: 0}
   impactSound: {fileID: 0}
