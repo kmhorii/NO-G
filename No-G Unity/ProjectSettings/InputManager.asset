@@ -154,7 +154,7 @@ InputManager:
     descriptiveName: Brings up the settings menu in game
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: space
+    positiveButton: escape
     altNegativeButton: 
     altPositiveButton: joystick button 7
     gravity: 1000
