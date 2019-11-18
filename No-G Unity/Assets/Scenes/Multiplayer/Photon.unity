@@ -5172,7 +5172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &221848534
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5299,7 +5299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &527422506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6307,6 +6307,9 @@ MonoBehaviour:
   lineRender: {fileID: 8209813894510781718}
   savedLineRender: {fileID: 1709276493}
   savedPreviewTime: 1.5
+  shotsFired: 0
+  shotsHitEnemy: 0
+  shotsHitSelf: 0
   shooter: 
 --- !u!4 &188589514385436565
 Transform:
@@ -6834,6 +6837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previewOn: 0
+  wasSettingsOpen: 0
   alreadyFired: 0
   startPosition: {x: 0, y: 0, z: 0}
   startRotation: {x: 0, y: 0, z: 0, w: 0}
@@ -6932,6 +6936,9 @@ MonoBehaviour:
   damageUI: {fileID: 0}
   speedUI: {fileID: 0}
   flashUI: {fileID: 0}
+  flashAlphaDefault: 0.5
+  currentFlashAlpha: 0
+  flashOn: 0
   startColor: {r: 345.7922, g: 0, b: 0, a: 1}
   endColor: {r: 194, g: 194, b: 194, a: 0}
   fadeSpeed: 0.5
@@ -7360,6 +7367,9 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   lives: 3
+  kills: 0
+  selfKills: 0
+  deaths: 0
   gun: {fileID: 0}
   player: {fileID: 0}
   impactSound: {fileID: 0}
