@@ -75,6 +75,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 			currentHealth -= damageValue;
 			impactSound.Play();
             display.BloodUI();
+            //display.DamageFlashUI();
 			if (currentHealth <= 0)
 			{
 				KillFeed(shooter, this.gameObject.name, true);

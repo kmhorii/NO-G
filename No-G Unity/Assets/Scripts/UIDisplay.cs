@@ -64,7 +64,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public Color startColor = new Color32(255, 0, 0, 255);
     public Color endColor = new Color32(0, 0, 0, 0);
 
-    public float fadeSpeed = .5f;
+    public float fadeSpeed = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -127,6 +127,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         //DamageFlash
         flashUI = GameObject.Find("DamageFlash").GetComponent<Image>();
         flashUI.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
+      
 
     }
 
@@ -355,21 +356,21 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     {
         if (currentHealth == 100)
         {
-            //Debug.Log("100");
+            Debug.Log("100");
             damageUI.color = new Color32(194, 194, 194, 0);
             // GUI.DrawTexture(new Rect (0, 0, Screen.width, Screen.height), health100);
         }
         if(currentHealth == 66)
         {
-            //Debug.Log("66");
-            DamageFlashUI();
+            Debug.Log("66");
+           // DamageFlashUI();
             damageUI.color = new Color32(194, 194, 194, 50);
             // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health66);
         }
         if(currentHealth == 32)
         {
-            // Debug.Log("32");
-            DamageFlashUI();
+            Debug.Log("32");
+           // DamageFlashUI();
             damageUI.color = new Color32(194, 194, 194, 100);
             // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health32);
         }
@@ -387,11 +388,25 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
        
     }
     */
-    void DamageFlashUI()
+    public void DamageFlashUI()
     {
-        flashUI.gameObject.SetActive(true);
+
         Debug.Log("Flash");
-        flashUI.color = Color32.Lerp(startColor, endColor, Mathf.PingPong(Time.time * fadeSpeed, .5f));
+        flashUI.gameObject.SetActive(true);
+        Color temp = flashUI.color;
+        temp.a = 1f;
+        flashUI.color = temp;
+     
+        if (flashUI.color.a > 0)
+        {
+            Debug.Log("fade");
+            temp.a -= Time.deltaTime / 2;
+            flashUI.color = temp;
+        }
+        {
+            DisableFlash();
+        }
+        //flashUI.color = Color32.Lerp(startColor, endColor, Time.deltaTime * fadeSpeed);
         Debug.Log("Flash Invoke");
         Invoke("DisableFlash", 2);
     }
@@ -400,4 +415,15 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     {
         flashUI.gameObject.SetActive(false);
     }
+
+    /*
+    void Fade()
+    {
+        if (flashUI.color.a > 0)
+        {
+            temp.a -= Time.deltaTime / 2;
+            flashUI.color = temp;
+        }
+    }
+    */
 }
