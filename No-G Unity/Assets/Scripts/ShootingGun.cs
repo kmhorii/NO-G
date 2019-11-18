@@ -85,7 +85,7 @@ public class ShootingGun : MonoBehaviourPun
 	{
 		aiming = true;
 		lineRender.enabled = true;
-        Debug.Log(lineRender.enabled);
+      //  Debug.Log(lineRender.enabled);
     }
 
 	public void Aiming()
