@@ -5,18 +5,23 @@ using Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MPManager : MonoBehaviourPunCallbacks
 {
 
 	public GameObject[] EnableObjectsOnConnect;
 	public GameObject[] DisableObjectsOnConnect;
+
+	public GameObject CharacterText;
 	// Start is called before the first frame update
 	void Start()
     {
 		PhotonNetwork.ConnectUsingSettings();
 		PhotonNetwork.NickName = PlayerInfo.Name;
 		//PhotonNetwork.ConnectToRegion("usw");
+
+		CharacterText.GetComponent<Text>().text = PlayerInfo.Name;
     }
 
     private void Update()
