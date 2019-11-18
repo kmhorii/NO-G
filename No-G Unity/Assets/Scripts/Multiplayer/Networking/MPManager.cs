@@ -33,7 +33,7 @@ public class MPManager : MonoBehaviourPunCallbacks
 		foreach(GameObject obj in DisableObjectsOnConnect) obj.SetActive(false);
 
 		
-		Debug.Log("We are now connected to photon");
+		//Debug.Log("We are now connected to photon");
 	}
 
 	public void JoinGame()
@@ -41,7 +41,7 @@ public class MPManager : MonoBehaviourPunCallbacks
 		PhotonNetwork.AutomaticallySyncScene = true;
 		PhotonNetwork.JoinRandomRoom();
 
-		Debug.Log("Joining room");
+		//Debug.Log("Joining room");
 	}
 
 	public override void OnJoinRandomFailed(short returnCode, string message)

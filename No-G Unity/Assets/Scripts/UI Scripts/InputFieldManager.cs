@@ -44,7 +44,7 @@ public class InputFieldManager : MonoBehaviour
                 }
                 if (nextElement != null)
                 {
-                    Debug.Log(nextElement.gameObject);
+                   // Debug.Log(nextElement.gameObject);
                     InputField inputfield = nextElement.GetComponent<InputField>();
                     if (inputfield != null)
                         inputfield.OnPointerClick(new PointerEventData(EventSystem.current));
