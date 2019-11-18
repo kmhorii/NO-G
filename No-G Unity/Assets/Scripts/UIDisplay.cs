@@ -385,16 +385,14 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         }
         if(ph.currentHealth < 100 && ph.currentHealth > 50)
         {
-           // Debug.Log("66");
-           // DamageFlashUI();
-            damageUI.color = new Color32(194, 194, 194, 50);
+           // Debug.Log("66")
+           damageUI.color = new Color32(194, 194, 194, 50);
             // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health66);
         }
         if(ph.currentHealth < 50 && ph.currentHealth > 0)
         {
            // Debug.Log("32");
-           // DamageFlashUI();
-            damageUI.color = new Color32(194, 194, 194, 100);
+           damageUI.color = new Color32(194, 194, 194, 100);
             // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health32);
         }
 
