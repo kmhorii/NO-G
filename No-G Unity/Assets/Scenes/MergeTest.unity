@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: NaN, g: NaN, b: NaN, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -602,16 +602,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8054432849948792841, guid: 948ed70b23b63e944bc30716968c8568,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.0014212457
-      objectReference: {fileID: 0}
-    - target: {fileID: 842326695111485054, guid: 948ed70b23b63e944bc30716968c8568,
-        type: 3}
-      propertyPath: m_Size.z
-      value: 102.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 948ed70b23b63e944bc30716968c8568, type: 3}
@@ -3915,7 +3905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 196959849, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 924838007, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
       propertyPath: m_RootOrder
@@ -3927,7 +3917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 291101039, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4412628101220607073, guid: 609277d9a4a40974b8d60fff3a6aae35,
         type: 3}
@@ -3974,6 +3964,11 @@ PrefabInstance:
     - target: {fileID: 591364186, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1214447321424273611, guid: 609277d9a4a40974b8d60fff3a6aae35,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
