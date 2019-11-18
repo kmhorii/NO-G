@@ -195,10 +195,10 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
                     enemyHealthtext.text = enemyObject.GetPhotonView().name;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.R) && !flashOn)
-            {
-                flashOn = true;
-            }
+            //if (Input.GetKeyDown(KeyCode.R) && !flashOn)
+            //{
+            //    flashOn = true;
+            //}
             if (flashOn)
             {
                 DamageFlashUI(currentFlashAlpha);
@@ -375,7 +375,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     }
 
     
-    public void BloodUI()
+    public void CrackedUI()
     {
         if (ph.currentHealth == 100)
         {
