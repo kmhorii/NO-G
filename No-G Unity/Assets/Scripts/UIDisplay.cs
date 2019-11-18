@@ -213,6 +213,13 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 		else damageFeed[2].GetComponent<Text>().color = new Color(89, 235, 245, 255);
 
 		damageFeed[2].GetComponent<Text>().text = shooter + ((kill) ? " killed " : " shot ") + defender;
+        if(shooter != defender && kill)
+        {
+            if (GameObject.Find(shooter).GetPhotonView().IsMine)
+            {
+                GameObject.Find(shooter).GetComponent<PlayerHealth>().kills++;
+            }
+        }
 	}
 
     private float CalculateHealth()
