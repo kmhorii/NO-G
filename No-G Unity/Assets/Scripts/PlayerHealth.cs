@@ -110,6 +110,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     void Respawn()
     {
         currentHealth = maxHealth;
+        display.BloodUI();
         gun.RespawnGun();
         //grab a gun and call ammo respawn
         //optional reset location

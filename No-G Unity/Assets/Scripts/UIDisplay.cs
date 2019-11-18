@@ -354,20 +354,20 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     
     public void BloodUI()
     {
-        if (currentHealth == 100)
+        if (ph.currentHealth == 100)
         {
             Debug.Log("100");
             damageUI.color = new Color32(194, 194, 194, 0);
             // GUI.DrawTexture(new Rect (0, 0, Screen.width, Screen.height), health100);
         }
-        if(currentHealth == 66)
+        if(ph.currentHealth == 66)
         {
             Debug.Log("66");
            // DamageFlashUI();
             damageUI.color = new Color32(194, 194, 194, 50);
             // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health66);
         }
-        if(currentHealth == 32)
+        if(ph.currentHealth == 32)
         {
             Debug.Log("32");
            // DamageFlashUI();
