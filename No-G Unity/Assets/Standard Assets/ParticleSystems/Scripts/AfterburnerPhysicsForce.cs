@@ -8,7 +8,7 @@ namespace UnityStandardAssets.Effects
     {
         public float effectAngle = 15;
         public float effectWidth = 1;
-        public float effectDistance = 10;
+        public float effectDistance = 5;
         public float force = 10;
 
         private Collider[] m_Cols;
