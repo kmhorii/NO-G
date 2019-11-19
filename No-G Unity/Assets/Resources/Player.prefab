@@ -665,6 +665,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3685824452098483030, guid: db9e6829fc6616a418569e47922f4fa4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3582803607183843438, guid: db9e6829fc6616a418569e47922f4fa4,
         type: 3}
       propertyPath: mainCamera
@@ -680,11 +685,6 @@ PrefabInstance:
       propertyPath: previewMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 7cd21719a1d4eeb44ac408d0ab1ebbb5, type: 2}
-    - target: {fileID: 3685824452098483030, guid: db9e6829fc6616a418569e47922f4fa4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4812575531474598671, guid: db9e6829fc6616a418569e47922f4fa4,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
