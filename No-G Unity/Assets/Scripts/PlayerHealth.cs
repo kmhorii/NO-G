@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public PlayerMovement player;
 
     public AudioSource impactSound;
+	public AudioSource dingSound;
 
 	public UIDisplay display;
 
@@ -34,7 +35,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         }
         currentHealth = maxHealth;
 
-        impactSound = GetComponent<AudioSource>();
+        //impactSound = GetComponent<AudioSource>();
 
         gun = GetComponentInChildren<ShootingGun>();
         player = GetComponent<PlayerMovement>();
@@ -91,6 +92,9 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 					Respawn();
 				}
 			}
+		}else if(GameObject.Find(shooter).GetPhotonView().IsMine)
+		{
+			dingSound.Play();
 		}
 	}
 
