@@ -393,6 +393,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e0709a536535824e9671d48a0cbca01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Wins: {fileID: 0}
+  GamesPlayed: {fileID: 0}
+  Deaths: {fileID: 0}
+  Kills: {fileID: 0}
+  StatsPage: 0
 --- !u!1 &3685824452708716462
 GameObject:
   m_ObjectHideFlags: 0
