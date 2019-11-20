@@ -38,7 +38,7 @@ public class ShootingGun : MonoBehaviourPun
     public LineRenderer lineRender;
     public LineRenderer savedLineRender;
 
-
+	public StatsManager myStats;
 
     public float savedPreviewTime = 1.5f;
 

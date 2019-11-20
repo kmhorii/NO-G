@@ -41,6 +41,11 @@ public class MPManager : MonoBehaviourPunCallbacks
 		//Debug.Log("We are now connected to photon");
 	}
 
+	public void OpenStats()
+	{
+		SceneManager.LoadScene("Stats", LoadSceneMode.Additive);
+	}
+
 	public void JoinGame()
 	{
 		PhotonNetwork.AutomaticallySyncScene = true;

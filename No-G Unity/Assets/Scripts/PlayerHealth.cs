@@ -60,32 +60,27 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 
 	public void DealDamage(string shooter, float damagevalue)
     {
-        if (photonView.IsMine)
-        {
-            photonView.RPC("Damage", RpcTarget.All, shooter, damagevalue);
-        }
+		if(takeDamage) photonView.RPC("Damage", RpcTarget.All, shooter, damagevalue);
     }
 
     [PunRPC]
     void Damage(string shooter, float damageValue)
     {
-		if (takeDamage)
+		if (photonView.IsMine)
 		{
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
 			impactSound.Play();
-            display.CrackedUI();
-            display.flashOn = true;
+			display.CrackedUI();
+			display.flashOn = true;
+
+			KillFeed(shooter, this.gameObject.name, (currentHealth <= 0));
+
 			if (currentHealth <= 0)
 			{
-				KillFeed(shooter, this.gameObject.name, true);
-                if(GameObject.Find(shooter).name == this.gameObject.name)
-                {
-                    selfKills++;
-                }
 				currentHealth = 0;
 				lives--;
-                deaths++;
+				deaths++;
 				if (lives <= 0)
 				{
 					lives = 0;
@@ -96,7 +91,6 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 					Respawn();
 				}
 			}
-			else KillFeed(shooter, this.gameObject.name, false);
 		}
 	}
 
@@ -104,7 +98,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     {
         currentHealth = 0;
         isDead = true;
-        Debug.Log("Die");      
+        Debug.Log("Die");
     }
 
     void Respawn()
@@ -118,7 +112,9 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         //grab a gun and call ammo respawn
         //optional reset location
         player.RespawnPosition();
-    }
+
+		GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+	}
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

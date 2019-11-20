@@ -9565,7 +9565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunReference: {fileID: 0}
   shooter: 
-  bounceNumber: 0
+  bounceNumber: 8
   maxBounces: 0
   playerHealth: 0
   defaultDamage: 34

@@ -44,5 +44,7 @@ MonoBehaviour:
   - NewPlayerJoined
   - GameOver
   - UpdateKillFeed
+  - DestroyBullet
+  - KillFeedUpdate
   DisableAutoOpenWizard: 1
   ShowSettings: 1

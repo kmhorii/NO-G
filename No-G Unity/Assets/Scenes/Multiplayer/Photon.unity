@@ -5172,7 +5172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &221848534
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5299,7 +5299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &527422506
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5953,7 +5953,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1116402313}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -5991,7 +5991,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 303905163}
-        m_MethodName: JoinGame
+        m_MethodName: OpenStats
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6306,6 +6306,7 @@ MonoBehaviour:
   savedBounces: []
   lineRender: {fileID: 8209813894510781718}
   savedLineRender: {fileID: 1709276493}
+  myStats: {fileID: 0}
   savedPreviewTime: 1.5
   shotsFired: 0
   shotsHitEnemy: 0

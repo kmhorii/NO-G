@@ -219,6 +219,12 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
 	public void UpdateKillFeed(string shooter, string defender, bool kill)
 	{
+		photonView.RPC("KillFeedUpdate", RpcTarget.All, shooter, defender, kill);
+	}
+
+	[PunRPC]
+	void KillFeedUpdate(string shooter, string defender, bool kill)
+	{
 		for (int i = 0; i < 2; i++)
 		{
 			damageFeed[i].GetComponent<Text>().text = damageFeed[i + 1].GetComponent<Text>().text;
@@ -229,11 +235,17 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 		else damageFeed[2].GetComponent<Text>().color = new Color(89, 235, 245, 255);
 
 		damageFeed[2].GetComponent<Text>().text = shooter + ((kill) ? " killed " : " shot ") + defender;
-        if(shooter != defender && kill)
+
+		if (shooter != defender && kill)
         {
+			if (GameObject.Find(defender).GetPhotonView().IsMine)
+			{
+				GetComponent<StatsManager>().incrementDeaths();
+			}
+
             if (GameObject.Find(shooter).GetPhotonView().IsMine)
             {
-                GameObject.Find(shooter).GetComponent<PlayerHealth>().kills++;
+				GetComponent<StatsManager>().incrementKills();
             }
         }
 	}

@@ -12,12 +12,11 @@ public class Bullet : MonoBehaviourPun
     public int bounceNumber;
     public int maxBounces;
 
-    public int playerHealth;
-
     public int defaultDamage = 34;      
     public int damageReduction = 2;
 
 	public bool exitPlayer = false;
+
     void Start()
     {
         gunReference = GameObject.FindGameObjectWithTag("Gun").GetComponent<ShootingGun>();
@@ -29,7 +28,8 @@ public class Bullet : MonoBehaviourPun
     {
         if (collision.collider.tag == "Player")
         {
-			if (collision.collider.GetType() == typeof(CapsuleCollider))
+			Destroy(gameObject);
+			if (collision.gameObject.GetPhotonView().IsMine)
 			{
 				PlayerHealth pd = collision.gameObject.GetComponent<PlayerHealth>();
 
@@ -38,33 +38,28 @@ public class Bullet : MonoBehaviourPun
 					int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber - 1));
 					pd.DealDamage(shooter, bulletDamage);
 
-                    if(pd.name != shooter)
-                        GameObject.Find(shooter).GetComponentInChildren<ShootingGun>().shotsHitEnemy++;
-                    else
-                        GameObject.Find(shooter).GetComponentInChildren<ShootingGun>().shotsHitSelf++;
-
-
-                    Destroy(gameObject);
 					gunReference.savedLineRender.enabled = false;
 				}
 				else
 				{
-					Destroy(gameObject);
 					gunReference.savedLineRender.enabled = false;
 				}
+
+				//photonView.RPC("DestroyBullet", RpcTarget.All);
 			}
-			else
-			{
-				Physics.IgnoreCollision(collision.collider, GetComponent<SphereCollider>());
-			}
-        }
-        else if (collision.collider.tag == "Wall")
+		}else if (collision.collider.tag == "Wall")
         {
             if (bounceNumber - 1 == 0)
             {
-                Destroy(gameObject);
-            }
+				Destroy(gameObject);
+			}
             else bounceNumber--;
         }
     }
+
+	[PunRPC]
+	void DestroyBullet()
+	{
+		Destroy(gameObject);
+	}
 }

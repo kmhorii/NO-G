@@ -28,10 +28,13 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	public GameObject[] spawnPoints;
 
 	public List<GameObject> alivePlayers;
+	public List<GameObject> allPlayers;
+
 	// Start is called before the first frame update
 	void Start()
     {
 		alivePlayers = new List<GameObject>();
+		allPlayers = new List<GameObject>();
 
 		CurPlayers = PhotonNetwork.CurrentRoom.PlayerCount;
 		GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
@@ -134,30 +137,28 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		//Debug.Log(plyr.name + " is " + ((plyr.GetComponent<PlayerHealth>().isDead) ? "Dead" : "Not Dead"));
 		if (plyr.GetComponent<PlayerHealth>().isDead)
 		{
-				plyr.GetComponent<PlayerHealth>().hasBeenDead = true;
+			plyr.GetComponent<PlayerHealth>().hasBeenDead = true;
 
-				alivePlayers.Remove(plyr);
+			alivePlayers.Remove(plyr);
 
-				Spectate(plyr);
+			Spectate(plyr);
 
-				if (alivePlayers.Count >= 2)
-				{
-					if (plyr.GetPhotonView().IsMine)
-					{
-					}
-				}
-				else
-				{
-					//this.GetComponent<PlayerMovement>().enabled = false;
-					//this.GetComponent<PlayerHealth>().enabled = false;
+			if (alivePlayers.Count >= 2) { }
+			else endGame();
+		}
+	}
 
-					if (plyr.GetPhotonView().IsMine) LoseGame();
-					else WinGame();
-                    gameOver = true;
-				}
+	public void endGame()
+	{
+		foreach(GameObject player in allPlayers)
+		{
+			if(player.GetPhotonView().IsMine)
+			{
+				if (alivePlayers.Contains(player)) WinGame();
+				else LoseGame();
+			}
 
-				Cursor.visible = true;
-				Cursor.lockState = CursorLockMode.None;
+			gameOver = true;
 		}
 	}
 
@@ -311,7 +312,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		winGame.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-    }
+	}
 
 	public void LoseGame()
 	{
@@ -339,9 +340,12 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
 			alivePlayers.Add(plyr);
+			allPlayers.Add(plyr);
 
 			if(plyr.GetPhotonView().IsMine)
 			{
+				plyr.GetComponent<StatsManager>().incrementGames();
+
 				plyr.GetComponent<PlayerHealth>().takeDamage = true;
                 plyr.GetComponentInChildren<ShootingGun>().currentAmmo = plyr.GetComponentInChildren<ShootingGun>().maxAmmo;
 				plyr.transform.position = spawnPoints[plyr.GetComponent<PhotonView>().Owner.ActorNumber - 1].transform.position;
