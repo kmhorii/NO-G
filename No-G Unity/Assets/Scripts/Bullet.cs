@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviourPun
     public int bounceNumber;
     public int maxBounces;
 
-    public int defaultDamage = 34;      
+    public int defaultDamage = 26;      
     public int damageReduction = 2;
 
 	public bool exitPlayer = false;
@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviourPun
 
 				if (bounceNumber <= maxBounces - 1)
 				{
-					int bulletDamage = defaultDamage - (damageReduction * (maxBounces - bounceNumber - 1));
+					int bulletDamage = defaultDamage /*- (damageReduction * (maxBounces - bounceNumber - 1))*/;
 					pd.DealDamage(shooter, bulletDamage);
 
 					gunReference.savedLineRender.enabled = false;
@@ -53,7 +53,15 @@ public class Bullet : MonoBehaviourPun
             {
 				Destroy(gameObject);
 			}
-            else bounceNumber--;
+            else
+            {
+                bounceNumber--;
+                Vector3 scale = gameObject.transform.localScale;
+                gameObject.transform.localScale = new Vector3(scale.x + .1f, scale.y + .1f, scale.z + .1f);
+
+                gameObject.GetComponent<SphereCollider>().enabled = false;
+                gameObject.GetComponent<SphereCollider>().enabled = true;
+            }
         }
     }
 
