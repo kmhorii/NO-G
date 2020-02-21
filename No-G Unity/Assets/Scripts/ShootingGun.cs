@@ -47,9 +47,20 @@ public class ShootingGun : MonoBehaviourPun
     public int shotsHitSelf = 0;
 
 	public string shooter;
+
+    public ParticleSystem particleMuzzle;
+
+    public Renderer cartridge1;
+    public Renderer cartridge2;
+    public Renderer cartridge3;
+
+    public Material cartridgePlain;
+    public Material cartridgeGlow;
+
     void Start()
     {
         currentAmmo = maxAmmo;
+        SetCartridgeMaterial();
 
         lineRender.enabled = false;
         savedLineRender.enabled = false;
@@ -75,8 +86,15 @@ public class ShootingGun : MonoBehaviourPun
                 if(currentAmmo > maxAmmo)
                 {
                     currentAmmo = maxAmmo;
+                    SetCartridgeMaterial();
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            cartridge2.materials[2] = cartridgePlain;
+            Debug.Log("adsf");
         }
     }
 
@@ -126,7 +144,10 @@ public class ShootingGun : MonoBehaviourPun
 			{
 				SavePreview();
 			}
+
 			currentAmmo--;
+            SetCartridgeMaterial();
+
             isShooting = false;
             //Invoke("FireDelay", fireSpeed);
         }
@@ -163,8 +184,47 @@ public class ShootingGun : MonoBehaviourPun
         if(currentAmmo < maxAmmo)
         {
             currentAmmo++;
+
+            SetCartridgeMaterial();
         }
         isReloading = false;
+
+    }
+
+    private void SetCartridgeMaterial()
+    {
+        Material[] tempCart1 = cartridge1.materials;
+        Material[] tempCart2 = cartridge2.materials;
+        Material[] tempCart3 = cartridge3.materials;
+
+        if (currentAmmo == 0)
+        {
+            tempCart1[2] = cartridgePlain;
+            tempCart2[2] = cartridgePlain;
+            tempCart3[2] = cartridgePlain;
+        }
+        else if (currentAmmo == 1)
+        {
+            tempCart1[2] = cartridgeGlow;
+            tempCart2[2] = cartridgePlain;
+            tempCart3[2] = cartridgePlain;
+        }
+        else if (currentAmmo == 2)
+        {
+            tempCart1[2] = cartridgeGlow;
+            tempCart2[2] = cartridgeGlow;
+            tempCart3[2] = cartridgePlain;
+        }
+        else if (currentAmmo == 3)
+        {
+            tempCart1[2] = cartridgeGlow;
+            tempCart2[2] = cartridgeGlow;
+            tempCart3[2] = cartridgeGlow;
+        }
+
+        cartridge1.materials = tempCart1;
+        cartridge2.materials = tempCart2;
+        cartridge3.materials = tempCart3;
 
     }
 
@@ -172,6 +232,7 @@ public class ShootingGun : MonoBehaviourPun
     private void Shoot()
     {
 		photonView.RPC("RPCShoot", RpcTarget.All, PlayerInfo.Name);
+        particleMuzzle.Play();
     }
 
 
@@ -229,6 +290,7 @@ public class ShootingGun : MonoBehaviourPun
     public void RespawnGun()
     {
         currentAmmo = maxAmmo;
+        SetCartridgeMaterial();
         isReloading = false;
     }
 

@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1001266755871767475
 Transform:
   m_ObjectHideFlags: 0
@@ -910,7 +910,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1286,7 +1286,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.6627451, g: 0.43529412, b: 1, a: 0.39215687}
+        key0: {r: 0.6627451, g: 0.43529412, b: 1, a: 0.18431373}
         key1: {r: 0.74424744, g: 0.5137255, b: 1, a: 0}
         key2: {r: 0.74424744, g: 0.5137255, b: 1, a: 0}
         key3: {r: 0.74424744, g: 0.5137255, b: 1, a: 0}
