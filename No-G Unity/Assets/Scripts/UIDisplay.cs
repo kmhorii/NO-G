@@ -69,6 +69,10 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     public float fadeSpeed = 2f;
 
+    public GameObject shakeUI;
+
+    public bool isShaking = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -116,6 +120,9 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         //
         myCam = GameObject.Find("Main Camera").GetComponent<Camera>();
 
+        shakeUI = GameObject.Find("ShakeObjects");
+
+ 
        
 
         reloadbar.gameObject.SetActive(false);
@@ -487,4 +494,26 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         }
     }
     */
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "NotBouncyWall")
+        {
+            Debug.Log("SHAKE");
+
+           //shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y -16f, shakeUI.transform.position.z);
+           // isShaking = true;
+           shakeUI.transform.position = new Vector3(295, 150, 0);
+;
+            Invoke("ShakeBack", .5f);
+        }
+    }
+
+
+    void ShakeBack()
+    {
+        Debug.Log("SHAKE Back");
+        //shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y + 16f, shakeUI.transform.position.z);
+        //isShaking = false;
+        shakeUI.transform.position = new Vector3(295, 166, 0);
+    }
 }
