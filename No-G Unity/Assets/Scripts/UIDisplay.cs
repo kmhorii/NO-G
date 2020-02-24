@@ -500,10 +500,10 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         {
             Debug.Log("SHAKE");
 
-           //shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y -16f, shakeUI.transform.position.z);
-           // isShaking = true;
-           shakeUI.transform.position = new Vector3(295, 150, 0);
-;
+            shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y - 12f, shakeUI.transform.position.z);
+            // isShaking = true;
+            //shakeUI.transform.localPosition = new Vector3(0, -10, 0);
+            ;
             Invoke("ShakeBack", .5f);
         }
     }
@@ -512,8 +512,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     void ShakeBack()
     {
         Debug.Log("SHAKE Back");
-        //shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y + 16f, shakeUI.transform.position.z);
+        shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y + 12f, shakeUI.transform.position.z);
         //isShaking = false;
-        shakeUI.transform.position = new Vector3(295, 166, 0);
+        //shakeUI.transform.localPosition = new Vector3(0, 10, 0);
     }
 }
