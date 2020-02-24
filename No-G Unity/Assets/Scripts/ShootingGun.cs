@@ -57,6 +57,14 @@ public class ShootingGun : MonoBehaviourPun
     public Material cartridgePlain;
     public Material cartridgeGlow;
 
+    public GameObject muzzleFlashLights;
+
+    public AudioSource shootingSound;
+
+    public GameObject gunComponents;
+
+    public Animator recoil;
+
     void Start()
     {
         currentAmmo = maxAmmo;
@@ -232,12 +240,35 @@ public class ShootingGun : MonoBehaviourPun
     private void Shoot()
     {
 		photonView.RPC("RPCShoot", RpcTarget.All, PlayerInfo.Name);
+
         particleMuzzle.Play();
+        muzzleFlashLights.SetActive(true);
+        Invoke("MuzzleLightsOff", 0.1f);
+
+        shootingSound.Play();
+
+        recoil.SetTrigger("playRecoil");
+
+        ////gunComponents.transform.Translate(Vector3.back * Time.deltaTime, Space.Self);
+        ////Vector3 destination = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.002f);
+        //gunComponents.transform.localPosition = Vector3.Lerp(new Vector3(0, 0, 0), new Vector3(0, 0, -0.003f), 0.2f * Time.deltaTime);
+        //Invoke("RecoilBack", 0.3f);
     }
 
+    private void MuzzleLightsOff()
+    {
+        muzzleFlashLights.SetActive(false);
+    }
+
+    private void RecoilBack()
+    {
+        //gunComponents.transform.Translate(Vector3.forward * Time.deltaTime, Space.Self);
+        //gunComponents.transform.localPosition = Vector3.Lerp(new Vector3(0, 0, 0), new Vector3(0, 0, 0.003f), 0.2f * Time.deltaTime);
+
+    }
 
     //Spawning Bullet for Photon
-	[PunRPC]
+    [PunRPC]
 	public void RPCShoot(string shooter)
 	{
 		GameObject bullet = Instantiate(bulletPrefab, muzzle.transform.position, muzzle.transform.rotation);
