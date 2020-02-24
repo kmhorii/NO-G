@@ -496,16 +496,18 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     */
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "NotBouncyWall")
-        {
-            Debug.Log("SHAKE");
+        if ((collision.gameObject.tag == "NotBouncyWall") && (isShaking == false))
+            {
+                Debug.Log("SHAKE");
 
-            shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y - 12f, shakeUI.transform.position.z);
-            // isShaking = true;
-            //shakeUI.transform.localPosition = new Vector3(0, -10, 0);
-            ;
-            Invoke("ShakeBack", .5f);
-        }
+                shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y - 12f, shakeUI.transform.position.z);
+                isShaking = true;
+                Debug.Log("true");
+                //shakeUI.transform.localPosition = new Vector3(0, -10, 0);
+
+                Invoke("ShakeBack", .2f);
+            }
+        
     }
 
 
@@ -513,7 +515,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     {
         Debug.Log("SHAKE Back");
         shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y + 12f, shakeUI.transform.position.z);
-        //isShaking = false;
+        isShaking = false;
+        Debug.Log("false");
         //shakeUI.transform.localPosition = new Vector3(0, 10, 0);
     }
 }
