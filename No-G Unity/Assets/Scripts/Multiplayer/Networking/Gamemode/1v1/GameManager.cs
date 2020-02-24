@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
             }
             else
             {
-                if (gameTimer.isFinished)
+                if (gameTimer.isFinished && alivePlayers.Count > 1)
                 {
 					endGameTimerRunOut();
 					//gameOver = true;
