@@ -57,14 +57,17 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public Texture health0;
     */
 
-    public Image damageUI;
+   // public Image damageUI;
+    public Image crackedUI;
+    public Image crackedUI2;
+
     public Image speedUI;
     public Image flashUI;
     public float flashAlphaDefault = 0.5f;
     public float currentFlashAlpha;
     public bool flashOn = false;
 
-    public Color startColor = new Color32(255, 0, 0, 255);
+  ////  public Color startColor = new Color32(255, 0, 0, 255);
     public Color endColor = new Color32(0, 0, 0, 0);
 
     public float fadeSpeed = 2f;
@@ -129,8 +132,16 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
         enemyHealthbar.gameObject.SetActive(false);
         //DamageUI Color
-        damageUI = GameObject.Find("DamageUI").GetComponent<Image>();
-        damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 0);
+        //damageUI = GameObject.Find("DamageUI").GetComponent<Image>();
+        crackedUI = GameObject.Find("Cracked1UI").GetComponent<Image>();
+        Debug.Log("find cracked 1");
+        crackedUI2 = GameObject.Find("Cracked2UI").GetComponent<Image>();
+        Debug.Log("find cracked 2");
+        crackedUI.gameObject.SetActive(false);
+        Debug.Log("false cracked 1");
+        crackedUI2.gameObject.SetActive(false);
+        Debug.Log("false cracked 2");
+        //damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 0);
         //SpeedUI
         //speedUI = GameObject.Find("SpeedUI").GetComponent<Image>();
         //speedUI.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
@@ -398,21 +409,30 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     {
         if (ph.currentHealth == 100)
         {
-           // Debug.Log("100");
-            damageUI.color = new Color32(194, 194, 194, 0);
+            // Debug.Log("100");
+            // damageUI.color = new Color32(194, 194, 194, 0);
             // GUI.DrawTexture(new Rect (0, 0, Screen.width, Screen.height), health100);
+            crackedUI.gameObject.SetActive(false);
+            crackedUI2.gameObject.SetActive(false);
+            Debug.Log("100");
         }
         if(ph.currentHealth < 100 && ph.currentHealth > 50)
         {
-           // Debug.Log("66")
-           damageUI.color = new Color32(194, 194, 194, 50);
+            // Debug.Log("66")
+            //damageUI.color = new Color32(194, 194, 194, 50);
             // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health66);
+            crackedUI.gameObject.SetActive(true);
+            crackedUI2.gameObject.SetActive(false);
+            Debug.Log("less 100");
         }
         if(ph.currentHealth < 50 && ph.currentHealth > 0)
         {
-           // Debug.Log("32");
-           damageUI.color = new Color32(194, 194, 194, 100);
+            // Debug.Log("32");
+            //damageUI.color = new Color32(194, 194, 194, 100);
             // GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), health32);
+            crackedUI.gameObject.SetActive(false);
+            crackedUI2.gameObject.SetActive(true);
+            Debug.Log("less 50");
         }
 
     
@@ -498,13 +518,9 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     {
         if ((collision.gameObject.tag == "NotBouncyWall") && (isShaking == false))
             {
-                Debug.Log("SHAKE");
-
                 shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y - 12f, shakeUI.transform.position.z);
                 isShaking = true;
-                Debug.Log("true");
                 //shakeUI.transform.localPosition = new Vector3(0, -10, 0);
-
                 Invoke("ShakeBack", .2f);
             }
         
@@ -513,10 +529,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     void ShakeBack()
     {
-        Debug.Log("SHAKE Back");
         shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y + 12f, shakeUI.transform.position.z);
         isShaking = false;
-        Debug.Log("false");
         //shakeUI.transform.localPosition = new Vector3(0, 10, 0);
     }
 }

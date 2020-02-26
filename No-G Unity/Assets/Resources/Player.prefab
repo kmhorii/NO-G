@@ -6479,13 +6479,13 @@ MonoBehaviour:
   reloadbar: {fileID: 0}
   ammotext: {fileID: 0}
   myCam: {fileID: 0}
-  damageUI: {fileID: 0}
+  crackedUI: {fileID: 0}
+  crackedUI2: {fileID: 0}
   speedUI: {fileID: 0}
   flashUI: {fileID: 0}
   flashAlphaDefault: 0.5
   currentFlashAlpha: 0
   flashOn: 0
-  startColor: {r: 345.7922, g: 0, b: 0, a: 1}
   endColor: {r: 194, g: 194, b: 194, a: 0}
   fadeSpeed: 0.5
   shakeUI: {fileID: 0}
