@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -216,7 +216,7 @@ MonoBehaviour:
   SpawnTime: 0
   winner: {fileID: 0}
   winGame: {fileID: 196959848}
-  loseGame: {fileID: 0}
+  loseGame: {fileID: 4412628101730474158}
   tieGame: {fileID: 1104866753}
   countdownTimer: {fileID: 130445577}
   gameTimer: {fileID: 130445578}
@@ -3701,6 +3701,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 196959848, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4412628101915063792, guid: 609277d9a4a40974b8d60fff3a6aae35,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3842,7 +3846,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 25595856, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 765351013, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
       propertyPath: m_RootOrder
@@ -3882,13 +3886,9 @@ PrefabInstance:
     - target: {fileID: 6856273329732181390, guid: 609277d9a4a40974b8d60fff3a6aae35,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 25595855, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 196959848, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -4061,6 +4061,12 @@ PrefabInstance:
 --- !u!224 &4412628101730474157 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4412628101915063792, guid: 609277d9a4a40974b8d60fff3a6aae35,
+    type: 3}
+  m_PrefabInstance: {fileID: 4412628101730474156}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4412628101730474158 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 78235594533961743, guid: 609277d9a4a40974b8d60fff3a6aae35,
     type: 3}
   m_PrefabInstance: {fileID: 4412628101730474156}
   m_PrefabAsset: {fileID: 0}
