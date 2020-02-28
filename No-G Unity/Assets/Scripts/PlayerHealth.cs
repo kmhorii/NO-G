@@ -22,6 +22,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public PlayerMovement player;
 
     public AudioSource impactSound;
+    public AudioSource gruntSound;
 	
     
 
@@ -72,6 +73,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 		{
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
+            gruntSound.Play();
 			impactSound.Play();
 			display.CrackedUI();
 			display.flashOn = true;
