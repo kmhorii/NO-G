@@ -58,8 +58,8 @@ public class Bullet : MonoBehaviourPun
                 bounceNumber--;
                 Vector3 scale = gameObject.transform.localScale;
                 gameObject.transform.localScale = new Vector3(scale.x + .1f, scale.y + .1f, scale.z + .1f);
-                gameObject.GetComponent<TrailRenderer>().startWidth += 0.15f;
-                gameObject.GetComponent<TrailRenderer>().endWidth += 0.15f;
+                gameObject.GetComponent<TrailRenderer>().startWidth += 0.1f;
+                gameObject.GetComponent<TrailRenderer>().endWidth += 0.1f;
 
                 gameObject.GetComponent<SphereCollider>().enabled = false;
                 gameObject.GetComponent<SphereCollider>().enabled = true;
