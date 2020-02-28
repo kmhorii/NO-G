@@ -74,7 +74,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
             gruntSound.Play();
-			impactSound.Play();
+			
 			display.CrackedUI();
 			display.flashOn = true;
 
@@ -97,8 +97,8 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 			}
 		}else if(GameObject.Find(shooter).GetPhotonView().IsMine)
 		{
-			//dingSound.Play();
-		}
+            impactSound.Play();
+        }
 	}
 
     private void Die()
