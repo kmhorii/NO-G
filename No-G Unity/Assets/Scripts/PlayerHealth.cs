@@ -22,7 +22,8 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public PlayerMovement player;
 
     public AudioSource impactSound;
-	public AudioSource dingSound;
+	
+    
 
 	public UIDisplay display;
 
@@ -94,7 +95,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 			}
 		}else if(GameObject.Find(shooter).GetPhotonView().IsMine)
 		{
-			dingSound.Play();
+			//dingSound.Play();
 		}
 	}
 
