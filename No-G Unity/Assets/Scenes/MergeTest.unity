@@ -217,7 +217,7 @@ MonoBehaviour:
   winner: {fileID: 0}
   winGame: {fileID: 196959848}
   loseGame: {fileID: 4412628101730474158}
-  tieGame: {fileID: 0}
+  tieGame: {fileID: 4412628101730474157}
   countdownTimer: {fileID: 130445577}
   gameTimer: {fileID: 130445578}
   gameStarted: 0
@@ -3875,13 +3875,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4412628101220607072, guid: 609277d9a4a40974b8d60fff3a6aae35,
-        type: 3}
-      propertyPath: m_Name
-      value: AmmoCount
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 609277d9a4a40974b8d60fff3a6aae35, type: 3}
+--- !u!1 &4412628101730474157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7249499178430310940, guid: 609277d9a4a40974b8d60fff3a6aae35,
+    type: 3}
+  m_PrefabInstance: {fileID: 4412628101730474156}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4412628101730474158 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 78235594533961743, guid: 609277d9a4a40974b8d60fff3a6aae35,

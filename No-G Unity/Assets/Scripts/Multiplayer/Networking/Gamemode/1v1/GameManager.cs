@@ -160,6 +160,23 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 	public void endGame()
 	{
+        if(alivePlayers.Count == 0)
+        {
+            foreach(GameObject player in allPlayers)
+            {
+                if (player.GetPhotonView().IsMine)
+                {
+                    if(loseGame.active == false)
+                    {
+                        TieGame();
+                    }
+                    else
+                    {
+                        LoseGame();
+                    }
+                }
+            }
+        }
 		foreach(GameObject player in allPlayers)
 		{
 			if(player.GetPhotonView().IsMine)
