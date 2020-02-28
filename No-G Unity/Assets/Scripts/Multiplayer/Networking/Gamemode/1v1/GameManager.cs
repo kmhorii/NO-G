@@ -143,11 +143,14 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 			plyr.GetComponent<PlayerHealth>().hasBeenDead = true;
 
 			alivePlayers.Remove(plyr);
+            if (alivePlayers.Count < 2 && !gameTimer.isFinished)
+            {
+                endGame();
+            }
 
-			Spectate(plyr);
+            Spectate(plyr);
 
-			if (alivePlayers.Count >= 2) { }
-			else endGame();
+			
 		}
 	}
 
