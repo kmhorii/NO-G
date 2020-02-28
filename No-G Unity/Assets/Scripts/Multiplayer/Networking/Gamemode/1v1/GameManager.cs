@@ -73,8 +73,12 @@ public class GameManager : MonoBehaviourPun, IPunObservable
             else
             {
                 SceneManager.UnloadSceneAsync("Settings");
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
+                if (!gameOver)
+                {
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+                
             }
         }
         if (!gameOver)
