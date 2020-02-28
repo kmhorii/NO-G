@@ -6344,7 +6344,7 @@ MonoBehaviour:
   gun: {fileID: 0}
   player: {fileID: 0}
   impactSound: {fileID: 7323025999265635649}
-  gruntSound: {fileID: 0}
+  gruntSound: {fileID: 2764231708381492103}
   display: {fileID: 0}
 --- !u!114 &4893626091186023055
 MonoBehaviour:
