@@ -229,6 +229,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		{
             if (child.gameObject.tag == "Gun")
             {
+                child.gameObject.SetActive(false);
                 child.gameObject.GetComponent<ShootingGun>().enabled = false;
                 child.gameObject.GetComponent<MeshRenderer>().enabled = false;
 				child.gameObject.GetComponent<MeshCollider>().enabled = false;
