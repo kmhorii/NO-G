@@ -160,6 +160,10 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 	public void endGame()
 	{
+        foreach(GameObject player in alivePlayers)
+        {
+            DeathCheck(player);
+        }
         if(alivePlayers.Count == 0)
         {
             foreach(GameObject player in allPlayers)
@@ -195,6 +199,10 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
 	public void endGameTimerRunOut()
 	{
+        foreach(GameObject player in alivePlayers)
+        {
+            DeathCheck(player);
+        }
 		Dictionary<float, List<GameObject>> standings = new Dictionary<float, List<GameObject>>();
 
 		foreach(GameObject player in alivePlayers)
