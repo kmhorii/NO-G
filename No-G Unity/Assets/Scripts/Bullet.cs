@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviourPun
 			{
 				PlayerHealth pd = collision.gameObject.GetComponent<PlayerHealth>();
 
-				if (bounceNumber <= maxBounces - 1)
+				if (bounceNumber <= maxBounces)
 				{
 					int bulletDamage = defaultDamage /*- (damageReduction * (maxBounces - bounceNumber - 1))*/;
 					pd.DealDamage(shooter, bulletDamage);
@@ -51,8 +51,8 @@ public class Bullet : MonoBehaviourPun
         {
             if (bounceNumber - 1 == 0)
             {
-				Destroy(gameObject);
-			}
+                Destroy(gameObject);
+            }
             else
             {
                 bounceNumber--;
