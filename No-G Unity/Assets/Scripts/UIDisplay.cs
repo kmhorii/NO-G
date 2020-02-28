@@ -74,6 +74,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     public GameObject shakeUI;
 
+    public AudioSource thudsound;
+
     public bool isShaking = false;
 
     // Start is called before the first frame update
@@ -519,6 +521,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         if ((collision.gameObject.tag == "NotBouncyWall") && (isShaking == false))
             {
                 shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y - 12f, shakeUI.transform.position.z);
+                thudsound.Play();
                 isShaking = true;
                 //shakeUI.transform.localPosition = new Vector3(0, -10, 0);
                 Invoke("ShakeBack", .2f);
