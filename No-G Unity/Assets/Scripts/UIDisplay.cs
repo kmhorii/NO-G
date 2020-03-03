@@ -239,7 +239,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         }
         ////
         //BloodUI();
-      //TabToggle();
+      TabToggle();
     }
     ///End of Update
     public void UpdateKillFeed(string shooter, string defender, bool kill)

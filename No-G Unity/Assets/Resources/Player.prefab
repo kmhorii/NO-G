@@ -6394,7 +6394,8 @@ MonoBehaviour:
   endColor: {r: 194, g: 194, b: 194, a: 0}
   fadeSpeed: 0.5
   shakeUI: {fileID: 0}
-  thudsound: {fileID: -6806273862033298565}
+  thudSound: {fileID: -6806273862033298565}
+  playerInfo: {fileID: 0}
   isShaking: 0
 --- !u!64 &1008821868715322753
 MeshCollider:
