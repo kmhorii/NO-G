@@ -79,7 +79,7 @@ public class Bullet : MonoBehaviourPun
 
                 if (bounceNumber <= maxBounces)
                 {
-                    int bulletDamage = defaultDamage + (maxBounces-bounceNumber) * damageIncrease;/*- (damageReduction * (maxBounces - bounceNumber - 1))*/
+                    int bulletDamage = defaultDamage + (maxBounces-bounceNumber-1) * damageIncrease;/*- (damageReduction * (maxBounces - bounceNumber - 1))*/
                     pd.DealDamage(shooter, bulletDamage);
 
                     gunReference.savedLineRender.enabled = false;
