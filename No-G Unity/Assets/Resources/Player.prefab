@@ -12244,7 +12244,7 @@ MonoBehaviour:
   isShooting: 0
   aiming: 0
   isReloading: 0
-  bulletSpeed: 15
+  bulletSpeed: 40
   fireSpeed: 1
   maxAmmo: 3
   currentAmmo: 0
