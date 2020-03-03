@@ -1147,7 +1147,7 @@ MonoBehaviour:
   fireSpeed: 1
   maxAmmo: 3
   currentAmmo: 0
-  reloadTime: 3
+  reloadTime: 1.25
   maxBounces: 8
   maxStepDistance: 1000
   previewMaterial: {fileID: 0}
