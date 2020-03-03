@@ -57,7 +57,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public Texture health0;
     */
 
-   // public Image damageUI;
+    // public Image damageUI;
     public Image crackedUI;
     public Image crackedUI2;
 
@@ -67,14 +67,16 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public float currentFlashAlpha;
     public bool flashOn = false;
 
-  ////  public Color startColor = new Color32(255, 0, 0, 255);
+    ////  public Color startColor = new Color32(255, 0, 0, 255);
     public Color endColor = new Color32(0, 0, 0, 0);
 
     public float fadeSpeed = 2f;
 
     public GameObject shakeUI;
 
-    public AudioSource thudsound;
+    public AudioSource thudSound;
+
+    public GameObject playerInfo;
 
     public bool isShaking = false;
 
@@ -96,10 +98,10 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
         damageFeed = new GameObject[3];
 
-		for(int i = 0; i < 3; i++)
-		{
-			damageFeed[i] = GameObject.Find("Kill_" + (i + 1));
-		}
+        for (int i = 0; i < 3; i++)
+        {
+            damageFeed[i] = GameObject.Find("Kill_" + (i + 1));
+        }
         gun = GetComponentInChildren<ShootingGun>();
         maxAmmo = gun.maxAmmo;
         currentAmmo = gun.currentAmmo;
@@ -127,8 +129,11 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
         shakeUI = GameObject.Find("ShakeObjects");
 
- 
        
+        playerInfo = GameObject.Find("OtherPlayerInfo");
+        playerInfo.gameObject.SetActive(false);
+      
+
 
         reloadbar.gameObject.SetActive(false);
 
@@ -136,13 +141,13 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         //DamageUI Color
         //damageUI = GameObject.Find("DamageUI").GetComponent<Image>();
         crackedUI = GameObject.Find("Cracked1UI").GetComponent<Image>();
-        Debug.Log("find cracked 1");
+
         crackedUI2 = GameObject.Find("Cracked2UI").GetComponent<Image>();
-        Debug.Log("find cracked 2");
+
         crackedUI.gameObject.SetActive(false);
-        Debug.Log("false cracked 1");
+
         crackedUI2.gameObject.SetActive(false);
-        Debug.Log("false cracked 2");
+
         //damageUI.GetComponent<Image>().color = new Color32(194, 194, 194, 0);
         //SpeedUI
         //speedUI = GameObject.Find("SpeedUI").GetComponent<Image>();
@@ -223,52 +228,52 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             {
                 DamageFlashUI(currentFlashAlpha);
             }
-            else if(currentFlashAlpha == 0)
+            else if (currentFlashAlpha == 0)
             {
                 currentFlashAlpha = flashAlphaDefault;
             }
         }
         else
         {
-         
+
         }
         ////
         //BloodUI();
-        
+      //TabToggle();
+    }
+    ///End of Update
+    public void UpdateKillFeed(string shooter, string defender, bool kill)
+    {
+        photonView.RPC("KillFeedUpdate", RpcTarget.All, shooter, defender, kill);
     }
 
-	public void UpdateKillFeed(string shooter, string defender, bool kill)
-	{
-		photonView.RPC("KillFeedUpdate", RpcTarget.All, shooter, defender, kill);
-	}
-
-	[PunRPC]
-	void KillFeedUpdate(string shooter, string defender, bool kill)
-	{
-		for (int i = 0; i < 2; i++)
-		{
-			damageFeed[i].GetComponent<Text>().text = damageFeed[i + 1].GetComponent<Text>().text;
-			damageFeed[i].GetComponent<Text>().color = damageFeed[i + 1].GetComponent<Text>().color;
-		}
-
-		if (kill) damageFeed[2].GetComponent<Text>().color = new Color(255, 0, 0, 255);
-		else damageFeed[2].GetComponent<Text>().color = new Color(89, 235, 245, 255);
-
-		damageFeed[2].GetComponent<Text>().text = shooter + ((kill) ? " killed " : " shot ") + defender;
-
-		if (shooter != defender && kill)
+    [PunRPC]
+    void KillFeedUpdate(string shooter, string defender, bool kill)
+    {
+        for (int i = 0; i < 2; i++)
         {
-			if (GameObject.Find(defender).GetPhotonView().IsMine)
-			{
-				GetComponent<StatsManager>().incrementDeaths();
-			}
+            damageFeed[i].GetComponent<Text>().text = damageFeed[i + 1].GetComponent<Text>().text;
+            damageFeed[i].GetComponent<Text>().color = damageFeed[i + 1].GetComponent<Text>().color;
+        }
+
+        if (kill) damageFeed[2].GetComponent<Text>().color = new Color(255, 0, 0, 255);
+        else damageFeed[2].GetComponent<Text>().color = new Color(89, 235, 245, 255);
+
+        damageFeed[2].GetComponent<Text>().text = shooter + ((kill) ? " killed " : " shot ") + defender;
+
+        if (shooter != defender && kill)
+        {
+            if (GameObject.Find(defender).GetPhotonView().IsMine)
+            {
+                GetComponent<StatsManager>().incrementDeaths();
+            }
 
             if (GameObject.Find(shooter).GetPhotonView().IsMine)
             {
-				GetComponent<StatsManager>().incrementKills();
+                GetComponent<StatsManager>().incrementKills();
             }
         }
-	}
+    }
 
     private float CalculateHealth()
     {
@@ -375,7 +380,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         //Raycast For UI
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-       // Rayc
+        // Rayc
         RaycastHit hit;
 
         //Vector3 startingPosition;
@@ -385,9 +390,9 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
         if (Physics.Raycast(myCam.transform.position, myCam.transform.forward, out hit))
         {
-            Debug.DrawLine(ray.origin,hit.point);
+            Debug.DrawLine(ray.origin, hit.point);
 
-            if(hit.collider.tag == "Player" && hit.collider.gameObject.name != this.name)
+            if (hit.collider.tag == "Player" && hit.collider.gameObject.name != this.name)
             {
                 enemyObject = hit.collider.gameObject;
                 enemyHealthbar.gameObject.SetActive(true);
@@ -399,14 +404,14 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
                 enemyHealthbar.gameObject.SetActive(false);
                 enemyHealthtext.gameObject.SetActive(false);
             }
-        
-          // Debug.Log(hit.transform.gameObject.name);
-         //  Debug.Log(hit.transform.gameObject.tag);
-         }
-        
+
+            // Debug.Log(hit.transform.gameObject.name);
+            //  Debug.Log(hit.transform.gameObject.tag);
+        }
+
     }
 
-    
+
     public void CrackedUI()
     {
         if (ph.currentHealth == 100)
@@ -418,7 +423,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             crackedUI2.gameObject.SetActive(false);
             Debug.Log("100");
         }
-        if(ph.currentHealth < 100 && ph.currentHealth > 50)
+        if (ph.currentHealth < 100 && ph.currentHealth > 50)
         {
             // Debug.Log("66")
             //damageUI.color = new Color32(194, 194, 194, 50);
@@ -427,7 +432,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             crackedUI2.gameObject.SetActive(false);
             Debug.Log("less 100");
         }
-        if(ph.currentHealth < 50 && ph.currentHealth > 0)
+        if (ph.currentHealth < 50 && ph.currentHealth > 0)
         {
             // Debug.Log("32");
             //damageUI.color = new Color32(194, 194, 194, 100);
@@ -437,7 +442,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             Debug.Log("less 50");
         }
 
-    
+
     }
     /*
     void SpeedUI()
@@ -453,7 +458,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     */
     public void DamageFlashUI(float alphaValue)
     {
-        if(alphaValue > 0)
+        if (alphaValue > 0)
         {
             if (!flashUI.enabled)
             {
@@ -465,10 +470,10 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             temp.a = alphaValue;
             flashUI.color = temp;
 
-            
+
             //Debug.Log("fade");
             temp.a -= Time.deltaTime;
-            if(temp.a < 0)
+            if (temp.a < 0)
             {
                 temp.a = 0;
                 flashUI.enabled = false;
@@ -476,8 +481,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             }
             flashUI.color = temp;
             currentFlashAlpha = temp.a;
-            
-            
+
+
             //else
             //{
             //    temp.a = flashAlphaDefault;
@@ -495,10 +500,10 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             return;
         }
         //Debug.Log("Flash");
-        
-     
-        
-       
+
+
+
+
     }
 
     void DisableFlash()
@@ -516,19 +521,21 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         }
     }
     */
+
+
+    //Shake Collision
     private void OnCollisionEnter(Collision collision)
     {
         if ((collision.gameObject.tag == "NotBouncyWall") && (isShaking == false))
-            {
-                shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y - 12f, shakeUI.transform.position.z);
-                thudsound.Play();
-                isShaking = true;
-                //shakeUI.transform.localPosition = new Vector3(0, -10, 0);
-                Invoke("ShakeBack", .2f);
-            }
-        
-    }
+        {
+            shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y - 12f, shakeUI.transform.position.z);
+            thudSound.Play();
+            isShaking = true;
+            //shakeUI.transform.localPosition = new Vector3(0, -10, 0);
+            Invoke("ShakeBack", .2f);
+        }
 
+    }
 
     void ShakeBack()
     {
@@ -536,4 +543,20 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         isShaking = false;
         //shakeUI.transform.localPosition = new Vector3(0, 10, 0);
     }
-}
+
+
+    //Toggle Player Information
+    private void TabToggle()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            playerInfo.SetActive(true);
+        }
+        else if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            playerInfo.SetActive(false);
+        }
+
+    }
+}   
+    
