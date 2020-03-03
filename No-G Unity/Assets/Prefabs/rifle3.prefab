@@ -1143,7 +1143,7 @@ MonoBehaviour:
   isShooting: 0
   aiming: 0
   isReloading: 0
-  bulletSpeed: 15
+  bulletSpeed: 40
   fireSpeed: 1
   maxAmmo: 3
   currentAmmo: 0
@@ -1162,6 +1162,16 @@ MonoBehaviour:
   shotsHitEnemy: 0
   shotsHitSelf: 0
   shooter: 
+  particleMuzzle: {fileID: 0}
+  cartridge1: {fileID: 0}
+  cartridge2: {fileID: 0}
+  cartridge3: {fileID: 0}
+  cartridgePlain: {fileID: 0}
+  cartridgeGlow: {fileID: 0}
+  muzzleFlashLights: {fileID: 0}
+  shootingSound: {fileID: 0}
+  gunComponents: {fileID: 0}
+  recoil: {fileID: 0}
 --- !u!114 &1947261562613419814
 MonoBehaviour:
   m_ObjectHideFlags: 0
