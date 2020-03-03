@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviourPun
 
     public int defaultDamage = 26;      
     public int damageReduction = 2;
+    public int damageIncrease = 5;
 
 	public bool exitPlayer = false;
 
@@ -49,6 +50,7 @@ public class Bullet : MonoBehaviourPun
 		//	}
 		//}else if (collision.collider.tag == "Wall")
         {
+            Debug.Log(bounceNumber);
             if (bounceNumber - 1 == 0)
             {
                 Destroy(gameObject);
@@ -77,7 +79,7 @@ public class Bullet : MonoBehaviourPun
 
                 if (bounceNumber <= maxBounces)
                 {
-                    int bulletDamage = defaultDamage /*- (damageReduction * (maxBounces - bounceNumber - 1))*/;
+                    int bulletDamage = defaultDamage + (maxBounces-bounceNumber) * damageIncrease;/*- (damageReduction * (maxBounces - bounceNumber - 1))*/
                     pd.DealDamage(shooter, bulletDamage);
 
                     gunReference.savedLineRender.enabled = false;
