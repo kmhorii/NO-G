@@ -31,6 +31,8 @@ public class MPManager : MonoBehaviourPunCallbacks
         //    JoinGame();
         //}
         //Debug.Log(PhotonNetwork.NetworkingClient.Server);
+
+        Debug.Log(PhotonNetwork.NetworkingClient.RegionHandler.BestRegion.ToString());
     }
 
     public override void OnConnectedToMaster()
