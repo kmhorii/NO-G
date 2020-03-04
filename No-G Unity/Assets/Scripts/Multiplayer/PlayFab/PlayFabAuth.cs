@@ -30,4 +30,10 @@ public class PlayFabAuth : MonoBehaviour
 			StartCoroutine(a.CreateNewAlert(error.ErrorMessage));
 		});
 	}
+
+    public void Logout()
+    {
+        PlayFabClientAPI.ForgetAllCredentials();
+        SceneManager.LoadScene(levelToLoad);
+    }
 }
