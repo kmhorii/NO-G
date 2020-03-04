@@ -30,6 +30,7 @@ public class MPManager : MonoBehaviourPunCallbacks
         //{
         //    JoinGame();
         //}
+        //Debug.Log(PhotonNetwork.NetworkingClient.Server);
     }
 
     public override void OnConnectedToMaster()
