@@ -32,6 +32,7 @@ public class MPManager : MonoBehaviourPunCallbacks
         //}
         //Debug.Log(PhotonNetwork.NetworkingClient.Server);
 
+        Debug.Log(PhotonNetwork.NetworkingClient.AppId);
         Debug.Log(PhotonNetwork.NetworkingClient.RegionHandler.BestRegion.ToString());
     }
 
