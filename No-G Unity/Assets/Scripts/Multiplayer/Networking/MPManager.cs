@@ -32,8 +32,10 @@ public class MPManager : MonoBehaviourPunCallbacks
         //}
         //Debug.Log(PhotonNetwork.NetworkingClient.Server);
 
-        Debug.Log(PhotonNetwork.NetworkingClient.AppId);
-        Debug.Log(PhotonNetwork.NetworkingClient.RegionHandler.BestRegion.ToString());
+        Debug.Log("App ID: " + PhotonNetwork.NetworkingClient.AppId);
+        Debug.Log("Game server address: " + PhotonNetwork.NetworkingClient.GameServerAddress);
+        Debug.Log("Region: + " + PhotonNetwork.NetworkingClient.RegionHandler.BestRegion);
+        Debug.Log("User ID: " + PhotonNetwork.NetworkingClient.UserId);
     }
 
     public override void OnConnectedToMaster()
