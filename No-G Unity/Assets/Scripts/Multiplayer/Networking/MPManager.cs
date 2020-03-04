@@ -26,10 +26,10 @@ public class MPManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (Input.GetButtonDown("Submit"))
-        {
-            JoinGame();
-        }
+        //if (Input.GetButtonDown("Submit"))
+        //{
+        //    JoinGame();
+        //}
     }
 
     public override void OnConnectedToMaster()

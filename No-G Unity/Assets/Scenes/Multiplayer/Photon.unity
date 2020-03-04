@@ -5336,7 +5336,6 @@ GameObject:
   - component: {fileID: 212737640}
   - component: {fileID: 212737639}
   - component: {fileID: 212737638}
-  - component: {fileID: 212737637}
   - component: {fileID: 212737636}
   - component: {fileID: 212737635}
   - component: {fileID: 212737634}
@@ -5513,59 +5512,6 @@ MonoBehaviour:
   viewIdField: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &212737637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 212737631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32fd354fd29035544a81ba236b28d17d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 8160939512464954331, guid: b99a42ee9f967fb42a9850bbc4071759,
-    type: 3}
-  muzzle: {fileID: 720194743}
-  mainCamera: {fileID: 0}
-  isShooting: 0
-  aiming: 0
-  isReloading: 0
-  bulletSpeed: 15
-  fireSpeed: 1
-  maxAmmo: 3
-  currentAmmo: 0
-  reloadTime: 3
-  maxBounces: 8
-  maxStepDistance: 1000
-  previewMaterial: {fileID: 2100000, guid: 7cd21719a1d4eeb44ac408d0ab1ebbb5, type: 2}
-  previewHitMaterial: {fileID: 2100000, guid: f8d691bf10f666243bc3849a6c4299a7, type: 2}
-  bouncePoints:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  savedBounces: []
-  lineRender: {fileID: 1341582241}
-  savedLineRender: {fileID: 548583442}
-  myStats: {fileID: 0}
-  savedPreviewTime: 1.5
-  shotsFired: 0
-  shotsHitEnemy: 0
-  shotsHitSelf: 0
-  shooter: 
-  particleMuzzle: {fileID: 474372129}
-  cartridge1: {fileID: 240857773}
-  cartridge2: {fileID: 1147109779}
-  cartridge3: {fileID: 288748699}
-  cartridgePlain: {fileID: 2100000, guid: c5c3eec9a88b09e4e80db76dc6a88fca, type: 2}
-  cartridgeGlow: {fileID: 2100000, guid: 9f55598818d60034b89721555253ae34, type: 2}
-  muzzleFlashLights: {fileID: 1771683003}
-  shootingSound: {fileID: 212737632}
-  gunComponents: {fileID: 1827941986}
-  recoil: {fileID: 1827941987}
 --- !u!120 &212737638
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -14401,7 +14347,8 @@ MonoBehaviour:
   endColor: {r: 194, g: 194, b: 194, a: 0}
   fadeSpeed: 0.5
   shakeUI: {fileID: 0}
-  thudsound: {fileID: 0}
+  thudSound: {fileID: 0}
+  playerInfo: {fileID: 0}
   isShaking: 0
 --- !u!4 &4924483609611881898
 Transform:

@@ -12241,7 +12241,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8160939512464954331, guid: b99a42ee9f967fb42a9850bbc4071759,
     type: 3}
   muzzle: {fileID: 419174239344854462}
-  mainCamera: {fileID: 1634481662181359962}
+  mainCamera: {fileID: 0}
   isShooting: 0
   aiming: 0
   isReloading: 0
