@@ -33,6 +33,7 @@ public class MPManager : MonoBehaviourPunCallbacks
         //Debug.Log(PhotonNetwork.NetworkingClient.Server);
 
         Debug.Log("App ID: " + PhotonNetwork.NetworkingClient.AppId);
+        Debug.Log("App Version: " + PhotonNetwork.NetworkingClient.AppVersion);
         Debug.Log("Game server address: " + PhotonNetwork.NetworkingClient.GameServerAddress);
         Debug.Log("Region: + " + PhotonNetwork.NetworkingClient.RegionHandler.BestRegion);
         Debug.Log("User ID: " + PhotonNetwork.NetworkingClient.UserId);
