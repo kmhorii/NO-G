@@ -48,6 +48,7 @@ public class MPManager : MonoBehaviourPunCallbacks
 
 	public void JoinGame()
 	{
+        Debug.Log("JoinGame called");
 		PhotonNetwork.AutomaticallySyncScene = true;
 		PhotonNetwork.JoinRandomRoom();
 
