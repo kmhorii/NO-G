@@ -15,7 +15,7 @@ MonoBehaviour:
   TitleId: EFCCD
   DeveloperSecretKey: 1S9FEYQJ46I9CHZGYBHX5Z4O1ZENUWW4IOJB9A3G9WZ4WOG37T
   ProductionEnvironmentUrl: 
-  RequestType: 2
+  RequestType: 0
   AdvertisingIdType: 
   AdvertisingIdValue: 
   DisableAdvertising: 0
