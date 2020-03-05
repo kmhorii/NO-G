@@ -107,12 +107,6 @@ public class ShootingGun : MonoBehaviourPun
                 }
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            cartridge2.materials[2] = cartridgePlain;
-            Debug.Log("adsf");
-        }
     }
 
     //Preview Shot
