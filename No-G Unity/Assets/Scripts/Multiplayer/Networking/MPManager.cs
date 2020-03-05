@@ -19,6 +19,7 @@ public class MPManager : MonoBehaviourPunCallbacks
     {
 		PhotonNetwork.ConnectUsingSettings();
 		PhotonNetwork.NickName = PlayerInfo.Name;
+        PhotonNetwork.ConnectToRegion("usw");
 		//PhotonNetwork.ConnectToRegion("usw");
 
 		CharacterText.GetComponent<Text>().text = PlayerInfo.Name;
