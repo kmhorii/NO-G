@@ -48,8 +48,15 @@ public class MPManager : MonoBehaviourPunCallbacks
 
 	public void JoinGame()
 	{
-		PhotonNetwork.AutomaticallySyncScene = true;
-		PhotonNetwork.JoinRandomRoom();
+        if (PhotonNetwork.InRoom)
+        {
+            PhotonNetwork.LoadLevel("MergeTest");
+        }
+        else
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.JoinRandomRoom();
+        }
 
 		//Debug.Log("Joining room");
 	}
