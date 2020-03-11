@@ -48,7 +48,7 @@ public class MPManager : MonoBehaviourPunCallbacks
 
 	public void JoinGame()
 	{
-        if (PhotonNetwork.InRoom)
+        if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient)
         {
             PhotonNetwork.LoadLevel("MergeTest");
         }
