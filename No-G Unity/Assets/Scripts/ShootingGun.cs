@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Photon;
 using Photon.Pun;
 
@@ -13,7 +14,7 @@ public class ShootingGun : MonoBehaviourPun
 {
     public GameObject bulletPrefab;
     public Transform muzzle;
-	public GameObject mainCamera;
+	public Transform mainCamera;
 
     public bool isShooting = false;
     public bool aiming = false;
@@ -69,6 +70,7 @@ public class ShootingGun : MonoBehaviourPun
     {
         currentAmmo = maxAmmo;
         SetCartridgeMaterial();
+        mainCamera = GameObject.Find("gunFake").GetComponent<Transform>();
 
         lineRender.enabled = false;
         savedLineRender.enabled = false;
@@ -80,11 +82,18 @@ public class ShootingGun : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-			gameObject.layer = 15;
+			gameObject.layer = 15; // myGun layer
 			foreach(Transform child in transform) child.gameObject.layer = 15;
-            transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+            //if (SceneManager.GetActiveScene().name == "MergeTest")
+            //{
+            //    transform.position = new Vector3(mainCamera.position.x, mainCamera.position.y, mainCamera.position.z);
+            //    transform.rotation = new Quaternion(mainCamera.transform.rotation.x, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, mainCamera.transform.rotation.w);
+            //}
+
+            transform.position = new Vector3(mainCamera.position.x, mainCamera.position.y, mainCamera.position.z);
             transform.rotation = new Quaternion(mainCamera.transform.rotation.x, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, mainCamera.transform.rotation.w);
-            if(currentAmmo < maxAmmo && !isReloading)
+
+            if (currentAmmo < maxAmmo && !isReloading)
             {
                 isReloading = true;
                 Invoke("ChargeBullet", reloadTime);
@@ -97,12 +106,6 @@ public class ShootingGun : MonoBehaviourPun
                     SetCartridgeMaterial();
                 }
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            cartridge2.materials[2] = cartridgePlain;
-            Debug.Log("adsf");
         }
     }
 

@@ -50,7 +50,6 @@ public class Bullet : MonoBehaviourPun
 		//	}
 		//}else if (collision.collider.tag == "Wall")
         {
-            Debug.Log(bounceNumber);
             if (bounceNumber - 1 == 0)
             {
                 Destroy(gameObject);

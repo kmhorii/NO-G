@@ -17,7 +17,8 @@ public class MPManager : MonoBehaviourPunCallbacks
 	// Start is called before the first frame update
 	void Start()
     {
-		PhotonNetwork.ConnectUsingSettings();
+        //PhotonNetwork.ConnectToRegion(CloudRe);
+        PhotonNetwork.ConnectUsingSettings();
 		PhotonNetwork.NickName = PlayerInfo.Name;
 		//PhotonNetwork.ConnectToRegion("usw");
 
@@ -26,10 +27,20 @@ public class MPManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (Input.GetButtonDown("Submit"))
-        {
-            JoinGame();
-        }
+        //if (Input.GetButtonDown("Submit"))
+        //{
+        //    JoinGame();
+        //}
+        //Debug.Log(PhotonNetwork.NetworkingClient.Server);
+
+        //jesus christ;
+        //Debug.Log(PhotonNetwork.CloudRegion)
+        //Debug.Log("App ID: " + PhotonNetwork.NetworkingClient.AppId);
+        //Debug.Log("App Version: " + PhotonNetwork.NetworkingClient.AppVersion);
+        //Debug.Log("Game server address: " + PhotonNetwork.NetworkingClient.GameServerAddress);
+        //Debug.Log("Region: + " + PhotonNetwork.NetworkingClient.RegionHandler.BestRegion);
+        //Debug.Log("Region+: " + PhotonNetwork.NetworkingClient.RegionHandler);
+        //Debug.Log("User ID: " + PhotonNetwork.NetworkingClient.UserId);
     }
 
     public override void OnConnectedToMaster()
