@@ -78,6 +78,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     public GameObject playerInfo;
 
+    public GameObject eliminateText;
+
     public bool isShaking = false;
 
     // Start is called before the first frame update
@@ -123,6 +125,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
         winScreen = GameObject.Find("WinScreen");
         loseScreen = GameObject.Find("LoseScreen");
+       
 
         //
         myCam = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -157,6 +160,11 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         flashUI.enabled = false;
         //flashUI.GetComponent<Image>().color = new Color32(0, 0, 0, 0);
         currentFlashAlpha = flashAlphaDefault;
+
+
+        eliminateText = GameObject.Find("EliminateText");
+        eliminateText.SetActive(true);
+        StartCoroutine(ElimininateTextOFF());
 
     }
 
@@ -240,6 +248,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         ////
         //BloodUI();
       TabToggle();
+    
     }
     ///End of Update
     public void UpdateKillFeed(string shooter, string defender, bool kill)
@@ -557,6 +566,16 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             playerInfo.SetActive(false);
         }
 
+    }
+
+    private IEnumerator ElimininateTextOFF()
+    {
+
+        //Turn the Game Oject back off after 1 sec.
+        yield return new WaitForSeconds(10);
+
+        //Game object will turn off
+        eliminateText.SetActive(false);
     }
 }   
     
