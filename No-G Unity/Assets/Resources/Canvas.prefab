@@ -2298,6 +2298,85 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2610659454974165836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5590942131708005942}
+  - component: {fileID: 6563629924787126505}
+  - component: {fileID: 7911919834075083674}
+  m_Layer: 5
+  m_Name: EliminateText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5590942131708005942
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610659454974165836}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.854663, y: 1.854663, z: 1.854663}
+  m_Children: []
+  m_Father: {fileID: 4412628101915063792}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 141.3}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6563629924787126505
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610659454974165836}
+  m_CullTransparentMesh: 0
+--- !u!114 &7911919834075083674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2610659454974165836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.26125845, g: 0.9639435, b: 0.9716981, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 0141711d06c8a18429c4c621159a7f8d, type: 3}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Eliminate All Opponenets
 --- !u!1 &2677775864700365685
 GameObject:
   m_ObjectHideFlags: 0
@@ -3585,6 +3664,7 @@ RectTransform:
   - {fileID: 3124654051003935567}
   - {fileID: 3560249120933145965}
   - {fileID: 5416434440195434051}
+  - {fileID: 5590942131708005942}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5912,21 +5992,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4412628101915063792}
     m_Modifications:
-    - target: {fileID: 5860687626450033421, guid: 9c6ecc50568229c49ad1936b489dbb3f,
-        type: 3}
-      propertyPath: m_Name
-      value: Health_Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 1112740732026990263, guid: 9c6ecc50568229c49ad1936b489dbb3f,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1112740732026990263, guid: 9c6ecc50568229c49ad1936b489dbb3f,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1850926719780252042, guid: 9c6ecc50568229c49ad1936b489dbb3f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5980,6 +6045,21 @@ PrefabInstance:
     - target: {fileID: 1850926719780252042, guid: 9c6ecc50568229c49ad1936b489dbb3f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5860687626450033421, guid: 9c6ecc50568229c49ad1936b489dbb3f,
+        type: 3}
+      propertyPath: m_Name
+      value: Health_Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112740732026990263, guid: 9c6ecc50568229c49ad1936b489dbb3f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1112740732026990263, guid: 9c6ecc50568229c49ad1936b489dbb3f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1112740732409379270, guid: 9c6ecc50568229c49ad1936b489dbb3f,
