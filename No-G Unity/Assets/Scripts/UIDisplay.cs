@@ -78,7 +78,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     public GameObject playerInfo;
 
-    public GameObject eliminateText;
+   // public GameObject eliminateText;
 
     public bool isShaking = false;
 
@@ -130,9 +130,12 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         //
         myCam = GameObject.Find("Main Camera").GetComponent<Camera>();
 
-        shakeUI = GameObject.Find("ShakeObjects");
-
+        if(photonView.IsMine)
+        {
+            shakeUI = GameObject.Find("ShakeObjects");
+        }
        
+        
         playerInfo = GameObject.Find("OtherPlayerInfo");
         playerInfo.gameObject.SetActive(false);
       
@@ -162,9 +165,9 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         currentFlashAlpha = flashAlphaDefault;
 
 
-        eliminateText = GameObject.Find("EliminateText");
-        eliminateText.SetActive(true);
-        StartCoroutine(ElimininateTextOFF());
+        //eliminateText = GameObject.Find("EliminateText");
+        //eliminateText.SetActive(true);
+        //StartCoroutine(ElimininateTextOFF());
 
     }
 
@@ -535,7 +538,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     //Shake Collision
     private void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.tag == "NotBouncyWall") && (isShaking == false))
+        if ((photonView.IsMine) && (collision.gameObject.tag == "NotBouncyWall") && (isShaking == false))
         {
             shakeUI.transform.position = new Vector3(shakeUI.transform.position.x, shakeUI.transform.position.y - 12f, shakeUI.transform.position.z);
             thudSound.Play();
@@ -568,6 +571,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     }
 
+    /*
     private IEnumerator ElimininateTextOFF()
     {
 
@@ -577,5 +581,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         //Game object will turn off
         eliminateText.SetActive(false);
     }
+    */
+
 }   
     

@@ -17,12 +17,18 @@ public class Timer : MonoBehaviourPun, IPunObservable
 
     public float timerLeft = 0;
 
-    
+
+
+    public GameObject eliminateText;
+
+
     public Text timerText;
 
     // Start is called before the first frame update
     void Start()
     {
+        eliminateText = GameObject.Find("EliminateText");
+        eliminateText.gameObject.SetActive(true);
         // startTime = Time.time;
     }
 
@@ -53,6 +59,8 @@ public class Timer : MonoBehaviourPun, IPunObservable
 				timerText.gameObject.SetActive(false);
 				started = false;
 				isFinished = true;
+                eliminateText.gameObject.SetActive(false);
+                Debug.Log("Text false");
 			}
 		}
 	}
