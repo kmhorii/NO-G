@@ -102,6 +102,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 		{
             impactSound.Play();
             hitParticles.Play();
+            gameObject.GetComponent<PlayerHealth>().hitParticles.Play();
             Debug.Log("hit " + gameObject.name);
         }
         //else
