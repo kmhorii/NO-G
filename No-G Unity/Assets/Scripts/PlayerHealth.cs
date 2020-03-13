@@ -78,6 +78,9 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 		{
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
+            Instantiate(hitParticles, this.gameObject.transform, true);
+            GameObject particles = Instantiate(hitParticles, this.gameObject.transform, true);
+            gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
             //hitParticles.Play();
             gruntSound.Play();
 			
@@ -106,6 +109,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 		{
             impactSound.Play();
             Instantiate(hitParticles, this.gameObject.transform, true);
+            GameObject particles = Instantiate(hitParticles, this.gameObject.transform, true);
             //hitParticles.Play();
             //gameObject.GetComponent<PlayerHealth>().hitParticles.Play();
             Debug.Log("hit " + gameObject.name);
