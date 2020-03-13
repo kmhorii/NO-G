@@ -316,7 +316,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	public void WinGame()
 	{
 		winGame.SetActive(true);
-        player.GetComponent<StatsManager>().incrementWins();
+        gameObject.GetComponent<StatsManager>().incrementWins();
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
