@@ -2376,7 +2376,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Eliminate All Opponenets
+  m_Text: Eliminate All Opponents
 --- !u!1 &2677775864700365685
 GameObject:
   m_ObjectHideFlags: 0
