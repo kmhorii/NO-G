@@ -73,6 +73,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 		{
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
+            hitParticles.Play();
             gruntSound.Play();
 			
 			display.CrackedUI();
