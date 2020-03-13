@@ -23,8 +23,8 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 
     public AudioSource impactSound;
     public AudioSource gruntSound;
-	
-    
+
+    public ParticleSystem hitParticles;
 
 	public UIDisplay display;
 
@@ -95,10 +95,17 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 					Respawn();
 				}
 			}
-		}else if(GameObject.Find(shooter).GetPhotonView().IsMine)
+		}
+        else if(GameObject.Find(shooter).GetPhotonView().IsMine)
 		{
             impactSound.Play();
+            hitParticles.Play();
+
         }
+        //else
+        //{
+        //    hitParticles.Play();
+        //}
 	}
 
     private void Die()

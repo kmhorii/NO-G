@@ -61,7 +61,7 @@ public class MPManager : MonoBehaviourPunCallbacks
 	{
         if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("MergeTest");
+            PhotonNetwork.LoadLevel("HallwayMap");
         }
         else
         {
@@ -90,6 +90,6 @@ public class MPManager : MonoBehaviourPunCallbacks
 
 	public override void OnJoinedRoom()
 	{
-		SceneManager.LoadScene("MergeTest");
+		SceneManager.LoadScene("HallwayMap");
 	}
 }
