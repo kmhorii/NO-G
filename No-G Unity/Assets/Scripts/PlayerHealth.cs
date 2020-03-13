@@ -69,6 +69,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void Damage(string shooter, float damageValue)
     {
+        Debug.Log(hitParticles.gameObject.name);
 		if (photonView.IsMine)
 		{
 			//Minus player health w/ damage value
