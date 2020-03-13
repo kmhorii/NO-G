@@ -112,6 +112,19 @@ public class GameManager : MonoBehaviourPun, IPunObservable
             }
             
         }
+        else
+        {
+            foreach(GameObject plyr in allPlayers)
+            {
+                if(plyr != null && plyr.GetPhotonView().IsMine)
+                {
+                    if(!tieGame.activeInHierarchy && !loseGame.activeInHierarchy)
+                    {
+                        WinGame();
+                    }
+                }
+            }
+        }
         /*else
         {
             if (gameStarted && gameTimer.isFinished)
@@ -170,7 +183,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
             {
                 if (player.GetPhotonView().IsMine)
                 {
-                    if(loseGame.active == false)
+                    if(loseGame.activeInHierarchy == false)
                     {
                         TieGame();
                     }
@@ -225,7 +238,6 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 				{
 					if (standings[largestHealth].Contains(player))
 					{
-						player.GetComponent<StatsManager>().incrementWins();
 						WinGame();
 					}
 					else LoseGame();
@@ -304,6 +316,8 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	public void WinGame()
 	{
 		winGame.SetActive(true);
+        player.GetComponent<StatsManager>().incrementWins();
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 	}
