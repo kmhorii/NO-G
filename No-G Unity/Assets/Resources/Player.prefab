@@ -1501,7 +1501,8 @@ MonoBehaviour:
   player: {fileID: 0}
   impactSound: {fileID: 7323025999265635649}
   gruntSound: {fileID: 2764231708381492103}
-  hitParticles: {fileID: 3869047385108392231}
+  hitParticles: {fileID: 1377771839682462655, guid: 97f523f8f95a4524bb770f53ce36f970,
+    type: 3}
   display: {fileID: 0}
 --- !u!114 &4893626091186023055
 MonoBehaviour:
