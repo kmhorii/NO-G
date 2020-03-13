@@ -73,14 +73,16 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void Damage(string shooter, float damageValue)
     {
+        gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
+        Invoke("ChangeColorBack", 0.4f);
         //Debug.Log(hitParticles.gameObject.name);
-		if (photonView.IsMine)
+        if (photonView.IsMine)
 		{
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
             Instantiate(hitParticles, this.gameObject.transform, true);
             GameObject particles = Instantiate(hitParticles, this.gameObject.transform, true);
-            gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
+            
             //hitParticles.Play();
             gruntSound.Play();
 			
@@ -119,6 +121,11 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         //    hitParticles.Play();
         //}
 	}
+
+    private void ChangeColorBack()
+    {
+        gameObject.GetComponent<Renderer>().material.color = new Color(0, 0, 1);
+    }
 
     private void Die()
     {
