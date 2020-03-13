@@ -24,7 +24,9 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public AudioSource impactSound;
     public AudioSource gruntSound;
 
-    public ParticleSystem hitParticles;
+    public GameObject hitParticles;
+
+    //public ParticleSystem hitParticles;
 
 	public UIDisplay display;
 
@@ -42,6 +44,8 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         gun = GetComponentInChildren<ShootingGun>();
         player = GetComponent<PlayerMovement>();
 		display = GetComponent<UIDisplay>();
+
+        //hitParticles.Play();
     }
 
     // Update is called once per frame
@@ -69,12 +73,12 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void Damage(string shooter, float damageValue)
     {
-        Debug.Log(hitParticles.gameObject.name);
+        //Debug.Log(hitParticles.gameObject.name);
 		if (photonView.IsMine)
 		{
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
-            hitParticles.Play();
+            //hitParticles.Play();
             gruntSound.Play();
 			
 			display.CrackedUI();
@@ -101,8 +105,9 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         else if(GameObject.Find(shooter).GetPhotonView().IsMine)
 		{
             impactSound.Play();
-            hitParticles.Play();
-            gameObject.GetComponent<PlayerHealth>().hitParticles.Play();
+            GameObject particle = Instantiate(hitParticles, this.gameObject.transform, true);
+            //hitParticles.Play();
+            //gameObject.GetComponent<PlayerHealth>().hitParticles.Play();
             Debug.Log("hit " + gameObject.name);
         }
         //else
