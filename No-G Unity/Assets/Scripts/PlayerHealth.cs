@@ -105,7 +105,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         else if(GameObject.Find(shooter).GetPhotonView().IsMine)
 		{
             impactSound.Play();
-            GameObject particle = Instantiate(hitParticles, this.gameObject.transform, true);
+            Instantiate(hitParticles, this.gameObject.transform, true);
             //hitParticles.Play();
             //gameObject.GetComponent<PlayerHealth>().hitParticles.Play();
             Debug.Log("hit " + gameObject.name);
