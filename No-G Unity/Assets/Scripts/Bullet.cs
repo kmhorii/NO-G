@@ -16,13 +16,25 @@ public class Bullet : MonoBehaviourPun
     public int damageReduction = 2;
     public int damageIncrease = 5;
 
+    public Quaternion initialRotation;
+    public Vector3 initialVelocity;
+
 	public bool exitPlayer = false;
+    public bool recalculateRotation = false;
 
     void Start()
     {
         gunReference = GameObject.FindGameObjectWithTag("Gun").GetComponent<ShootingGun>();
         bounceNumber = gunReference.maxBounces;
         maxBounces = bounceNumber;
+    }
+    private void Update()
+    {
+        if (recalculateRotation)
+        {
+            this.transform.rotation = Quaternion.LookRotation(this.transform.position);
+            recalculateRotation = false;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -56,6 +68,7 @@ public class Bullet : MonoBehaviourPun
             }
             else
             {
+                recalculateRotation = true;
                 bounceNumber--;
                 Vector3 scale = gameObject.transform.localScale;
                 gameObject.transform.localScale = new Vector3(scale.x + .1f, scale.y + .1f, scale.z + .1f);
@@ -92,6 +105,7 @@ public class Bullet : MonoBehaviourPun
             }
         }
     }
+   
 
     [PunRPC]
 	void DestroyBullet()

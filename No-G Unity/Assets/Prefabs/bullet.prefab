@@ -9842,7 +9842,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!114 &-2231707607028071866
 MonoBehaviour:
@@ -9862,7 +9862,11 @@ MonoBehaviour:
   maxBounces: 0
   defaultDamage: 34
   damageReduction: 2
+  damageIncrease: 5
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialVelocity: {x: 0, y: 0, z: 0}
   exitPlayer: 0
+  recalculateRotation: 0
 --- !u!96 &1896684108470555392
 TrailRenderer:
   serializedVersion: 2
