@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviourPun
     {
         if (recalculateRotation)
         {
-            this.transform.rotation = Quaternion.LookRotation(this.transform.position);
+            this.transform.rotation = Quaternion.LookRotation(this.GetComponent<Rigidbody>().velocity);
             recalculateRotation = false;
         }
     }
