@@ -45,7 +45,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         player = GetComponent<PlayerMovement>();
 		display = GetComponent<UIDisplay>();
 
-        //hitParticles.Play();
+        hitParticles.GetComponent<ParticleSystem>().Play();
     }
 
     // Update is called once per frame
@@ -57,6 +57,14 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
             {
                 Die();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            //Debug.Log("as;lkjf");
+            //Debug.Log(hitParticles.GetComponent<ParticleSystem>().isStopped);
+            //hitParticles.GetComponent<ParticleSystem>().Stop();
+            hitParticles.GetComponent<ParticleSystem>().Play();
         }
     }
 
@@ -80,10 +88,11 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 		{
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
-            Instantiate(hitParticles, this.gameObject.transform, true);
-            GameObject particles = Instantiate(hitParticles, this.gameObject.transform, true);
-            
-            //hitParticles.Play();
+            //Instantiate(hitParticles, this.gameObject.transform, true);
+            //GameObject particles = Instantiate(hitParticles, this.gameObject.transform, true);
+
+            hitParticles.GetComponent<ParticleSystem>().Play();
+
             gruntSound.Play();
 			
 			display.CrackedUI();

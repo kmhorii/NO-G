@@ -1250,8 +1250,8 @@ Transform:
   m_Children:
   - {fileID: 3685824452708716459}
   - {fileID: 1176968688677483809}
-  - {fileID: 4659959463410346263}
   - {fileID: 5614113632846371727}
+  - {fileID: 4659959463410346263}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -1501,8 +1501,7 @@ MonoBehaviour:
   player: {fileID: 0}
   impactSound: {fileID: 7323025999265635649}
   gruntSound: {fileID: 2764231708381492103}
-  hitParticles: {fileID: 1377771839682462655, guid: 97f523f8f95a4524bb770f53ce36f970,
-    type: 3}
+  hitParticles: {fileID: 4333868426170931111}
   display: {fileID: 0}
 --- !u!114 &4893626091186023055
 MonoBehaviour:
@@ -1952,13 +1951,13 @@ GameObject:
   - component: {fileID: 5614113632846371727}
   - component: {fileID: 3869047385108392231}
   - component: {fileID: 563216216886112636}
-  m_Layer: 16
+  m_Layer: 0
   m_Name: hitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5614113632846371727
 Transform:
   m_ObjectHideFlags: 0
@@ -1967,11 +1966,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4333868426170931111}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3685824452654221108}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &3869047385108392231
 ParticleSystem:
@@ -1981,7 +1980,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4333868426170931111}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 0.4
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -1989,7 +1988,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -12060,7 +12059,7 @@ Transform:
   m_Children:
   - {fileID: 4910462110934178807}
   m_Father: {fileID: 3685824452654221108}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &419174238584472067
 MeshFilter:
@@ -12223,7 +12222,7 @@ MonoBehaviour:
   isShooting: 0
   aiming: 0
   isReloading: 0
-  bulletSpeed: 40
+  bulletSpeed: 30
   fireSpeed: 1
   maxAmmo: 3
   currentAmmo: 0
