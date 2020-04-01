@@ -26,8 +26,6 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 
     public GameObject hitParticles;
 
-    //public ParticleSystem hitParticles;
-
 	public UIDisplay display;
 
     // Start is called before the first frame update
@@ -44,8 +42,6 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         gun = GetComponentInChildren<ShootingGun>();
         player = GetComponent<PlayerMovement>();
 		display = GetComponent<UIDisplay>();
-
-        hitParticles.GetComponent<ParticleSystem>().Play();
     }
 
     // Update is called once per frame
@@ -57,14 +53,6 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
             {
                 Die();
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            //Debug.Log("as;lkjf");
-            //Debug.Log(hitParticles.GetComponent<ParticleSystem>().isStopped);
-            //hitParticles.GetComponent<ParticleSystem>().Stop();
-            hitParticles.GetComponent<ParticleSystem>().Play();
         }
     }
 
@@ -83,15 +71,10 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     {
         gameObject.GetComponent<Renderer>().material.color = new Color(1, 0, 0);
         Invoke("ChangeColorBack", 0.4f);
-        //Debug.Log(hitParticles.gameObject.name);
         if (photonView.IsMine)
 		{
 			//Minus player health w/ damage value
 			currentHealth -= damageValue;
-            //Instantiate(hitParticles, this.gameObject.transform, true);
-            //GameObject particles = Instantiate(hitParticles, this.gameObject.transform, true);
-
-            hitParticles.GetComponent<ParticleSystem>().Play();
 
             gruntSound.Play();
 			
@@ -119,16 +102,11 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         else if(GameObject.Find(shooter).GetPhotonView().IsMine)
 		{
             impactSound.Play();
-            Instantiate(hitParticles, this.gameObject.transform, true);
-            GameObject particles = Instantiate(hitParticles, this.gameObject.transform, true);
-            //hitParticles.Play();
-            //gameObject.GetComponent<PlayerHealth>().hitParticles.Play();
+            hitParticles.GetComponent<ParticleSystem>().Stop();
+            hitParticles.GetComponent<ParticleSystem>().Play();
+
             Debug.Log("hit " + gameObject.name);
         }
-        //else
-        //{
-        //    hitParticles.Play();
-        //}
 	}
 
     private void ChangeColorBack()
