@@ -6,6 +6,8 @@ using Photon.Pun;
 
 public class PlayerHealth : MonoBehaviourPun, IPunObservable
 {
+    public float score = 0;
+
     public bool playerJustJoined = true;
     public bool isDead = false;
 	public bool hasBeenDead = false;

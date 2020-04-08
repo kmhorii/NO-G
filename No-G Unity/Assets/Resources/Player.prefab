@@ -1487,6 +1487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bf5cd24f67562499cc007294d9ec68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
   playerJustJoined: 1
   isDead: 0
   hasBeenDead: 0

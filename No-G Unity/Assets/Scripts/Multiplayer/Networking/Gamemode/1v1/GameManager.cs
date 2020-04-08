@@ -12,10 +12,12 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	public float SpawnTime;
 	float timer = 0;
 	bool hasPlayerSpawned = false;
-	int CurPlayers;
+	int currentPlayersNumber;
 	int CurPlayersPlaying;
 
     public GameObject winner;
+    private float highestScore;
+    private bool isTie;
 
 	public GameObject winGame;
 	public GameObject loseGame;
@@ -29,15 +31,17 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	public GameObject[] spawnPoints;
 
 	public List<GameObject> alivePlayers;
-	public List<GameObject> allPlayers;
+	public List<GameObject> currentPlayers;
+    public List<GameObject> tiedPlayers;
 
 	// Start is called before the first frame update
 	void Start()
     {
 		alivePlayers = new List<GameObject>();
-		allPlayers = new List<GameObject>();
+		currentPlayers = new List<GameObject>();
+        tiedPlayers = new List<GameObject>();
 
-		CurPlayers = PhotonNetwork.CurrentRoom.PlayerCount;
+		currentPlayersNumber = PhotonNetwork.CurrentRoom.PlayerCount;
 		GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity, 0);
         player.GetComponent<PlayerMovement>().PlayerName = PlayerInfo.Name;
 
@@ -54,44 +58,26 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	// Update is called once per frame
 	void Update()
 	{
-		CurPlayers = PhotonNetwork.CurrentRoom.PlayerCount;
-		CurPlayersPlaying = GameObject.FindGameObjectsWithTag("Player").Length;
+        CheckPlayerCount();
+		//CurPlayersPlaying = GameObject.FindGameObjectsWithTag("Player").Length;
 
-		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
+		foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
 		{
-			if (plyr.name.ToLower().Contains("player(clone)")) plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
+			if (player.name.ToLower().Contains("player(clone)")) player.name = player.GetComponent<PhotonView>().Owner.NickName;
 		}
-
-        if (Input.GetButtonDown("Settings"))
-        {
-            if (!SceneManager.GetSceneByName("Settings").isLoaded)
-            {
-                SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            }
-            else
-            {
-                SceneManager.UnloadSceneAsync("Settings");
-                if (!gameOver)
-                {
-                    Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
-                }
-                
-            }
-        }
+        ToggleSettings();
+        
         if (!gameOver)
         {
             if (!gameStarted)
             {
                 if (!countdownStarted)
                 {
-                    if (CurPlayers >= 2) StartCountdown();
+                    if (currentPlayersNumber >= 2) StartCountdown();
                 }
                 else
                 {
-                    if (CurPlayers < 2) StopCountdown();
+                    if (currentPlayersNumber < 2) StopCountdown();
                     else if (countdownTimer.isFinished)
                     {
                         StartGame();
@@ -100,30 +86,28 @@ public class GameManager : MonoBehaviourPun, IPunObservable
             }
             else
             {
-                if (gameTimer.isFinished && alivePlayers.Count > 1)
+                DeathCheck();
+                if (gameTimer.isFinished || alivePlayers.Count == 1)
                 {
-					endGameTimerRunOut();
+                    EndGame();
+					//endGameTimerRunOut();
 					//gameOver = true;
-                }
-                foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
-                {
-                    DeathCheck(plyr);
                 }
             }
             
         }
         else
         {
-            foreach(GameObject plyr in allPlayers)
-            {
-                if(plyr != null && plyr.GetPhotonView().IsMine)
-                {
-                    if(!tieGame.activeInHierarchy && !loseGame.activeInHierarchy)
-                    {
-                        WinGame();
-                    }
-                }
-            }
+            //foreach(GameObject plyr in currentPlayers)
+            //{
+            //    if(plyr != null && plyr.GetPhotonView().IsMine)
+            //    {
+            //        if(!tieGame.activeInHierarchy && !loseGame.activeInHierarchy)
+            //        {
+            //            WinGame();
+            //        }
+            //    }
+            //}
         }
         /*else
         {
@@ -152,112 +136,255 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		
 	}
 
-	public void DeathCheck(GameObject plyr)
-	{
-		//Debug.Log(plyr.name + " is " + ((plyr.GetComponent<PlayerHealth>().isDead) ? "Dead" : "Not Dead"));
-		if (plyr.GetComponent<PlayerHealth>().isDead)
-		{
-			plyr.GetComponent<PlayerHealth>().hasBeenDead = true;
-
-			alivePlayers.Remove(plyr);
-            if (alivePlayers.Count < 2 && !gameTimer.isFinished)
-            {
-                endGame();
-            }
-
-            Spectate(plyr);
-
-			
-		}
-	}
-
-	public void endGame()
-	{
+    private void DeathCheck()
+    {
         foreach(GameObject player in alivePlayers)
         {
-            DeathCheck(player);
-        }
-        if(alivePlayers.Count == 0)
-        {
-            foreach(GameObject player in allPlayers)
+            if (player.GetComponent<PlayerHealth>().isDead)
             {
+                //Do we need this?
+                player.GetComponent<PlayerHealth>().hasBeenDead = true;
+                alivePlayers.Remove(player);
+                Spectate(player);
+                Debug.Log("Player " + player.name + " died");
                 if (player.GetPhotonView().IsMine)
                 {
-                    if(loseGame.activeInHierarchy == false)
+                    LoseGame();
+                }
+            }
+        }
+    }
+	//public void DeathCheck(GameObject plyr)
+	//{
+	//	//Debug.Log(plyr.name + " is " + ((plyr.GetComponent<PlayerHealth>().isDead) ? "Dead" : "Not Dead"));
+	//	if (plyr.GetComponent<PlayerHealth>().isDead)
+	//	{
+	//		plyr.GetComponent<PlayerHealth>().hasBeenDead = true;
+
+	//		alivePlayers.Remove(plyr);
+ //           if (alivePlayers.Count < 2 && !gameTimer.isFinished)
+ //           {
+ //               endGame();
+ //           }
+
+ //           Spectate(plyr);
+
+			
+	//	}
+	//}
+    public void CheckPlayerCount()
+    {
+        if(currentPlayersNumber != PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            currentPlayersNumber = PhotonNetwork.CurrentRoom.PlayerCount;
+            currentPlayers.Clear();
+            foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                currentPlayers.Add(player);
+            }
+            alivePlayers.Clear();
+            foreach (GameObject player in currentPlayers)
+            {
+                if (!player.GetComponent<PlayerHealth>().isDead)
+                {
+                    alivePlayers.Add(player);
+                }
+            }
+        }
+    }
+
+    private void EndGame()
+    {
+        if(alivePlayers.Count == 1 && currentPlayers.Count > 2)
+        {
+            if (alivePlayers[0].GetPhotonView().IsMine)
+            {
+                WinGame();
+            }
+            else if (!loseGame.activeInHierarchy)
+            {
+                LoseGame();
+            }
+        }
+        else if (alivePlayers.Count == 0)
+        {
+            if(currentPlayersNumber > 0)
+            {
+                foreach(GameObject player in currentPlayers)
+                {
+                    if(!loseGame.activeInHierarchy && !winGame.activeInHierarchy && player.GetPhotonView().IsMine)
                     {
                         TieGame();
-                    }
-                    else
-                    {
-                        LoseGame();
                     }
                 }
             }
         }
-		foreach(GameObject player in allPlayers)
-		{
-			if(player.GetPhotonView().IsMine)
-			{
-				if (alivePlayers.Contains(player))
-				{
-					WinGame();
-					player.GetComponent<StatsManager>().incrementWins();
-				}
-				else LoseGame();
-			}
-
-			gameOver = true;
-		}
-	}
-
-	public void endGameTimerRunOut()
-	{
+        else
+        {
+            //Method makes scores and declares a winner
+            CalculateWinner();
+        }
+        gameOver = true;
+    }
+    private void CalculateWinner()
+    {
         foreach(GameObject player in alivePlayers)
         {
-            DeathCheck(player);
+            player.GetComponent<PlayerHealth>().score += 100 * player.GetComponent<PlayerHealth>().lives;
+            player.GetComponent<PlayerHealth>().score += player.GetComponent<PlayerHealth>().currentHealth;
+            //player.GetComponent<PlayerHealth>().score += 0.5 * player.blahblahblah.shotslanded;
         }
-		Dictionary<float, List<GameObject>> standings = new Dictionary<float, List<GameObject>>();
+        SortListByScore();
+        CheckForTies();
+        if(!isTie && winner.GetPhotonView().IsMine)
+        {
+            WinGame();
+        }
+        else if(!isTie && !winner.GetPhotonView().IsMine)
+        {
+            if (!loseGame.activeInHierarchy)
+            {
+                LoseGame();
+            }
+        }
+        else if (isTie)
+        {
+            Debug.Log("Tie");
+            foreach(GameObject player in tiedPlayers)
+            {
+                if (player.GetPhotonView().IsMine)
+                {
+                    TieGame();
+                }
+            }
+            foreach(GameObject player in currentPlayers)
+            {
+                if (player.GetPhotonView().IsMine && !loseGame.activeInHierarchy && !tieGame.activeInHierarchy)
+                {
+                    LoseGame();
+                }
+            }
+        }
+    }
+    private void SortListByScore()
+    {
+        for(int i = 0; i < alivePlayers.Count -1; i++)
+        {
+            if(alivePlayers[i].GetComponent<PlayerHealth>().score > alivePlayers[i+1].GetComponent<PlayerHealth>().score)
+            {
+                GameObject tempHolder = alivePlayers[i + 1];
+                alivePlayers[i + 1] = alivePlayers[i];
+                alivePlayers[i] = tempHolder;
+            }
+        }
+        highestScore = alivePlayers[alivePlayers.Count - 1].GetComponent<PlayerHealth>().score;
+    }
+    private void CheckForTies()
+    {
+        for(int i = alivePlayers.Count - 2; i > 0; i--)
+        {
+            if(alivePlayers[i].GetComponent<PlayerHealth>().score == highestScore)
+            {
+                tiedPlayers.Add(alivePlayers[i]);
+                isTie = true;
+            }
+        }
+        if (isTie)
+        {
+            tiedPlayers.Add(alivePlayers[alivePlayers.Count - 1]);
+        }
+        else
+        {
+            winner = alivePlayers[alivePlayers.Count -1];
+        }
+    }
+	//public void endGame()
+	//{
+ //       foreach(GameObject player in alivePlayers)
+ //       {
+ //           DeathCheck(player);
+ //       }
+ //       if(alivePlayers.Count == 0)
+ //       {
+ //           foreach(GameObject player in currentPlayers)
+ //           {
+ //               if (player.GetPhotonView().IsMine)
+ //               {
+ //                   if(loseGame.activeInHierarchy == false)
+ //                   {
+ //                       TieGame();
+ //                   }
+ //                   else
+ //                   {
+ //                       LoseGame();
+ //                   }
+ //               }
+ //           }
+ //       }
+	//	foreach(GameObject player in currentPlayers)
+	//	{
+	//		if(player.GetPhotonView().IsMine)
+	//		{
+	//			if (alivePlayers.Contains(player))
+	//			{
+	//				WinGame();
+	//				player.GetComponent<StatsManager>().incrementWins();
+	//			}
+	//			else LoseGame();
+	//		}
 
-		foreach(GameObject player in alivePlayers)
-		{
-			float playerHealth = (player.GetComponent<PlayerHealth>().lives - 1) * 100 + player.GetComponent<PlayerHealth>().currentHealth;
-			if(standings.ContainsKey(playerHealth)) standings[playerHealth].Add(player);
-			else
-			{
-				standings.Add(playerHealth, new List<GameObject>());
-				standings[playerHealth].Add(player);
-			}
-		}
+	//		gameOver = true;
+	//	}
+	//}
 
-		float largestHealth = standings.Keys.Max();/*MaxHealth(standings.Keys.ToList<float>())*/;
-		if(standings[largestHealth].Count == 1)
-		{
-			foreach (GameObject player in alivePlayers)
-			{
-				if(player.GetPhotonView().IsMine)
-				{
-					if (standings[largestHealth].Contains(player))
-					{
-						WinGame();
-					}
-					else LoseGame();
-				}
-			}
-		}
-		else
-		{
-			foreach (GameObject player in alivePlayers)
-			{
-				if(player.GetPhotonView().IsMine)
-				{
-					if (standings[largestHealth].Contains(player)) TieGame();
-					else LoseGame();
-				}
-			}
-		}
+	//public void endGameTimerRunOut()
+	//{
+ //       foreach(GameObject player in alivePlayers)
+ //       {
+ //           DeathCheck(player);
+ //       }
+	//	Dictionary<float, List<GameObject>> standings = new Dictionary<float, List<GameObject>>();
 
-		gameOver = true;
-	}
+	//	foreach(GameObject player in alivePlayers)
+	//	{
+	//		float playerHealth = (player.GetComponent<PlayerHealth>().lives - 1) * 100 + player.GetComponent<PlayerHealth>().currentHealth;
+	//		if(standings.ContainsKey(playerHealth)) standings[playerHealth].Add(player);
+	//		else
+	//		{
+	//			standings.Add(playerHealth, new List<GameObject>());
+	//			standings[playerHealth].Add(player);
+	//		}
+	//	}
+
+	//	float largestHealth = standings.Keys.Max();/*MaxHealth(standings.Keys.ToList<float>())*/;
+	//	if(standings[largestHealth].Count == 1)
+	//	{
+	//		foreach (GameObject player in alivePlayers)
+	//		{
+	//			if(player.GetPhotonView().IsMine)
+	//			{
+	//				if (standings[largestHealth].Contains(player))
+	//				{
+	//					WinGame();
+	//				}
+	//				else LoseGame();
+	//			}
+	//		}
+	//	}
+	//	else
+	//	{
+	//		foreach (GameObject player in alivePlayers)
+	//		{
+	//			if(player.GetPhotonView().IsMine)
+	//			{
+	//				if (standings[largestHealth].Contains(player)) TieGame();
+	//				else LoseGame();
+	//			}
+	//		}
+	//	}
+
+	//	gameOver = true;
+	//}
 
 	public void Spectate(GameObject plyr)
 	{
@@ -285,6 +412,29 @@ public class GameManager : MonoBehaviourPun, IPunObservable
             }
 		}
 	}
+    //Turn Settings on/off
+    private void ToggleSettings()
+    {
+        if (Input.GetButtonDown("Settings"))
+        {
+            if (!SceneManager.GetSceneByName("Settings").isLoaded)
+            {
+                SceneManager.LoadScene("Settings", LoadSceneMode.Additive);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                SceneManager.UnloadSceneAsync("Settings");
+                if (!gameOver)
+                {
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+
+            }
+        }
+    }
 
 	[PunRPC]
 	void NewPlayerJoined()
@@ -304,19 +454,26 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	[PunRPC]
 	void AddPlayerCount()
 	{
-		CurPlayers++;
+		currentPlayersNumber++;
 	}
 
 	[PunRPC]
 	void RemovePlayerCount()
 	{
-		CurPlayers--;
+		currentPlayersNumber--;
 	}
 
 	public void WinGame()
 	{
 		winGame.SetActive(true);
-        gameObject.GetComponent<StatsManager>().incrementWins();
+        foreach(GameObject player in currentPlayers)
+        {
+            if (player.GetPhotonView().IsMine)
+            {
+                player.GetComponent<StatsManager>().incrementWins();
+
+            }
+        }
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -326,7 +483,9 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	{
 		loseGame.SetActive(true);
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None; 
+        Cursor.lockState = CursorLockMode.None;
+        //Apparently we don't have a stat for losses??
+        //gameObject.GetComponent<StatsManager>().incrementLosses();
     }
 
 	public void TieGame()
@@ -334,9 +493,11 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		tieGame.SetActive(true);
 		Cursor.visible = true;
 		Cursor.lockState = CursorLockMode.None;
-	}
+        //Apparently we don't have a stat for ties??
+        //gameObject.GetComponent<StatsManager>().incrementTies();
+    }
 
-	public void StopCountdown()
+    public void StopCountdown()
 	{
 		countdownStarted = false;
 		countdownTimer.ResetClock();
@@ -360,7 +521,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
 			alivePlayers.Add(plyr);
-			allPlayers.Add(plyr);
+			currentPlayers.Add(plyr);
 
 			if(plyr.GetPhotonView().IsMine)
 			{
@@ -380,14 +541,14 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	{
 		if(stream.IsWriting)
 		{
-			stream.SendNext(CurPlayers);
+			stream.SendNext(currentPlayersNumber);
 			stream.SendNext(gameStarted);
 			stream.SendNext(countdownStarted);
 
 			stream.SendNext(JsonUtility.ToJson(alivePlayers));
 		}else if(stream.IsReading)
 		{
-			CurPlayers = (int)stream.ReceiveNext();
+			currentPlayersNumber = (int)stream.ReceiveNext();
 			gameStarted = (bool)stream.ReceiveNext();
 			countdownStarted = (bool)stream.ReceiveNext();
 
