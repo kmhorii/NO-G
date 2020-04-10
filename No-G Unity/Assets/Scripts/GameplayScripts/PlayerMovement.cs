@@ -80,6 +80,8 @@ public class PlayerMovement : MonoBehaviourPun
                 }
                 RotatePlayer();
                 MovePlayer();
+                EnemysGateIsDown();
+                ReturnRotation();
 
                 //if (Input.GetKeyUp(KeyCode.W))
                 //{
@@ -173,6 +175,7 @@ public class PlayerMovement : MonoBehaviourPun
         xRotation = Mathf.Clamp(xRotation, -90, 90);
         transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * modifiedRotateSpeed *Time.deltaTime);
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        
         //if(mainCamera.transform.rotation.x > 90)
         //{
         //    mainCamera.transform.rotation = new Quaternion(90, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, 0);
@@ -184,11 +187,22 @@ public class PlayerMovement : MonoBehaviourPun
 
 
     }
-
-    void ReturnCameraRotation()
+    private void EnemysGateIsDown()
     {
-        
-        //mainCamera.transform.localRotation = Quaternion.Euler(-mainCamera.transform.localRotation.x *rotateSpeed, 0, 0);
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Quaternion rotationChange = mainCamera.transform.localRotation;
+            //Will change to lerp later (must then be put in update)
+            transform.rotation =  new Quaternion(transform.rotation.x + rotationChange.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+            mainCamera.transform.localRotation = new Quaternion(0, 0, 0, 0);
+            CurrentWeapon.transform.localRotation = new Quaternion(0, 0, 0, 0);
+        }
+    }
+
+    void ReturnRotation()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+            transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
     }
     public void RespawnPosition()
     {
