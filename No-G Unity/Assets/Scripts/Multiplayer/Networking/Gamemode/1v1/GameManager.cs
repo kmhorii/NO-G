@@ -145,12 +145,13 @@ public class GameManager : MonoBehaviourPun, IPunObservable
                 //Do we need this?
                 player.GetComponent<PlayerHealth>().hasBeenDead = true;
                 alivePlayers.Remove(player);
-                Spectate(player);
-                Debug.Log("Player " + player.name + " died");
                 if (player.GetPhotonView().IsMine)
                 {
                     LoseGame();
                 }
+                Spectate(player);
+                Debug.Log("Player " + player.name + " died");
+                
             }
         }
     }
@@ -195,7 +196,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
     private void EndGame()
     {
-        if(alivePlayers.Count == 1 && currentPlayers.Count > 2)
+        if(alivePlayers.Count == 1 /*&& currentPlayers.Count > 2*/)
         {
             if (alivePlayers[0].GetPhotonView().IsMine)
             {
@@ -268,6 +269,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     }
     private void SortListByScore()
     {
+        int swapCount = 0;
         for(int i = 0; i < alivePlayers.Count -1; i++)
         {
             if(alivePlayers[i].GetComponent<PlayerHealth>().score > alivePlayers[i+1].GetComponent<PlayerHealth>().score)
@@ -275,13 +277,21 @@ public class GameManager : MonoBehaviourPun, IPunObservable
                 GameObject tempHolder = alivePlayers[i + 1];
                 alivePlayers[i + 1] = alivePlayers[i];
                 alivePlayers[i] = tempHolder;
+                swapCount++;
             }
         }
-        highestScore = alivePlayers[alivePlayers.Count - 1].GetComponent<PlayerHealth>().score;
+        if(swapCount != 0)
+        {
+            SortListByScore();
+        }
+        else
+        {
+            highestScore = alivePlayers[alivePlayers.Count - 1].GetComponent<PlayerHealth>().score;
+        }
     }
     private void CheckForTies()
     {
-        for(int i = alivePlayers.Count - 2; i > 0; i--)
+        for(int i = alivePlayers.Count - 2; i >= 0; i--)
         {
             if(alivePlayers[i].GetComponent<PlayerHealth>().score == highestScore)
             {
@@ -291,7 +301,16 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         }
         if (isTie)
         {
-            tiedPlayers.Add(alivePlayers[alivePlayers.Count - 1]);
+            bool inTie = false;
+            foreach (GameObject player in tiedPlayers)
+            {
+                if (player == alivePlayers[alivePlayers.Count - 1])
+                {
+                    inTie = true;
+                }
+            }
+            if(!inTie)
+                tiedPlayers.Add(alivePlayers[alivePlayers.Count - 1]);
         }
         else
         {
