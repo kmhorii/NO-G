@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	int CurPlayersPlaying;
 
     public GameObject winner;
-    private float highestScore;
-    private bool isTie;
+    private GameObject highestScoringPlayer;
+    private int numberTiedPlayers = 0;
 
 	public GameObject winGame;
 	public GameObject loseGame;
@@ -232,23 +232,23 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         foreach(GameObject player in alivePlayers)
         {
             player.GetComponent<PlayerHealth>().score += 100 * player.GetComponent<PlayerHealth>().lives;
-            player.GetComponent<PlayerHealth>().score += player.GetComponent<PlayerHealth>().currentHealth;
+            player.GetComponent<PlayerHealth>().score += (int) player.GetComponent<PlayerHealth>().currentHealth;
             //player.GetComponent<PlayerHealth>().score += 0.5 * player.blahblahblah.shotslanded;
         }
         SortListByScore();
         CheckForTies();
-        if(!isTie && winner.GetPhotonView().IsMine)
+        if(numberTiedPlayers == 0 && winner.GetPhotonView().IsMine)
         {
             WinGame();
         }
-        else if(!isTie && !winner.GetPhotonView().IsMine)
+        else if(numberTiedPlayers == 0 && !winner.GetPhotonView().IsMine)
         {
             if (!loseGame.activeInHierarchy)
             {
                 LoseGame();
             }
         }
-        else if (isTie)
+        else if (numberTiedPlayers > 0)
         {
             Debug.Log("Tie");
             foreach(GameObject player in tiedPlayers)
@@ -286,31 +286,32 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            highestScore = alivePlayers[alivePlayers.Count - 1].GetComponent<PlayerHealth>().score;
+            highestScoringPlayer = alivePlayers[alivePlayers.Count - 1];
         }
     }
     private void CheckForTies()
     {
         for(int i = alivePlayers.Count - 2; i >= 0; i--)
         {
-            if(alivePlayers[i].GetComponent<PlayerHealth>().score == highestScore)
+            if (alivePlayers[i].GetComponent<PlayerHealth>().score != highestScoringPlayer.GetComponent<PlayerHealth>().score)
             {
-                tiedPlayers.Add(alivePlayers[i]);
-                isTie = true;
+                break;
+            }
+            else
+            {
+                if (alivePlayers[i] != highestScoringPlayer)
+                {
+                    tiedPlayers.Add(alivePlayers[i]);
+                    numberTiedPlayers++;
+                }
+                
             }
         }
-        if (isTie)
+        Debug.Log("Number of tied players: " + numberTiedPlayers);
+        if (numberTiedPlayers > 0)
         {
-            bool inTie = false;
-            foreach (GameObject player in tiedPlayers)
-            {
-                if (player == alivePlayers[alivePlayers.Count - 1])
-                {
-                    inTie = true;
-                }
-            }
-            if(!inTie)
-                tiedPlayers.Add(alivePlayers[alivePlayers.Count - 1]);
+           
+            tiedPlayers.Add(alivePlayers[alivePlayers.Count - 1]);
         }
         else
         {
