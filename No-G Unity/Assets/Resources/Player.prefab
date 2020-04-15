@@ -1498,6 +1498,8 @@ MonoBehaviour:
   kills: 0
   selfKills: 0
   deaths: 0
+  killedBy: []
+  killed: []
   gun: {fileID: 0}
   player: {fileID: 0}
   impactSound: {fileID: 7323025999265635649}
@@ -1516,6 +1518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cfb40038a8f4d74695701d5884b4866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myFont: {fileID: 12800000, guid: 0141711d06c8a18429c4c621159a7f8d, type: 3}
   ph: {fileID: 0}
   maxHealth: 0
   currentHealth: 0

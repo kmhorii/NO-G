@@ -20,6 +20,9 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public int selfKills = 0;
     public int deaths = 0;
 
+    public List<string> killedBy;
+    public List<string> killed;
+
     public ShootingGun gun;
     public PlayerMovement player;
 
@@ -44,6 +47,9 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         gun = GetComponentInChildren<ShootingGun>();
         player = GetComponent<PlayerMovement>();
 		display = GetComponent<UIDisplay>();
+
+        killed = new List<string>();
+        killedBy = new List<string>();
     }
 
     // Update is called once per frame

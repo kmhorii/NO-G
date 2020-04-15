@@ -22,21 +22,36 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	public GameObject winGame;
 	public GameObject loseGame;
 	public GameObject tieGame;
+    public GameObject killsBox;
+    public GameObject killersBox;
+    public GameObject killsParent;
+    public GameObject killersParent;
 	public Timer countdownTimer;
 	public Timer gameTimer;
 
 	public bool gameStarted = false;
 	public bool countdownStarted = false;
     public bool gameOver = false;
-	public GameObject[] spawnPoints;
+    public bool displayingEndKills = false;
+
+    public GameObject[] spawnPoints;
 
 	public List<GameObject> alivePlayers;
 	public List<GameObject> currentPlayers;
     public List<GameObject> tiedPlayers;
+    public GameObject me;
+
+    //Please remind me to fix this later and put everything in one canvas
+    public GameObject tempCanvas;
 
 	// Start is called before the first frame update
 	void Start()
     {
+        killsBox.SetActive(false);
+        killersBox.SetActive(false);
+        // I really will need to be reminded to get rid of this
+        tempCanvas = GameObject.Find("TempCanvas");
+        tempCanvas.SetActive(false);
 		alivePlayers = new List<GameObject>();
 		currentPlayers = new List<GameObject>();
         tiedPlayers = new List<GameObject>();
@@ -52,6 +67,10 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 		foreach (GameObject plyr in GameObject.FindGameObjectsWithTag("Player"))
 		{
 			plyr.name = plyr.GetComponent<PhotonView>().Owner.NickName;
+            if (plyr.GetPhotonView().IsMine)
+            {
+                me = plyr;
+            }
 		}
 	}
 
@@ -98,6 +117,38 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         }
         else
         {
+            if (!tempCanvas.activeInHierarchy)
+            {
+                tempCanvas.SetActive(true);
+            }
+            if (!killersBox.activeInHierarchy)
+            {
+                killersBox.SetActive(true);
+            }
+            if (!killsBox.activeInHierarchy)
+            {
+                killsBox.SetActive(true);
+            }
+            if (!displayingEndKills)
+            {
+                if(me.GetComponent<PlayerHealth>().killed.Count > 0)
+                {
+                    foreach (string name in me.GetComponent<PlayerHealth>().killed)
+                    {
+                        me.GetComponent<UIDisplay>().DisplayFinalKills(name, killsParent);
+                        Debug.Log("Displaying kills");
+                    }
+                }
+                if(me.GetComponent<PlayerHealth>().killedBy.Count > 0)
+                {
+                    foreach (string name in me.GetComponent<PlayerHealth>().killedBy)
+                    {
+                        me.GetComponent<UIDisplay>().DisplayFinalKills(name, killersParent);
+                    }
+                }
+                displayingEndKills = true;
+
+            }
             //foreach(GameObject plyr in currentPlayers)
             //{
             //    if(plyr != null && plyr.GetPhotonView().IsMine)

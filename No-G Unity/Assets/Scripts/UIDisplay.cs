@@ -7,6 +7,8 @@ using System;
 
 public class UIDisplay : MonoBehaviourPun, IPunObservable
 {
+    public Font myFont;
+
     public PlayerHealth ph;
     public float maxHealth;
     public float currentHealth;
@@ -43,6 +45,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     public GameObject winScreen;
     public GameObject loseScreen;
     public Text endText;
+
 
     //public Slider ammobar;
     public Slider reloadbar;
@@ -283,6 +286,17 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             if (GameObject.Find(shooter).GetPhotonView().IsMine)
             {
                 GetComponent<StatsManager>().incrementKills();
+            }
+        }
+        if (kill)
+        {
+            if (GameObject.Find(defender).GetPhotonView().IsMine)
+            {
+                GetComponent<PlayerHealth>().killedBy.Add(shooter);
+            }
+            if (GameObject.Find(shooter).GetPhotonView().IsMine)
+            {
+                GetComponent<PlayerHealth>().killed.Add(defender);
             }
         }
     }
@@ -569,6 +583,17 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
             playerInfo.SetActive(false);
         }
 
+    }
+
+    public void DisplayFinalKills(string playerName, GameObject parentObject)
+    {
+        GameObject newText = new GameObject(playerName);
+        newText.transform.SetParent(parentObject.transform);
+        newText.AddComponent<Text>();
+        newText.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 30);
+        newText.GetComponent<Text>().text = playerName;
+        newText.GetComponent<Text>().color = Color.black;
+        newText.GetComponent<Text>().font = myFont;
     }
 
     /*

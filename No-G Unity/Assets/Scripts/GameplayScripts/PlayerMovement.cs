@@ -191,18 +191,19 @@ public class PlayerMovement : MonoBehaviourPun
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-            Quaternion rotationChange = mainCamera.transform.localRotation;
+            Vector3 rotationChange = mainCamera.transform.localEulerAngles;
+            Debug.Log("Local rotation: " + mainCamera.transform.localEulerAngles);
             //Will change to lerp later (must then be put in update)
-            transform.rotation =  new Quaternion(transform.rotation.x + rotationChange.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
-            mainCamera.transform.localRotation = new Quaternion(0, 0, 0, 0);
-            CurrentWeapon.transform.localRotation = new Quaternion(0, 0, 0, 0);
+            transform.eulerAngles =  new Vector3(transform.eulerAngles.x + rotationChange.x, transform.eulerAngles.y + rotationChange.y, transform.eulerAngles.z);
+            mainCamera.transform.localEulerAngles = new Vector3(0, 0, 0);
+            CurrentWeapon.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
     }
 
     void ReturnRotation()
     {
         if(Input.GetKeyDown(KeyCode.A))
-            transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
+            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
     public void RespawnPosition()
     {
