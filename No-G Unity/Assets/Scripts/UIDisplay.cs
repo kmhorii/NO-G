@@ -259,7 +259,20 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
     ///End of Update
     public void UpdateKillFeed(string shooter, string defender, bool kill)
     {
+        Debug.Log("Killed player");
+
         photonView.RPC("KillFeedUpdate", RpcTarget.All, shooter, defender, kill);
+        if (kill)
+        {
+            if (GameObject.Find(defender).GetPhotonView().IsMine)
+            {
+                GetComponent<PlayerHealth>().killedBy.Add(shooter);
+            }
+            if (GameObject.Find(shooter).GetPhotonView().IsMine)
+            {
+                GetComponent<PlayerHealth>().killed.Add(defender);
+            }
+        }
     }
 
     [PunRPC]
@@ -288,17 +301,7 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
                 GetComponent<StatsManager>().incrementKills();
             }
         }
-        if (kill)
-        {
-            if (GameObject.Find(defender).GetPhotonView().IsMine)
-            {
-                GetComponent<PlayerHealth>().killedBy.Add(shooter);
-            }
-            if (GameObject.Find(shooter).GetPhotonView().IsMine)
-            {
-                GetComponent<PlayerHealth>().killed.Add(defender);
-            }
-        }
+        
     }
 
     private float CalculateHealth()
