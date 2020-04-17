@@ -1230,6 +1230,8 @@ GameObject:
   - component: {fileID: 1275261304311963839}
   - component: {fileID: -6806273862033298565}
   - component: {fileID: 2764231708381492103}
+  - component: {fileID: 216024801414625904}
+  - component: {fileID: -8939486558904457974}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -1781,6 +1783,42 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &216024801414625904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685824452654221113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adab726ed4f05924699a33901659a933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  marker: {fileID: 0}
+  target: {fileID: 0}
+  meter: {fileID: 0}
+  player: {fileID: 0}
+  playerPos: {x: 0, y: 0, z: 0}
+  offsetY: 0
+--- !u!114 &-8939486558904457974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3685824452654221113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adab726ed4f05924699a33901659a933, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  marker: {fileID: 258412312202868750, guid: db859fa6c013af74ebe0b660ffcbc063, type: 3}
+  target: {fileID: 0}
+  meter: {fileID: 0}
+  player: {fileID: 0}
+  playerPos: {x: 0, y: 0, z: 0}
+  offsetY: 0
 --- !u!1 &3685824452708716462
 GameObject:
   m_ObjectHideFlags: 0

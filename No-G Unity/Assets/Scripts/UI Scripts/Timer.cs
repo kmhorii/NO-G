@@ -28,7 +28,7 @@ public class Timer : MonoBehaviourPun, IPunObservable
     void Start()
     {
         eliminateText = GameObject.Find("EliminateText");
-        eliminateText.gameObject.SetActive(true);
+        eliminateText.gameObject.SetActive(false);
         // startTime = Time.time;
     }
 
