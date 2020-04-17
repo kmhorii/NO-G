@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviourPun
             playerName = value;
         }
     }
-   
+
     public float rotateSpeed;
     float modifiedRotateSpeed;
     [SerializeField]
@@ -40,19 +40,19 @@ public class PlayerMovement : MonoBehaviourPun
     [SerializeField]
     Camera mainCamera;
 
-	private GameObject cam;
+    private GameObject cam;
 
     float cameraStartRotation_x;
     float xRotation;
 
-	public GameObject CurrentWeapon;
+    public GameObject CurrentWeapon;
 
     // Start is called before the first frame update
     void Start()
     {
-		cam = gameObject.transform.GetChild(0).gameObject;
+        cam = gameObject.transform.GetChild(0).gameObject;
 
-		gameObject.transform.localPosition = new Vector3(-1.8f, 2f, 1);
+        gameObject.transform.localPosition = new Vector3(-1.8f, 2f, 1);
         rigidbody = GetComponent<Rigidbody>();
         currentDirection = Vector3.zero;
         cameraStartRotation_x = mainCamera.transform.rotation.x;
@@ -61,15 +61,15 @@ public class PlayerMovement : MonoBehaviourPun
         startPosition = this.transform.position;
         startRotation = this.transform.rotation;
 
-		if (photonView.IsMine) cam.SetActive(true);
-		else cam.SetActive(false);
+        if (photonView.IsMine) cam.SetActive(true);
+        else cam.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-		if (photonView.IsMine) 
-		{
+        if (photonView.IsMine)
+        {
             if (!SceneManager.GetSceneByName("Settings").isLoaded)
             {
                 modifiedRotateSpeed = rotateSpeed * (1 / Time.deltaTime);
@@ -89,18 +89,18 @@ public class PlayerMovement : MonoBehaviourPun
                 //}
             }
             wasSettingsOpen = SceneManager.GetSceneByName("Settings").isLoaded;
-		}
+        }
     }
 
     [PunRPC]
     void setPlayerName(string name)
     {
-        if(!photonView.IsMine) this.gameObject.name = name;
+        if (!photonView.IsMine) this.gameObject.name = name;
     }
     void GetCameraDirection()
     {
         cameraDirection = Camera.main.transform.forward;
-        
+
     }
 
     void AddForce()
@@ -109,26 +109,26 @@ public class PlayerMovement : MonoBehaviourPun
         currentDirection += cameraDirection;
     }
 
-	void ShootGun()
-	{
+    void ShootGun()
+    {
         //Debug.Log(Input.GetKeyDown(KeyCode.Mouse1));
         //Debug.Log("Key: " + Input.GetKey(KeyCode.Mouse1));
 
         if (Input.GetKeyDown(KeyCode.Mouse1) || (Input.GetAxisRaw("Preview") == 1 && !previewOn))
-		{
+        {
             previewOn = true;
-			CurrentWeapon.GetComponent<ShootingGun>().DownAiming();
+            CurrentWeapon.GetComponent<ShootingGun>().DownAiming();
             CurrentWeapon.GetComponent<ShootingGun>().lineRender.enabled = true;
-		}
+        }
 
-		if (Input.GetKey(KeyCode.Mouse1) || (Input.GetAxisRaw("Preview") == 1 && previewOn))
-		{
+        if (Input.GetKey(KeyCode.Mouse1) || (Input.GetAxisRaw("Preview") == 1 && previewOn))
+        {
             CurrentWeapon.GetComponent<ShootingGun>().Aiming();
         }
 
         if (Input.GetKeyUp(KeyCode.Mouse1) || (Input.GetAxisRaw("Preview") == 0 && previewOn))
-		{
-			CurrentWeapon.GetComponent<ShootingGun>().DoneAiming();
+        {
+            CurrentWeapon.GetComponent<ShootingGun>().DoneAiming();
             previewOn = false;
 
         }
@@ -140,19 +140,19 @@ public class PlayerMovement : MonoBehaviourPun
 		}*/
 
         //Firing set to mouse0 or right trigger
-		if (Input.GetKeyDown(KeyCode.Mouse0)|| (Input.GetAxisRaw("Fire1") == 1 && !alreadyFired))
-		{
+        if (Input.GetKeyDown(KeyCode.Mouse0) || (Input.GetAxisRaw("Fire1") == 1 && !alreadyFired))
+        {
             alreadyFired = true;
             if (!CurrentWeapon.GetComponent<ShootingGun>().isShooting && CurrentWeapon.GetComponent<ShootingGun>().currentAmmo > 0)
             {
                 CurrentWeapon.GetComponent<ShootingGun>().Shooting();
             }
         }
-        if(Input.GetKeyUp(KeyCode.Mouse0)|| Input.GetAxisRaw("Fire1") == 0)
+        if (Input.GetKeyUp(KeyCode.Mouse0) || Input.GetAxisRaw("Fire1") == 0)
         {
             alreadyFired = false;
         }
-	}
+    }
 
     //Very basic movement toward center of camera
     //May add raycasts to see if there's anything in the way.
@@ -161,7 +161,7 @@ public class PlayerMovement : MonoBehaviourPun
         if (Input.GetButtonDown("Move") && !wasSettingsOpen)
         {
             GetCameraDirection();
-            rigidbody.AddForce(cameraDirection*movementSpeed, ForceMode.VelocityChange);
+            rigidbody.AddForce(cameraDirection * movementSpeed, ForceMode.VelocityChange);
             //AddForce();
         }
         //transform.position += currentDirection * Time.deltaTime * movementSpeed;
@@ -171,11 +171,15 @@ public class PlayerMovement : MonoBehaviourPun
     //It's a little unwieldy right now, but we'll smooth it out later
     void RotatePlayer()
     {
-        xRotation += -Input.GetAxis("Mouse Y") * modifiedRotateSpeed *Time.deltaTime;
+        xRotation += -Input.GetAxis("Mouse Y") * modifiedRotateSpeed * Time.deltaTime;
         xRotation = Mathf.Clamp(xRotation, -90, 90);
-        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * modifiedRotateSpeed *Time.deltaTime);
+        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * modifiedRotateSpeed * Time.deltaTime, Space.Self);
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        
+        //if(transform.eulerAngles.z != 0)
+        //{
+        //    transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
+        //}
+
         //if(mainCamera.transform.rotation.x > 90)
         //{
         //    mainCamera.transform.rotation = new Quaternion(90, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, 0);
@@ -192,9 +196,12 @@ public class PlayerMovement : MonoBehaviourPun
         if (Input.GetKeyDown(KeyCode.D))
         {
             Vector3 rotationChange = mainCamera.transform.localEulerAngles;
+            rotationChange = new Vector3(Mathf.Clamp(rotationChange.x, -88, 88), rotationChange.y, rotationChange.z);
             Debug.Log("Local rotation: " + mainCamera.transform.localEulerAngles);
             //Will change to lerp later (must then be put in update)
-            transform.eulerAngles =  new Vector3(transform.eulerAngles.x + rotationChange.x, transform.eulerAngles.y + rotationChange.y, transform.eulerAngles.z);
+
+            //transform.localEulerAngles = new Vector3(transform.eulerAngles.x + rotationChange.x, transform.eulerAngles.y + rotationChange.y, transform.eulerAngles.z + rotationChange.z);
+            transform.Rotate(rotationChange, Space.Self);
             mainCamera.transform.localEulerAngles = new Vector3(0, 0, 0);
             CurrentWeapon.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
@@ -202,7 +209,7 @@ public class PlayerMovement : MonoBehaviourPun
 
     void ReturnRotation()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
     }
     public void RespawnPosition()
