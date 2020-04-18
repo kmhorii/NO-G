@@ -3691,7 +3691,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Room State
+  m_Text: Change Level
 --- !u!222 &2073119321
 CanvasRenderer:
   m_ObjectHideFlags: 0
