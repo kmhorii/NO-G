@@ -175,19 +175,6 @@ public class PlayerMovement : MonoBehaviourPun
         xRotation = Mathf.Clamp(xRotation, -90, 90);
         transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0) * modifiedRotateSpeed *Time.deltaTime, Space.Self);
         mainCamera.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        //if(transform.eulerAngles.z != 0)
-        //{
-        //    transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, 0);
-        //}
-        
-        //if(mainCamera.transform.rotation.x > 90)
-        //{
-        //    mainCamera.transform.rotation = new Quaternion(90, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, 0);
-        //}
-        //else if (mainCamera.transform.rotation.x < -90)
-        //{
-        //    mainCamera.transform.rotation = new Quaternion(-90, mainCamera.transform.rotation.y, mainCamera.transform.rotation.z, 0);
-        //}
 
 
     }
@@ -202,7 +189,8 @@ public class PlayerMovement : MonoBehaviourPun
 
             //transform.localEulerAngles = new Vector3(transform.eulerAngles.x + rotationChange.x, transform.eulerAngles.y + rotationChange.y, transform.eulerAngles.z + rotationChange.z);
             transform.Rotate(rotationChange, Space.Self);
-            mainCamera.transform.localEulerAngles = new Vector3(0, 0, 0);
+            xRotation = 0;
+            //mainCamera.transform.localEulerAngles = new Vector3(0, 0, 0);
             CurrentWeapon.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
     }
