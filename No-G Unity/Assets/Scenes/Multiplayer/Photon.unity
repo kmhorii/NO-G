@@ -14773,6 +14773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cfb40038a8f4d74695701d5884b4866, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myFont: {fileID: 0}
   ph: {fileID: 0}
   maxHealth: 0
   currentHealth: 0
@@ -15230,6 +15231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67bf5cd24f67562499cc007294d9ec68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
   playerJustJoined: 1
   isDead: 0
   hasBeenDead: 0
@@ -15240,10 +15242,13 @@ MonoBehaviour:
   kills: 0
   selfKills: 0
   deaths: 0
+  killedBy: []
+  killed: []
   gun: {fileID: 0}
   player: {fileID: 0}
   impactSound: {fileID: 0}
   gruntSound: {fileID: 0}
+  hitParticles: {fileID: 0}
   display: {fileID: 0}
 --- !u!4 &7737122963058043625
 Transform:

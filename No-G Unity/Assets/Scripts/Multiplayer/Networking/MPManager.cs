@@ -18,13 +18,36 @@ public class MPManager : MonoBehaviourPunCallbacks
 	void Start()
     {
         //PhotonNetwork.ConnectToRegion(CloudRe);
-        PhotonNetwork.ConnectUsingSettings();
-		PhotonNetwork.NickName = PlayerInfo.Name;
+        //PhotonNetwork.ConnectUsingSettings();
+		//PhotonNetwork.NickName = PlayerInfo.Name;
 		//PhotonNetwork.ConnectToRegion("usw");
 
 		CharacterText.GetComponent<Text>().text = PlayerInfo.Name;
     }
 
+    public void OpenStats()
+    {
+        SceneManager.LoadScene("Stats", LoadSceneMode.Additive);
+    }
+
+    public void JoinGame()
+    {
+        SceneManager.LoadScene("MainLobby", LoadSceneMode.Single);
+
+        /*
+        if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("HallwayMap");
+        }
+        else
+        {
+            PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.JoinRandomRoom();
+        }
+        */
+        //Debug.Log("Joining room");
+    }
+    /*
     private void Update()
     {
         //if (Input.GetButtonDown("Submit"))
@@ -50,27 +73,7 @@ public class MPManager : MonoBehaviourPunCallbacks
 
 		
 		//Debug.Log("We are now connected to photon");
-	}
-
-	public void OpenStats()
-	{
-		SceneManager.LoadScene("Stats", LoadSceneMode.Additive);
-	}
-
-	public void JoinGame()
-	{
-        if (PhotonNetwork.InRoom && PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.LoadLevel("HallwayMap");
-        }
-        else
-        {
-            PhotonNetwork.AutomaticallySyncScene = true;
-            PhotonNetwork.JoinRandomRoom();
-        }
-
-		//Debug.Log("Joining room");
-	}
+	}	
 
 	public override void OnJoinRandomFailed(short returnCode, string message)
 	{
@@ -92,4 +95,5 @@ public class MPManager : MonoBehaviourPunCallbacks
 	{
 		SceneManager.LoadScene("HallwayMap");
 	}
+    */
 }
