@@ -59,6 +59,11 @@ public class Timer : MonoBehaviourPun, IPunObservable
                              ((int)timerLeft / 60).ToString() + ": " + ((int)timerLeft % 60).ToString();
 
             timerText.text = newText;
+            if(timerText.text != null)
+            {
+                return;
+            }
+
 			if(timerLeft <= 0)
 			{
                 Invoke("EliminateText", 5f);
