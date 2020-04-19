@@ -66,6 +66,8 @@ public class Timer : MonoBehaviourPun, IPunObservable
 
 			if(timerLeft <= 0)
 			{
+                timerText.gameObject.SetActive(false);
+
                 Invoke("EliminateText", 5f);
                 started = false;
 				isFinished = true;
@@ -107,7 +109,6 @@ public class Timer : MonoBehaviourPun, IPunObservable
 
     public void EliminateText()
     {
-        timerText.gameObject.SetActive(false);
         eliminateText.gameObject.SetActive(false);
         Debug.Log("Text false");
     }
