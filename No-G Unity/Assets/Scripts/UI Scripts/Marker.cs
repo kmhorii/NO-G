@@ -14,15 +14,15 @@ public class Marker : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.Find("Player");
+        //player = GameObject.Find("Player");
       
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerPos = player.transform.position;
-        marker.transform.position = playerPos + new Vector3(0, 5f, 0);
+       // playerPos = player.transform.position;
+      //  marker.transform.position = playerPos + new Vector3(0, 5f, 0);
         /*
         float minX = img.GetPixelAdjustedRect().width / 2;
         float maxX = Screen.width - minX;

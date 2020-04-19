@@ -85,6 +85,8 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
 
     public bool isShaking = false;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -440,6 +442,27 @@ public class UIDisplay : MonoBehaviourPun, IPunObservable
         }
 
     }
+
+    //Marker raycast
+    void Marker()
+    {
+        RaycastHit [] hits;
+        hits = Physics.RaycastAll(transform.position, transform.forward, 100.0F);
+
+        for (int i = 0; i<hits.Length; i++)
+        {
+            RaycastHit hit = hits[i];
+            Renderer rend = hit.transform.GetComponent<Renderer>();
+
+            if (rend )
+            {
+              
+            }
+        }
+    }
+
+
+  
 
 
     public void CrackedUI()
