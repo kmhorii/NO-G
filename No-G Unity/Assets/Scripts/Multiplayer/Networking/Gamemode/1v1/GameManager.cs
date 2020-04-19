@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
             if (plyr.GetPhotonView().IsMine)
             {
                 me = plyr;
+                plyr.GetComponent<PlayerHealth>().characterModel.SetActive(false);
             }
 		}
 	}

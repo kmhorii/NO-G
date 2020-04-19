@@ -30,6 +30,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public AudioSource gruntSound;
 
     public GameObject hitParticles;
+    public GameObject characterModel;
 
     public UIDisplay display;
 
