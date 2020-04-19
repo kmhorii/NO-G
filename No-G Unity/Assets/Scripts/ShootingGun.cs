@@ -65,6 +65,7 @@ public class ShootingGun : MonoBehaviourPun
     public GameObject gunComponents;
 
     public Animator recoil;
+    public Animator playerAnim;
 
     void Start()
     {
@@ -251,6 +252,7 @@ public class ShootingGun : MonoBehaviourPun
         shootingSound.Play();
 
         recoil.SetTrigger("playRecoil");
+        playerAnim.SetTrigger("shoot");
 
         ////gunComponents.transform.Translate(Vector3.back * Time.deltaTime, Space.Self);
         ////Vector3 destination = new Vector3(transform.position.x, transform.position.y, transform.position.z - 0.002f);

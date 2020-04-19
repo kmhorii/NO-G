@@ -33,6 +33,8 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public GameObject characterModel;
     public GameObject marker;
 
+    public Animator playerAnim;
+
     public UIDisplay display;
 
     // Start is called before the first frame update
@@ -114,6 +116,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
             impactSound.Play();
             hitParticles.GetComponent<ParticleSystem>().Stop();
             hitParticles.GetComponent<ParticleSystem>().Play();
+            playerAnim.SetTrigger("wince");
 
             Debug.Log("hit " + gameObject.name);
         }
