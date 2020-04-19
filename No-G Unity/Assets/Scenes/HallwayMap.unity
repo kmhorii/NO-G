@@ -779,9 +779,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnTime: 0
   winner: {fileID: 0}
-  winGame: {fileID: 0}
-  loseGame: {fileID: 0}
-  tieGame: {fileID: 0}
+  winGame: {fileID: 951578055}
+  loseGame: {fileID: 951578054}
+  tieGame: {fileID: 951578053}
   killsBox: {fileID: 2023888105}
   killersBox: {fileID: 1344392099}
   killsParent: {fileID: 88155275}
@@ -4543,6 +4543,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &951578053 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7249499178430310940, guid: a9766abaee10212429cb29d84a218d4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 951578050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &951578054 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 78235594533961743, guid: a9766abaee10212429cb29d84a218d4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 951578050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &951578055 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 196959848, guid: a9766abaee10212429cb29d84a218d4c,
+    type: 3}
+  m_PrefabInstance: {fileID: 951578050}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &971286140
 PrefabInstance:
   m_ObjectHideFlags: 0
