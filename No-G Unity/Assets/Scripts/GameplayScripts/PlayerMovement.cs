@@ -44,8 +44,13 @@ public class PlayerMovement : MonoBehaviourPun
 
     float cameraStartRotation_x;
     float xRotation;
+    int reorientationSpeed = 30;
+    bool isReorienting = false;
+    int reorientCount = 0;
+    Vector3 rotationChange = Vector3.zero;
 
-	public GameObject CurrentWeapon;
+
+    public GameObject CurrentWeapon;
 
     // Start is called before the first frame update
     void Start()
@@ -83,10 +88,14 @@ public class PlayerMovement : MonoBehaviourPun
                 EnemysGateIsDown();
                 ReturnRotation();
 
-                //if (Input.GetKeyUp(KeyCode.W))
-                //{
-                //    ReturnCameraRotation();
-                //}
+                if (isReorienting && reorientCount < reorientationSpeed)
+                {
+                    reorientCount++;
+                    transform.Rotate(rotationChange* (1f/reorientationSpeed), Space.Self);
+                    xRotation = 0;
+
+                    CurrentWeapon.transform.localEulerAngles = new Vector3(0, 0, 0);
+                }
             }
             wasSettingsOpen = SceneManager.GetSceneByName("Settings").isLoaded;
 		}
@@ -182,16 +191,18 @@ public class PlayerMovement : MonoBehaviourPun
     {
         if (Input.GetKeyDown(KeyCode.D))
         {
-            Vector3 rotationChange = mainCamera.transform.localEulerAngles;
+            isReorienting = true;
+            reorientCount = 0;
+            rotationChange = mainCamera.transform.localEulerAngles;
             rotationChange = new Vector3(Mathf.Clamp(rotationChange.x, -88, 88), rotationChange.y, rotationChange.z);
             Debug.Log("Local rotation: " + mainCamera.transform.localEulerAngles);
             //Will change to lerp later (must then be put in update)
 
             //transform.localEulerAngles = new Vector3(transform.eulerAngles.x + rotationChange.x, transform.eulerAngles.y + rotationChange.y, transform.eulerAngles.z + rotationChange.z);
-            transform.Rotate(rotationChange, Space.Self);
-            xRotation = 0;
-            //mainCamera.transform.localEulerAngles = new Vector3(0, 0, 0);
-            CurrentWeapon.transform.localEulerAngles = new Vector3(0, 0, 0);
+            //transform.Rotate(rotationChange, Space.Self);
+            //xRotation = 0;
+            ////mainCamera.transform.localEulerAngles = new Vector3(0, 0, 0);
+            //CurrentWeapon.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
     }
 
