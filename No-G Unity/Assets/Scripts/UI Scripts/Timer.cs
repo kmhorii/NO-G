@@ -28,11 +28,11 @@ public class Timer : MonoBehaviourPun, IPunObservable
     void Start()
     {
         eliminateText = GameObject.Find("EliminateText");
-        if(eliminateText != null)
-        {
-            eliminateText.gameObject.SetActive(false);
-            return;
-        }
+        //if(eliminateText != null)
+        //{
+        //    eliminateText.gameObject.SetActive(false);
+        //    return;
+        //}
        
         // startTime = Time.time;
     }
@@ -59,10 +59,10 @@ public class Timer : MonoBehaviourPun, IPunObservable
                              ((int)timerLeft / 60).ToString() + ": " + ((int)timerLeft % 60).ToString();
 
             timerText.text = newText;
-            if(timerText.text != null)
-            {
-                return;
-            }
+            //if(timerText.text != null)
+            //{
+            //    return;
+            //}
 
 			if(timerLeft <= 0)
 			{
