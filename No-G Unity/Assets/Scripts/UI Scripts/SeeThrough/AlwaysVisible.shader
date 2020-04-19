@@ -4,7 +4,7 @@
     {
         _MainTex ("Texture", 2D) = "white" {}
 		//Changing color of always visible
-		_Color("Always visible color", Color) = (0,0,0,0);
+		_Color("Always visible color", Color) = (0,0,0,0)
     }
     SubShader
     {
