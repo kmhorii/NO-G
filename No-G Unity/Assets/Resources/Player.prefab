@@ -1510,6 +1510,7 @@ MonoBehaviour:
   hitParticles: {fileID: 4333868426170931111}
   characterModel: {fileID: 4595880772301355258}
   marker: {fileID: 7743969737418291239}
+  playerAnim: {fileID: 128831824056301436}
   display: {fileID: 0}
 --- !u!114 &4893626091186023055
 MonoBehaviour:
@@ -12371,6 +12372,7 @@ MonoBehaviour:
   shootingSound: {fileID: 5957799968359891532}
   gunComponents: {fileID: 8829479459993162167}
   recoil: {fileID: 1622402327217479936}
+  playerAnim: {fileID: 128831824056301436}
 --- !u!114 &419174238584472068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12794,6 +12796,12 @@ PrefabInstance:
 --- !u!4 &8017445400966371846 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 473e6f33852d2bc409b6a295c02b0c14,
+    type: 3}
+  m_PrefabInstance: {fileID: 3042468330421694748}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &128831824056301436 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 473e6f33852d2bc409b6a295c02b0c14,
     type: 3}
   m_PrefabInstance: {fileID: 3042468330421694748}
   m_PrefabAsset: {fileID: 0}
