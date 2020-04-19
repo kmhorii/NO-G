@@ -11881,7 +11881,6 @@ GameObject:
   - component: {fileID: 3392269777531319974}
   - component: {fileID: 8777079960626437291}
   - component: {fileID: 1436467246967285380}
-  - component: {fileID: 3214592990565101069}
   m_Layer: 11
   m_Name: IconHolder
   m_TagString: Untagged
@@ -11896,13 +11895,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7743969737418291239}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.999246, z: -0, w: -0.038825374}
   m_LocalPosition: {x: 0, y: 1.46, z: -0.36}
-  m_LocalScale: {x: 0.34505, y: 0.34505, z: 0.34505}
+  m_LocalScale: {x: 0.7755689, y: 0.7755689, z: 0.7755689}
   m_Children: []
   m_Father: {fileID: 3685824452654221108}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 184.45, z: 0}
 --- !u!33 &3392269777531319974
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11910,7 +11909,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7743969737418291239}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &8777079960626437291
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11928,7 +11927,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8590b222c060c2e4b89daee9efd93b97, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11962,19 +11961,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3214592990565101069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7743969737418291239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6350a5efd93115848a7a23b69d78b0d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerIcon: {fileID: 0}
 --- !u!1 &8002505506759847095
 GameObject:
   m_ObjectHideFlags: 0
