@@ -194,7 +194,10 @@ public class PlayerMovement : MonoBehaviourPun
             isReorienting = true;
             reorientCount = 0;
             rotationChange = mainCamera.transform.localEulerAngles;
-            rotationChange = new Vector3(Mathf.Clamp(rotationChange.x, -88, 88), rotationChange.y, rotationChange.z);
+            if(rotationChange.x > 180)
+            {
+                rotationChange = new Vector3(rotationChange.x - 360, rotationChange.y, rotationChange.z);
+            }
             Debug.Log("Local rotation: " + mainCamera.transform.localEulerAngles);
             //Will change to lerp later (must then be put in update)
 
