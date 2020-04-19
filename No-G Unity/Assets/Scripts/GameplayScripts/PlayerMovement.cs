@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviourPun
                 {
                     reorientCount++;
                     transform.Rotate(rotationChange* (1f/reorientationSpeed), Space.Self);
-                    xRotation = 0;
+                    xRotation -= rotationChange.x * (1f/reorientationSpeed);
 
                     CurrentWeapon.transform.localEulerAngles = new Vector3(0, 0, 0);
                 }
