@@ -1509,6 +1509,7 @@ MonoBehaviour:
   gruntSound: {fileID: 2764231708381492103}
   hitParticles: {fileID: 4333868426170931111}
   characterModel: {fileID: 4595880772301355258}
+  marker: {fileID: 7743969737418291239}
   display: {fileID: 0}
 --- !u!114 &4893626091186023055
 MonoBehaviour:
@@ -11899,7 +11900,7 @@ GameObject:
   - component: {fileID: 8777079960626437291}
   - component: {fileID: 1436467246967285380}
   m_Layer: 11
-  m_Name: IconHolder
+  m_Name: marker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11913,7 +11914,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7743969737418291239}
   m_LocalRotation: {x: -0, y: 0.999246, z: -0, w: -0.038825374}
-  m_LocalPosition: {x: 0, y: 1.46, z: 0.02}
+  m_LocalPosition: {x: 0, y: 2.003, z: 0.609}
   m_LocalScale: {x: 0.28438205, y: 0.28438205, z: 0.28438205}
   m_Children: []
   m_Father: {fileID: 3685824452654221108}
@@ -11926,7 +11927,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7743969737418291239}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &8777079960626437291
 MeshRenderer:
   m_ObjectHideFlags: 0

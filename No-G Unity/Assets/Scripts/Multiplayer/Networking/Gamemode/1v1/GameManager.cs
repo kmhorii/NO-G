@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
             {
                 me = plyr;
                 plyr.GetComponent<PlayerHealth>().characterModel.SetActive(false);
+                plyr.GetComponent<PlayerHealth>().marker.SetActive(false);
             }
 		}
 	}

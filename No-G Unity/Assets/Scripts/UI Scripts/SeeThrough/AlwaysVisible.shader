@@ -2,9 +2,9 @@
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        _MainTex ("Texture", 2D) = "red" {}
 		//Changing color of always visible
-		_Color("Always visible color", Color) = (0,0,0,0)
+		_Color("Always visible color", Color) = (1,0,0,0)
     }
     SubShader
     {

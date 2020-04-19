@@ -31,6 +31,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 
     public GameObject hitParticles;
     public GameObject characterModel;
+    public GameObject marker;
 
     public UIDisplay display;
 
