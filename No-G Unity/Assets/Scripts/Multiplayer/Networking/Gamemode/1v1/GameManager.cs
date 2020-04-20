@@ -463,6 +463,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 	{
 		plyr.GetComponent<PlayerHealth>().enabled = false;
 		plyr.GetComponent<MeshRenderer>().enabled = false;
+        plyr.GetComponent<PlayerMovement>().isSpectating = true;
 
 		plyr.gameObject.layer = 14;
 		plyr.gameObject.tag = "Spectator";

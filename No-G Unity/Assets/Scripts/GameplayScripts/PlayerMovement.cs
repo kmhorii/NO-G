@@ -52,6 +52,9 @@ public class PlayerMovement : MonoBehaviourPun
 
     public GameObject CurrentWeapon;
 
+    public bool isSpectating = false;
+    public float WASDspeedModifier;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -77,25 +80,38 @@ public class PlayerMovement : MonoBehaviourPun
 		{
             if (!SceneManager.GetSceneByName("Settings").isLoaded)
             {
-                modifiedRotateSpeed = rotateSpeed * (1 / Time.deltaTime);
-                if (CurrentWeapon != null && !this.GetComponent<PlayerHealth>().isDead) ShootGun();
-                else if (this.GetComponent<PlayerHealth>().isDead)
+                if (!isSpectating)
                 {
-                    CurrentWeapon.GetComponent<ShootingGun>().lineRender.enabled = false;
-                }
-                RotatePlayer();
-                MovePlayer();
-                EnemysGateIsDown();
-                ReturnRotation();
+                    modifiedRotateSpeed = rotateSpeed * (1 / Time.deltaTime);
+                    if (CurrentWeapon != null && !this.GetComponent<PlayerHealth>().isDead) ShootGun();
+                    else if (this.GetComponent<PlayerHealth>().isDead)
+                    {
+                        CurrentWeapon.GetComponent<ShootingGun>().lineRender.enabled = false;
+                    }
+                    RotatePlayer();
+                    MovePlayer();
+                    EnemysGateIsDown();
+                    ReturnRotation();
 
-                if (isReorienting && reorientCount < reorientationSpeed)
+                    if (isReorienting && reorientCount < reorientationSpeed)
+                    {
+                        reorientCount++;
+                        transform.Rotate(rotationChange * (1f / reorientationSpeed), Space.Self);
+                        xRotation -= rotationChange.x * (1f / reorientationSpeed);
+
+                        CurrentWeapon.transform.localEulerAngles = new Vector3(0, 0, 0);
+                    }
+                    else if(reorientCount >= reorientationSpeed)
+                    {
+                        isReorienting = false;
+                    }
+                }
+                else
                 {
-                    reorientCount++;
-                    transform.Rotate(rotationChange* (1f/reorientationSpeed), Space.Self);
-                    xRotation -= rotationChange.x * (1f/reorientationSpeed);
-
-                    CurrentWeapon.transform.localEulerAngles = new Vector3(0, 0, 0);
+                    WASDMove();
+                    RotatePlayer();
                 }
+                
             }
             wasSettingsOpen = SceneManager.GetSceneByName("Settings").isLoaded;
 		}
@@ -174,6 +190,23 @@ public class PlayerMovement : MonoBehaviourPun
             //AddForce();
         }
         //transform.position += currentDirection * Time.deltaTime * movementSpeed;
+    }
+
+    void WASDMove()
+    {
+        Vector3 HorizontalMovement = Input.GetAxisRaw("Horizontal") * transform.right;
+        Vector3 ForwardMovement = Input.GetAxisRaw("Vertical") * transform.forward;
+        Vector3 VerticalMovement = Vector3.zero;
+        if (Input.GetKey(KeyCode.E))
+        {
+            VerticalMovement += transform.up;
+        }
+        if (Input.GetKey(KeyCode.Q))
+        {
+            VerticalMovement += -transform.up;
+        }
+
+        transform.position += (HorizontalMovement + ForwardMovement + VerticalMovement) * WASDspeedModifier  * Time.deltaTime;
     }
 
     //Uses mouse movement to rotate player and camera
