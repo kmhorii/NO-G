@@ -4567,6 +4567,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4412628101915063796, guid: a9766abaee10212429cb29d84a218d4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4412628101915063792, guid: a9766abaee10212429cb29d84a218d4c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4705,6 +4710,11 @@ PrefabInstance:
     - target: {fileID: 78235594533961743, guid: a9766abaee10212429cb29d84a218d4c,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412628101915063799, guid: a9766abaee10212429cb29d84a218d4c,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
