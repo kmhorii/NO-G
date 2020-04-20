@@ -22,11 +22,14 @@ public class Bullet : MonoBehaviourPun
 	public bool exitPlayer = false;
     public bool recalculateRotation = false;
 
+    public AudioSource wallBounceSound;
+
     void Start()
     {
         gunReference = GameObject.FindGameObjectWithTag("Gun").GetComponent<ShootingGun>();
         bounceNumber = gunReference.maxBounces;
         maxBounces = bounceNumber;
+        wallBounceSound = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -39,28 +42,29 @@ public class Bullet : MonoBehaviourPun
 
     private void OnCollisionEnter(Collision collision)
     {
-  //      if (collision.collider.tag == "Player")
-  //      {
-		//	Destroy(gameObject);
-		//	if (collision.gameObject.GetPhotonView().IsMine)
-		//	{
-		//		PlayerHealth pd = collision.gameObject.GetComponent<PlayerHealth>();
+        //      if (collision.collider.tag == "Player")
+        //      {
+        //	Destroy(gameObject);
+        //	if (collision.gameObject.GetPhotonView().IsMine)
+        //	{
+        //		PlayerHealth pd = collision.gameObject.GetComponent<PlayerHealth>();
 
-		//		if (bounceNumber <= maxBounces)
-		//		{
-		//			int bulletDamage = defaultDamage /*- (damageReduction * (maxBounces - bounceNumber - 1))*/;
-		//			pd.DealDamage(shooter, bulletDamage);
+        //		if (bounceNumber <= maxBounces)
+        //		{
+        //			int bulletDamage = defaultDamage /*- (damageReduction * (maxBounces - bounceNumber - 1))*/;
+        //			pd.DealDamage(shooter, bulletDamage);
 
-		//			gunReference.savedLineRender.enabled = false;
-		//		}
-		//		else
-		//		{
-		//			gunReference.savedLineRender.enabled = false;
-		//		}
+        //			gunReference.savedLineRender.enabled = false;
+        //		}
+        //		else
+        //		{
+        //			gunReference.savedLineRender.enabled = false;
+        //		}
 
-		//		//photonView.RPC("DestroyBullet", RpcTarget.All);
-		//	}
-		//}else if (collision.collider.tag == "Wall")
+        //		//photonView.RPC("DestroyBullet", RpcTarget.All);
+        //	}
+        //}else if (collision.collider.tag == "Wall")
+        if (collision.collider.CompareTag("Wall"))
         {
             if (bounceNumber - 1 == 0)
             {
@@ -69,6 +73,7 @@ public class Bullet : MonoBehaviourPun
             else
             {
                 recalculateRotation = true;
+                wallBounceSound.Play();
                 bounceNumber--;
                 Vector3 scale = gameObject.transform.localScale;
                 gameObject.transform.localScale = new Vector3(scale.x + .1f, scale.y + .1f, scale.z + .1f);
