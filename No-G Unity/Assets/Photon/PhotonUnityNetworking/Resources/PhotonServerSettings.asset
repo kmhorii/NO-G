@@ -47,5 +47,6 @@ MonoBehaviour:
   - DestroyBullet
   - KillFeedUpdate
   - RPC_LoadGameOthers
+  - JoinRoom
   DisableAutoOpenWizard: 1
   ShowSettings: 1

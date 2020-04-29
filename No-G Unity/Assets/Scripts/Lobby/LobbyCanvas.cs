@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LobbyCanvas : MonoBehaviour {
     public string RoomName;
@@ -30,5 +31,15 @@ public class LobbyCanvas : MonoBehaviour {
             print("Join room failed.");
         }
     }
-    
+
+    public void OnClickBack()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CloseConnection(PhotonNetwork.LocalPlayer);
+        }
+
+        SceneManager.LoadScene("Photon");
+    }
+
 }

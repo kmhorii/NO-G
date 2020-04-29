@@ -43,7 +43,10 @@ public class LobbyNetwork : MonoBehaviourPunCallbacks
         print("Joined Room.");
 
         if (PhotonNetwork.InRoom)
-            plg.JoinPhotonRoom();
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("JoinRoom", RpcTarget.All);
+        }
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
@@ -51,4 +54,11 @@ public class LobbyNetwork : MonoBehaviourPunCallbacks
         print("Room List Update");
         rlg.OnReceivedRoomListUpdate(roomList);
     }
+
+    [PunRPC]
+    void JoinRoom()
+    {
+        plg.JoinPhotonRoom();
+    }
+
 }
