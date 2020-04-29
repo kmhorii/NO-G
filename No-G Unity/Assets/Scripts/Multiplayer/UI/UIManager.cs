@@ -14,4 +14,9 @@ public class UIManager: MonoBehaviour
 	{
 		SceneManager.LoadScene("Login", LoadSceneMode.Single);
 	}
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
