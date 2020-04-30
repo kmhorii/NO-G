@@ -145,13 +145,13 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         mainCamera.enabled = false;
         gun.GetComponent<MeshRenderer>().enabled = false;
-        Invoke("FlashVisibility", 1.5f);
+        player.RespawnPosition();
+        GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+        Invoke("FlashVisibility", 3f);
         gun.RespawnGun();
         //grab a gun and call ammo respawn
         //optional reset location
-        player.RespawnPosition();
 
-        GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
     }
     private void FlashVisibility()
     {
