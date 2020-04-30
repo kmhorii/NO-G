@@ -1,4 +1,9 @@
-﻿using Photon.Pun;
+﻿/*
+Reference for Code structure:
+https://www.youtube.com/watch?v=EqW-4r7goaQ
+*/
+
+using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
