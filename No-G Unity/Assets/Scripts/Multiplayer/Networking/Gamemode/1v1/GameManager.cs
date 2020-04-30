@@ -349,7 +349,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            highestScoringPlayer = alivePlayers[alivePlayers.Count - 1];
+            highestScoringPlayer = alivePlayers.Last();
         }
     }
     private void CheckForTies()
@@ -374,11 +374,11 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         if (numberTiedPlayers > 0)
         {
            
-            tiedPlayers.Add(alivePlayers[alivePlayers.Count - 1]);
+            tiedPlayers.Add(alivePlayers.Last());
         }
         else
         {
-            winner = alivePlayers[alivePlayers.Count -1];
+            winner = alivePlayers.Last();
         }
     }
 	//public void endGame()
