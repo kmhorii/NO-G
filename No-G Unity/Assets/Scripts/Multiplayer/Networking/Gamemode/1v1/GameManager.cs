@@ -90,7 +90,12 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         
         if (!gameOver)
         {
-            if (!gameStarted)
+            if (!SceneManager.GetSceneByName("Settings").isLoaded)
+            {
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+                if (!gameStarted)
             {
                 if (!countdownStarted)
                 {
