@@ -54,6 +54,17 @@ public class LobbyNetwork : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnLeftRoom()
+    {
+        print("Left Room.");
+
+        if (!PhotonNetwork.InRoom)
+        {
+            PhotonView photonView = PhotonView.Get(this);
+            photonView.RPC("JoinRoom", RpcTarget.All);
+        }
+    }
+
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         print("Room List Update");
