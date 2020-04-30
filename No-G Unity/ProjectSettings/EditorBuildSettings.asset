@@ -35,4 +35,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HallwayMap.unity
     guid: c4ec851a88eed7e479efda83ae9e487e
+  - enabled: 1
+    path: Assets/Scenes/CubeMap.unity
+    guid: 6fe2c21b17ed5564b90ac235fde372b8
   m_configObjects: {}
