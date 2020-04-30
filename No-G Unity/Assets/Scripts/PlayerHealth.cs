@@ -25,6 +25,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
 
     public ShootingGun gun;
     public PlayerMovement player;
+    public Camera mainCamera;
 
     public AudioSource impactSound;
     public AudioSource gruntSound;
@@ -141,12 +142,22 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         display.flashOn = false;
         //display.flashUI.enabled = false;
         display.currentFlashAlpha = display.flashAlphaDefault;
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
+        mainCamera.enabled = false;
+        gun.GetComponent<MeshRenderer>().enabled = false;
+        Invoke("FlashVisibility", 1.5f);
         gun.RespawnGun();
         //grab a gun and call ammo respawn
         //optional reset location
         player.RespawnPosition();
 
         GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+    }
+    private void FlashVisibility()
+    {
+        gameObject.GetComponent<MeshRenderer>().enabled = true;
+        gun.GetComponent<MeshRenderer>().enabled = true;
+        mainCamera.enabled = true;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

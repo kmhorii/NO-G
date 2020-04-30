@@ -1507,6 +1507,7 @@ MonoBehaviour:
   killed: []
   gun: {fileID: 0}
   player: {fileID: 0}
+  mainCamera: {fileID: 3685824452708716460}
   impactSound: {fileID: 7323025999265635649}
   gruntSound: {fileID: 2764231708381492103}
   hitParticles: {fileID: 4333868426170931111}
