@@ -26,6 +26,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     public ShootingGun gun;
     public PlayerMovement player;
     public Camera mainCamera;
+    public GameObject blackPanel;
 
     public AudioSource impactSound;
     public AudioSource gruntSound;
@@ -41,6 +42,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
+        blackPanel = GameObject.FindGameObjectWithTag("BlackFlash");
         if (maxHealth == 0)
         {
             maxHealth = 100f;
@@ -143,11 +145,11 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         //display.flashUI.enabled = false;
         display.currentFlashAlpha = display.flashAlphaDefault;
         gameObject.GetComponent<MeshRenderer>().enabled = false;
-        mainCamera.enabled = false;
         gun.GetComponent<MeshRenderer>().enabled = false;
+        blackPanel.SetActive(true);
         player.RespawnPosition();
         GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-        Invoke("FlashVisibility", 3f);
+        Invoke("FlashVisibility", 1.5f);
         gun.RespawnGun();
         //grab a gun and call ammo respawn
         //optional reset location
@@ -157,7 +159,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     {
         gameObject.GetComponent<MeshRenderer>().enabled = true;
         gun.GetComponent<MeshRenderer>().enabled = true;
-        mainCamera.enabled = true;
+        blackPanel.SetActive(false);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

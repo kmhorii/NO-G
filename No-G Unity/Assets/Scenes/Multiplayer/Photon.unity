@@ -13658,7 +13658,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 345.9, y: 315}
+  m_AnchoredPosition: {x: 298, y: 487}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1643132880
@@ -13694,8 +13694,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "Press W to pull \nyourself forwards.\n\nLMB to shoot.\n\nRMB to show \nwhere
-    your shot will go.\n\nBest of luck."
+  m_Text: "Press W to pull \nyourself forwards.\n\nD to set your new forward \ninto
+    the direction you're looking.\n\nA to reset to your original \norientation.\n\nLMB
+    to shoot.\n\nRMB to show \nwhere your shot will go.\n\nBest of luck."
 --- !u!222 &1643132881
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14193,6 +14194,7 @@ MonoBehaviour:
   shootingSound: {fileID: 0}
   gunComponents: {fileID: 0}
   recoil: {fileID: 0}
+  playerAnim: {fileID: 0}
 --- !u!4 &188589514385436565
 Transform:
   m_ObjectHideFlags: 0
@@ -16067,6 +16069,8 @@ MonoBehaviour:
   movementSpeed: 3
   mainCamera: {fileID: 0}
   CurrentWeapon: {fileID: 8196529590514785323}
+  isSpectating: 0
+  WASDspeedModifier: 0
 --- !u!1 &3697673863733350885
 GameObject:
   m_ObjectHideFlags: 0
@@ -17878,9 +17882,13 @@ MonoBehaviour:
   killed: []
   gun: {fileID: 0}
   player: {fileID: 0}
+  mainCamera: {fileID: 0}
   impactSound: {fileID: 0}
   gruntSound: {fileID: 0}
   hitParticles: {fileID: 0}
+  characterModel: {fileID: 0}
+  marker: {fileID: 0}
+  playerAnim: {fileID: 0}
   display: {fileID: 0}
 --- !u!1 &7721475864616887336
 GameObject:

@@ -89,7 +89,6 @@ public class Bullet : MonoBehaviourPun
     {
         if(collider.tag == "Player")
         {
-            Destroy(gameObject);
             if (collider.gameObject.GetPhotonView().IsMine)
             {
                 PlayerHealth pd = collider.gameObject.GetComponent<PlayerHealth>();
@@ -105,6 +104,7 @@ public class Bullet : MonoBehaviourPun
                 {
                     gunReference.savedLineRender.enabled = false;
                 }
+                Destroy(gameObject);
 
                 //photonView.RPC("DestroyBullet", RpcTarget.All);
             }

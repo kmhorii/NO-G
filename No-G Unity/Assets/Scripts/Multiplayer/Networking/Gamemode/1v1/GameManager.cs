@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
     //Please remind me to fix this later and put everything in one canvas
     public GameObject tempCanvas;
+    public Canvas settingsCanvas;
 
 	// Start is called before the first frame update
 	void Start()
@@ -94,6 +95,15 @@ public class GameManager : MonoBehaviourPun, IPunObservable
             {
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
+                settingsCanvas = GameObject.Find("Settings").GetComponent<Canvas>();
+                foreach(GameObject player in currentPlayers)
+                {
+                    if (player.GetPhotonView().IsMine)
+                    {
+                        settingsCanvas.worldCamera = player.GetComponent<PlayerHealth>().mainCamera;
+                        settingsCanvas.planeDistance = 3;
+                    }
+                }
             }
             else
             {
