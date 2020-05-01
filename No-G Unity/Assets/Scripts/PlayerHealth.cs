@@ -42,7 +42,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        blackPanel = GameObject.FindGameObjectWithTag("BlackFlash");
+        //blackPanel = GameObject.FindGameObjectWithTag("BlackFlash");
         if (maxHealth == 0)
         {
             maxHealth = 100f;
@@ -146,7 +146,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
         display.currentFlashAlpha = display.flashAlphaDefault;
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         gun.GetComponent<MeshRenderer>().enabled = false;
-        blackPanel.SetActive(true);
+        //blackPanel.SetActive(true);
         player.RespawnPosition();
         GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
         Invoke("FlashVisibility", 1.5f);
@@ -159,7 +159,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     {
         gameObject.GetComponent<MeshRenderer>().enabled = true;
         gun.GetComponent<MeshRenderer>().enabled = true;
-        blackPanel.SetActive(false);
+        //blackPanel.SetActive(false);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

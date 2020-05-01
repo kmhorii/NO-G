@@ -2234,7 +2234,7 @@ GameObject:
   - component: {fileID: 195544155867721245}
   m_Layer: 5
   m_Name: BlackFlash
-  m_TagString: Untagged
+  m_TagString: BlackFlash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
