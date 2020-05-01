@@ -42,7 +42,7 @@ public class PlayerHealth : MonoBehaviourPun, IPunObservable
     // Start is called before the first frame update
     void Start()
     {
-        blackPanel = GameObject.FindGameObjectWithTag("blackflash");
+        blackPanel = GameObject.FindGameObjectWithTag("BlackFlash");
         blackPanel.SetActive(false);
         if (maxHealth == 0)
         {
