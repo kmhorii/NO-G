@@ -104,10 +104,11 @@ public class Bullet : MonoBehaviourPun
                 {
                     gunReference.savedLineRender.enabled = false;
                 }
-                Destroy(gameObject);
 
                 //photonView.RPC("DestroyBullet", RpcTarget.All);
             }
+
+            Destroy(gameObject);
         }
     }
    
