@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviourPun, IPunObservable
 
     public GameObject winner;
     private GameObject highestScoringPlayer;
+    private bool isTie = false;
     private int numberTiedPlayers = 0;
 
 	public GameObject winGame;
@@ -310,35 +311,66 @@ public class GameManager : MonoBehaviourPun, IPunObservable
         }
         SortListByScore();
         CheckForTies();
-        if(numberTiedPlayers == 0 && winner.GetPhotonView().IsMine)
+        if (isTie)
         {
-            WinGame();
-        }
-        else if(numberTiedPlayers == 0 && !winner.GetPhotonView().IsMine)
-        {
-            if (!loseGame.activeInHierarchy)
-            {
-                LoseGame();
-            }
-        }
-        else if (numberTiedPlayers > 0)
-        {
-            Debug.Log("Tie");
             foreach(GameObject player in tiedPlayers)
             {
                 if (player.GetPhotonView().IsMine)
                 {
                     TieGame();
                 }
+                else
+                {
+                    if (!loseGame.activeInHierarchy)
+                    {
+                        LoseGame();
+                    }
+                }
             }
-            foreach(GameObject player in currentPlayers)
+        }
+        else
+        {
+            if (highestScoringPlayer.GetPhotonView().IsMine)
             {
-                if (player.GetPhotonView().IsMine && !loseGame.activeInHierarchy && !tieGame.activeInHierarchy)
+                WinGame();
+            }
+            else
+            {
+                if (!loseGame.activeInHierarchy)
                 {
                     LoseGame();
                 }
             }
         }
+        //if(numberTiedPlayers == 0 && winner.GetPhotonView().IsMine)
+        //{
+        //    WinGame();
+        //}
+        //else if(numberTiedPlayers == 0 && !winner.GetPhotonView().IsMine)
+        //{
+        //    if (!loseGame.activeInHierarchy)
+        //    {
+        //        LoseGame();
+        //    }
+        //}
+        //else if (numberTiedPlayers > 0)
+        //{
+        //    Debug.Log("Tie");
+        //    foreach(GameObject player in tiedPlayers)
+        //    {
+        //        if (player.GetPhotonView().IsMine)
+        //        {
+        //            TieGame();
+        //        }
+        //    }
+        //    foreach(GameObject player in currentPlayers)
+        //    {
+        //        if (player.GetPhotonView().IsMine && !loseGame.activeInHierarchy && !tieGame.activeInHierarchy)
+        //        {
+        //            LoseGame();
+        //        }
+        //    }
+        //}
     }
     private void SortListByScore()
     {
@@ -364,6 +396,18 @@ public class GameManager : MonoBehaviourPun, IPunObservable
     }
     private void CheckForTies()
     {
+        if(highestScoringPlayer.name.Equals(alivePlayers[alivePlayers.Count - 2].name))
+        {
+            isTie = true;
+        }
+        else
+        {
+            winner = highestScoringPlayer;
+        }
+    }
+    private void DisplayTies()
+    {
+        tiedPlayers.Add(highestScoringPlayer);
         for(int i = alivePlayers.Count - 2; i >= 0; i--)
         {
             if (alivePlayers[i].GetComponent<PlayerHealth>().score != highestScoringPlayer.GetComponent<PlayerHealth>().score)
@@ -380,16 +424,16 @@ public class GameManager : MonoBehaviourPun, IPunObservable
                 
             }
         }
-        Debug.Log("Number of tied players: " + numberTiedPlayers);
-        if (numberTiedPlayers > 0)
-        {
+        //Debug.Log("Number of tied players: " + numberTiedPlayers);
+        //if (numberTiedPlayers > 0)
+        //{
            
-            tiedPlayers.Add(alivePlayers.Last());
-        }
-        else
-        {
-            winner = alivePlayers.Last();
-        }
+        //    tiedPlayers.Add(alivePlayers.Last());
+        //}
+        //else
+        //{
+        //    winner = alivePlayers.Last();
+        //}
     }
 	//public void endGame()
 	//{
